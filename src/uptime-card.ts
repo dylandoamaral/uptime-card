@@ -26,12 +26,11 @@ import './editor';
 import style from './style';
 
 import type { CardConfig, CacheData, Point, ApiPoint, Period, Repartition } from './types';
-import { localize } from './localize/localize';
 import { wrap, unwrap } from "./utils";
 
 /* eslint no-console: 0 */
 console.info(
-  `%c  uptime-card \n%c  ${localize('common.version')} ${CARD_VERSION}    `,
+  `%c  uptime-card \n%c  version ${CARD_VERSION}    `,
   'color: orange; font-weight: bold; background: black',
   'color: white; font-weight: bold; background: dimgray',
 );
@@ -70,7 +69,7 @@ export class UptimeCard extends LitElement {
 
   public setConfig(config: CardConfig): void {
     if (!config) {
-      throw new Error(localize('common.invalid_configuration'));
+      throw new Error("Invalid configuration !");
     }
 
     if (config.test_gui) {
@@ -314,14 +313,6 @@ export class UptimeCard extends LitElement {
    */
 
   protected render(): TemplateResult | string {
-    if (this.config.show_warning) {
-      return this._showWarning(localize('common.show_warning'));
-    }
-
-    if (this.config.show_error) {
-      return this._showError(localize('common.show_error'));
-    }
-
     if (this.initialized == false) return "";
 
     const {bar} = this.config
