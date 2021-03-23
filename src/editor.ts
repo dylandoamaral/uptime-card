@@ -13,7 +13,8 @@ import {
 import { HomeAssistant, fireEvent, LovelaceCardEditor } from 'custom-card-helpers';
 import { DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_SHOW, DEFAULT_BAR, DEFAULT_ICON } from "./const";
 
-import { CardConfig } from './types';
+import { CardConfig } from './types/config';
+import { InputProperty, Option, UnionProperty, Property, NumberProperty, DropdownProperty, SwitchProperty } from "./types/editor"
 
 const options = {
   required: {
@@ -60,6 +61,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
   @internalProperty() private _config?: CardConfig;
   @internalProperty() private _toggle?: boolean;
   @internalProperty() private _helpers?: any;
+  @internalProperty() private options?: { [id: string]: Option; };
   private _initialized = false;
 
   public setConfig(config: CardConfig): void {
@@ -76,282 +78,106 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     return true;
   }
 
-  protected render(): TemplateResult | void {
-    if (!this.hass || !this._helpers) {
+  protected render(): TemplateResult {
+    if (!this.hass || !this._helpers || !this.options) {
       return html``;
     }
 
-    // The climate more-info has ha-switch and paper-dropdown-menu elements that are lazy loaded unless explicitly done here
     this._helpers.importMoreInfoControl('climate');
 
-    // You can restrict on domain type
-    const entities = Object.keys(this.hass.states).filter(eid => eid.substr(0, eid.indexOf('.')) === 'binary_sensor');
-
     return html`
-      <!-- Required -->
       <div class="card-config">
-        <div class="option" @click=${this._toggleOption} .option=${'required'}>
-          <div class="row">
-            <ha-icon .icon=${`mdi:${options.required.icon}`}></ha-icon>
-            <div class="title">${options.required.name}</div>
-          </div>
-          <div class="secondary">${options.required.secondary}</div>
-        </div>
-        ${options.required.show
-          ? html`
-              <div class="values">
-                <paper-dropdown-menu
-                  label="Entity (Required)"
-                  .value=${this._config?.entity || ""}
-                  @value-changed=${this._valueChanged}
-                  .configValue=${'entity'}
-                >
-                  <paper-listbox slot="dropdown-content" .selected=${entities.indexOf(this._config?.entity || '')}>
-                    ${entities.map(entity => {
-                      return html`
-                        <paper-item>${entity}</paper-item>
-                      `;
-                    })}
-                  </paper-listbox>
-                </paper-dropdown-menu>
-              </div>
-            `
-      : ''}
-
-      <!-- Global customization -->
-        <div class="option" @click=${this._toggleOption} .option=${'customization'}>
-          <div class="row">
-            <ha-icon .icon=${`mdi:${options.customization.icon}`}></ha-icon>
-            <div class="title">${options.customization.name}</div>
-          </div>
-          <div class="secondary">${options.customization.secondary}</div>
-        </div>
-        ${options.customization.show
-          ? html`
-              <div class="values">
-                <paper-input
-                  label="Name"
-                  .value=${this._config?.name || 'Uptime'}
-                  .configValue=${'name'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Icon"
-                  .value=${this._config?.icon || DEFAULT_ICON}
-                  .configValue=${'icon'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Severity in %"
-                  .value=${this._config?.severity || DEFAULT_CONFIG.severity}
-                  .configValue=${'severity'}
-                  .number=${true}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Hours to show"
-                  .value=${this._config?.hours_to_show || DEFAULT_CONFIG.hours_to_show}
-                  .configValue=${'hours_to_show'}
-                  .number=${true}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Ok status name"
-                  .value=${this._config?.ok || ''}
-                  .configValue=${'ok'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Ko status name"
-                  .value=${this._config?.ko || ''}
-                  .configValue=${'ko'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-              </div>
-            `
-      : ''}
-
-      <!-- Bar customization -->
-      <div class="option" @click=${this._toggleOption} .option=${'bar'}>
-          <div class="row">
-            <ha-icon .icon=${`mdi:${options.bar.icon}`}></ha-icon>
-            <div class="title">${options.bar.name}</div>
-          </div>
-          <div class="secondary">${options.bar.secondary}</div>
-        </div>
-        ${options.bar.show
-          ? html`
-              <div class="values">
-                <paper-input
-                  label="Height"
-                  .value=${this._config?.bar.height || DEFAULT_BAR.height}
-                  .configValue=${'height'}
-                  .configSection=${'bar'}
-                  .number=${true}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Round corner"
-                  .value=${this._config?.bar.round || DEFAULT_BAR.round}
-                  .configValue=${'round'}
-                  .configSection=${'bar'}
-                  .number=${true}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Spacing"
-                  .value=${this._config?.bar.spacing || DEFAULT_BAR.spacing}
-                  .configValue=${'spacing'}
-                  .configSection=${'bar'}
-                  .number=${true}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Amount"
-                  .value=${this._config?.bar.amount || DEFAULT_BAR.amount}
-                  .configValue=${'amount'}
-                  .configSection=${'bar'}
-                  .number=${true}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-              </div>
-            `
-      : ''}
-
-      <!-- Color customization -->
-      <div class="option" @click=${this._toggleOption} .option=${'color'}>
-          <div class="row">
-            <ha-icon .icon=${`mdi:${options.color.icon}`}></ha-icon>
-            <div class="title">${options.color.name}</div>
-          </div>
-          <div class="secondary">${options.color.secondary}</div>
-        </div>
-        ${options.color.show
-          ? html`
-              <div class="values">
-                <paper-input
-                  label="Ok"
-                  .value=${this._config?.color?.ok || DEFAULT_COLOR.ok}
-                  .configValue=${'ok'}
-                  .configSection=${'color'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Ko"
-                  .value=${this._config?.color?.ko || DEFAULT_COLOR.ko}
-                  .configValue=${'ko'}
-                  .configSection=${'color'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Half"
-                  .value=${this._config?.color?.half || DEFAULT_COLOR.half}
-                  .configValue=${'half'}
-                  .configSection=${'color'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="None"
-                  .value=${this._config?.color?.none || DEFAULT_COLOR.none}
-                  .configValue=${'none'}
-                  .configSection=${'color'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-              </div>
-              `
-      : ''}
-
-      <!-- Show/hide elements -->
-      <div class="option" @click=${this._toggleOption} .option=${'show'}>
-          <div class="row">
-            <ha-icon .icon=${`mdi:${options.show.icon}`}></ha-icon>
-            <div class="title">${options.show.name}</div>
-          </div>
-          <div class="secondary">${options.show.secondary}</div>
-        </div>
-        ${options.show.show
-          ? html`
-              <div class="values">
-                <br />
-                <ha-formfield .label=${`Toggle header`}>
-                  <ha-switch
-                    .checked=${this._config?.show?.header !== false}
-                    .configValue=${'header'}
-                    .configSection=${'show'}
-                    @change=${this._valueChanged}
-                  ></ha-switch>
-                </ha-formfield>
-                <br />
-                <ha-formfield .label=${`Toggle icon`}>
-                  <ha-switch
-                    .checked=${this._config?.show?.icon !== false}
-                    .configValue=${'icon'}
-                    .configSection=${'show'}
-                    @change=${this._valueChanged}
-                  ></ha-switch>
-                </ha-formfield>
-                <br />
-                <ha-formfield .label=${`Toggle status`}>
-                  <ha-switch
-                    .checked=${this._config?.show?.status !== false}
-                    .configValue=${'status'}
-                    .configSection=${'show'}
-                    @change=${this._valueChanged}
-                  ></ha-switch>
-                </ha-formfield>
-                <br />
-                <ha-formfield .label=${`Toggle timeline`}>
-                  <ha-switch
-                    .checked=${this._config?.show?.timeline !== false}
-                    .configValue=${'timeline'}
-                    .configSection=${'show'}
-                    @change=${this._valueChanged}
-                  ></ha-switch>
-                </ha-formfield>
-                <br />
-                <ha-formfield .label=${`Toggle footer`}>
-                  <ha-switch
-                    .checked=${this._config?.show?.footer !== false}
-                    .configValue=${'footer'}
-                    .configSection=${'show'}
-                    @change=${this._valueChanged}
-                  ></ha-switch>
-                </ha-formfield>
-              </div>
-            `
-      : ''}
-
-      <!-- Alias -->
-      <div class="option" @click=${this._toggleOption} .option=${'alias'}>
-          <div class="row">
-            <ha-icon .icon=${`mdi:${options.alias.icon}`}></ha-icon>
-            <div class="title">${options.alias.name}</div>
-          </div>
-          <div class="secondary">${options.alias.secondary}</div>
-        </div>
-        ${options.alias.show
-          ? html`
-              <div class="values">
-                <paper-input
-                  label="Ok"
-                  .value=${this._config?.alias?.ok || ""}
-                  .configValue=${'ok'}
-                  .configSection=${'alias'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-                <paper-input
-                  label="Ko"
-                  .value=${this._config?.alias?.ko || ""}
-                  .configValue=${'ko'}
-                  .configSection=${'alias'}
-                  @value-changed=${this._valueChanged}
-                ></paper-input>
-              </div>
-            `
-      : ''}
-
+        ${Object.entries(this.options).map((option) => this.renderOption(option[0], option[1]))}
       </div>
     `;
+  }
+
+  private renderOption(key: string, option: Option): TemplateResult {
+    return html`
+      <div class="option" @click=${this._toggleOption} .option=${key}>
+        <div class="row">
+          <ha-icon .icon=${`mdi:${option.icon}`}></ha-icon>
+          <div class="title">${option.name}</div>
+        </div>
+        <div class="secondary">${option.description}</div>
+      </div>
+
+      ${option.show ? html`
+        <div class="values">
+          ${option.properties.map(property => this.renderProperty(property))}
+        </div>
+      ` : ""}
+    `
+  }
+
+  private renderProperty(property: UnionProperty): TemplateResult {
+    if (property.type == "input") return this.renderInputProperty(property)
+    if (property.type == "number") return this.renderNumberProperty(property)
+    if (property.type == "dropdown") return this.renderDropdownProperty(property)
+    if (property.type == "switch") return this.renderSwitchProperty(property)
+    return html``
+  }
+
+  private renderInputProperty(property: InputProperty): TemplateResult {
+    return html`
+      <paper-input
+        label=${property.label}
+        .value=${this.getPropertyValue(property) || property.default || ""}
+        .configValue=${property.name}
+        .configSection=${property.section}
+        @value-changed=${this._valueChanged}
+      ></paper-input>
+    `
+  }
+
+  private renderNumberProperty(property: NumberProperty): TemplateResult {
+    return html`
+      <paper-input
+        label=${property.label}
+        .value=${this.getPropertyValue(property) || property.default || ""}
+        .configValue=${property.name}
+        .configSection=${property.section}
+        .number=${true}
+        @value-changed=${this._valueChanged}
+      ></paper-input>
+    `
+  }
+
+  private renderSwitchProperty(property: SwitchProperty): TemplateResult {
+    return html`
+      <br />
+      <ha-formfield .label=${property.label}>
+        <ha-switch
+          .checked=${this.getPropertyValue(property) || property.default || false}
+          .configValue=${property.name}
+          .configSection=${property.section}
+          @change=${this._valueChanged}
+        ></ha-switch>
+      </ha-formfield>
+    `
+  }
+
+  private renderDropdownProperty(property: DropdownProperty): TemplateResult {
+    return html`
+      <paper-dropdown-menu
+        label=${property.label}
+        .value=${this.getPropertyValue(property) || property.default || ""}
+        @value-changed=${this._valueChanged}
+        .configValue=${property.name}
+        .configSection=${property.section}
+      >
+        <paper-listbox slot="dropdown-content" .selected=${property.items.indexOf(this._config?.entity || '')}>
+          ${property.items.map(item => { return html`<paper-item>${item}</paper-item>`; })}
+        </paper-listbox>
+      </paper-dropdown-menu>
+    `
+  }
+
+  private getPropertyValue(property: Property): any {
+    if (this._config == undefined) return undefined
+    const parent = property.section ? this._config[property.section] : this._config
+    if (parent == undefined) return undefined
+    return parent[property.name]
   }
 
   private _initialize(): void {
@@ -359,6 +185,212 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     if (this._config === undefined) return;
     if (this._helpers === undefined) return;
     this._initialized = true;
+
+    const entities = Object.keys(this.hass.states).filter(eid => eid.substr(0, eid.indexOf('.')) === 'binary_sensor');
+
+    this.options = {
+      mandatory: {
+        icon: 'tune',
+        name: 'Mandatory',
+        description: 'Required options for this card to function',
+        show: true,
+        properties: [
+          {
+            type: "dropdown",
+            items: entities,
+            name: "entity",
+            label: "Entity",
+          }
+        ]
+      },
+      customization: {
+        icon: 'cog',
+        name: 'Global customization',
+        description: 'Customize the name, icon, etc',
+        show: false,
+        properties: [
+          {
+            type: "input",
+            name: "name",
+            label: "Nane"
+          },
+          {
+            type: "input",
+            name: "icon",
+            label: "Icon"
+          },
+          {
+            type: "number",
+            name: "severity",
+            label: "Severity",
+            min: 0,
+            max: 100,
+            default: DEFAULT_CONFIG.severity
+          },
+          {
+            type: "number",
+            name: "hours_to_show",
+            label: "Hours to show",
+            min: (1 / 60), // One minute
+            max: 8760, // One year
+            default: DEFAULT_CONFIG.hours_to_show
+          },
+          {
+            type: "input",
+            name: "ok",
+            label: "Ok status name"
+          },
+          {
+            type: "input",
+            name: "ko",
+            label: "Ko status name"
+          },
+        ]
+      },
+      bar: {
+        icon: 'chart-bar',
+        name: 'Bar customization',
+        description: 'Customize the bar style',
+        show: false,
+        properties: [
+          {
+            type: "number",
+            name: "height",
+            section: "bar",
+            label: "Height",
+            min: 4,
+            max: 200,
+            default: DEFAULT_BAR.height
+          },
+          {
+            type: "number",
+            name: "round",
+            section: "bar",
+            label: "Round corner ratio",
+            min: 0,
+            max: 100,
+            default: DEFAULT_BAR.round
+          },
+          {
+            type: "number",
+            name: "spacing",
+            section: "bar",
+            label: "Spacing",
+            min: 0,
+            max: 10,
+            default: DEFAULT_BAR.spacing
+          },
+          {
+            type: "number",
+            name: "amount",
+            section: "bar",
+            label: "Amount",
+            min: 1,
+            max: 100,
+            default: DEFAULT_BAR.amount
+          },
+        ]
+      },
+      color: {
+        icon: 'palette',
+        name: 'Color customization',
+        description: 'Customize the color palette',
+        show: false,
+        properties: [
+          {
+            type: "input",
+            name: "ok",
+            section: "color",
+            label: "Ok's element color",
+            default: DEFAULT_COLOR.ok
+          },
+          {
+            type: "input",
+            name: "ko",
+            section: "color",
+            label: "Ko's element color",
+            default: DEFAULT_COLOR.ko
+          },
+          {
+            type: "input",
+            name: "none",
+            section: "color",
+            label: "Unknown's element color",
+            default: DEFAULT_COLOR.none
+          },
+          {
+            type: "input",
+            name: "half",
+            section: "color",
+            label: "Half's element color",
+            default: DEFAULT_COLOR.half
+          },
+        ]
+      },
+      show: {
+        icon: 'eye',
+        name: 'Toggle elements',
+        description: 'Show or hide uptime card elements',
+        show: false,
+        properties: [
+          {
+            type: "switch",
+            name: "header",
+            section: "show",
+            label: "Toggle header",
+            default: DEFAULT_SHOW.header
+          },
+          {
+            type: "switch",
+            name: "icon",
+            section: "show",
+            label: "Toggle icon",
+            default: DEFAULT_SHOW.icon
+          },
+          {
+            type: "switch",
+            name: "status",
+            section: "show",
+            label: "Toggle status",
+            default: DEFAULT_SHOW.status
+          },
+          {
+            type: "switch",
+            name: "timeline",
+            section: "show",
+            label: "Toggle timeline",
+            default: DEFAULT_SHOW.timeline
+          },
+          {
+            type: "switch",
+            name: "footer",
+            section: "show",
+            label: "Toggle footer",
+            default: DEFAULT_SHOW.footer
+          }
+        ]
+      },
+      alias: {
+        icon: 'reload',
+        name: 'Alias',
+        description: 'Replace status name by alias',
+        show: false,
+        properties: [
+          {
+            type: "input",
+            name: "ok",
+            section: "alias",
+            label: "Alias for Ok status"
+          },
+          {
+            type: "input",
+            name: "ko",
+            section: "alias",
+            label: "Alias for Ko status"
+          }
+        ]
+      },
+    }
   }
 
   private async loadCardHelpers(): Promise<void> {
@@ -366,17 +398,16 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
   }
 
   private _toggleOption(ev): void {
-    this._toggleThing(ev, options);
-  }
+    if (this.options == undefined) return undefined
 
-  private _toggleThing(ev, optionList): void {
-    const show = !optionList[ev.target.option].show;
-    for (const [key] of Object.entries(optionList)) {
-      optionList[key].show = false;
+    const show = !this.options[ev.target.option].show;
+    for (const [key] of Object.entries(this.options)) {
+      this.options[key].show = false;
     }
-    optionList[ev.target.option].show = show;
+    this.options[ev.target.option].show = show;
     this._toggle = !this._toggle;
   }
+
 
   private _valueChanged(ev): void {
     if (!this._config || !this.hass) {
@@ -384,16 +415,14 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     }
     const target = ev.target;
     const section = target.configSection
-    const config = {... this._config}
-    const parent = section ? config[section] : config
-    
+    const config = { ... this._config }
+    const parent = (section ? { ...config[section] } : config) || {}
+
     if (target.configValue) {
-      if (target.value === undefined && target.checked === undefined) {
+      if ((target.value === undefined && target.checked === undefined) || target.value === "") {
         delete parent[target.configValue];
-        this._config = config;
-      } else if (target.value === "") {
-        delete parent[target.configValue];
-        this._config = config;
+        if (section) this._config = { ...config, [section]: parent };
+        else this._config = { ...parent }
       } else {
         const key = target.configValue
         const rawValue = target.checked !== undefined ? target.checked : target.value
@@ -402,7 +431,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         if (section) {
           this._config = {
             ...config,
-            [section]: {... config[section], [key]: value}
+            [section]: { ...config[section], [key]: value }
           }
         } else {
           this._config = {

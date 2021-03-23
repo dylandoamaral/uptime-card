@@ -25,7 +25,9 @@ import './editor';
 
 import style from './style';
 
-import type { CardConfig, CacheData, Point, ApiPoint, Period, Repartition } from './types';
+import type { CardConfig } from "./types/config"
+import type { CacheData, Point, ApiPoint, Period, Repartition } from './types/card';
+
 import { wrap, unwrap } from "./utils";
 
 /* eslint no-console: 0 */
@@ -64,6 +66,7 @@ export class UptimeCard extends LitElement {
   public set hass(hass: HomeAssistant) {
     this._hass = hass;
     this.sensor = this._hass.states[this.config.entity];
+    if (this.sensor == undefined) this.initialized = false;
     this.updateData();
   }
 
@@ -72,15 +75,11 @@ export class UptimeCard extends LitElement {
       throw new Error("Invalid configuration !");
     }
 
-    if (config.test_gui) {
-      getLovelace().setEditMode(true);
-    }
-
     this.config = {
       ...DEFAULT_CONFIG,
       ...config,
       color: { ...DEFAULT_COLOR, ...config.color },
-      alias: {...config.alias},
+      alias: { ...config.alias },
       show: { ...DEFAULT_SHOW, ...config.show },
       bar: { ...DEFAULT_BAR, ...config.bar },
       tap_action: { action: 'more-info' }
@@ -121,6 +120,13 @@ export class UptimeCard extends LitElement {
 
   private async updateData(): Promise<void> {
     this.updating = true;
+
+    if (this.initialized == false) {
+      if (this._hass == undefined) return
+      this.sensor = this._hass.states[this.config.entity];
+      if (this.sensor == undefined) return
+    }
+
     this.initialized = true;
 
     const { entity, hours_to_show } = this.config;
@@ -222,13 +228,13 @@ export class UptimeCard extends LitElement {
     if (this.cache.points.length == 0) return {
       ok: 0,
       ko: 0,
-      none:100,
+      none: 100,
     };
     else if (firstPoint == -1 || lastPoint == -1) usefulPoints = [this.cache.points[this.cache.points.length - 1]]
     else if (firstPoint == 0 && lastPoint == 0) return {
       ok: 0,
       ko: 0,
-      none:100,
+      none: 100,
     }
     else if (firstPoint == 0) {
       usefulPoints = this.cache.points.slice(firstPoint, lastPoint)
@@ -299,7 +305,7 @@ export class UptimeCard extends LitElement {
   private cleanPoints(points: Point[]): Point[] {
     const cleanedPoints: Point[] = []
     let lastPointState: string | undefined = undefined
-    for (const point of points){
+    for (const point of points) {
       if (point.y != lastPointState) {
         cleanedPoints.push(point);
         lastPointState = point.y;
@@ -312,10 +318,10 @@ export class UptimeCard extends LitElement {
    * Rendering
    */
 
-  protected render(): TemplateResult | string {
-    if (this.initialized == false) return "";
+  protected render(): TemplateResult {
+    if (this.initialized == false) return html``;
 
-    const {bar} = this.config
+    const { bar } = this.config
 
     const repartitions = [...Array(bar.amount).keys()].map(
       (_, idx) => {
@@ -413,7 +419,7 @@ export class UptimeCard extends LitElement {
     `
   }
 
-  private renderBar(x: number, y: number, width: number, height: number, color: string, round: number): TemplateResult{
+  private renderBar(x: number, y: number, width: number, height: number, color: string, round: number): TemplateResult {
     return svg`<rect
       class='bar'
       x=${x}

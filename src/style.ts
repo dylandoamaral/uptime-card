@@ -50,6 +50,10 @@ const style = css`
     width: 1.7em;
   }
 
+  .status {
+    padding-bottom: 10px;
+  }
+
   .status > span {
     font-size: 1em;
     font-weight: var(--mcg-title-font-weight, 500);
@@ -58,6 +62,7 @@ const style = css`
   }
 
   .timeline {
+    padding-top: 2px;
     padding-bottom: 0px;
   }
 
