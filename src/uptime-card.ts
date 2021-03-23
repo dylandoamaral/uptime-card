@@ -359,7 +359,7 @@ export class UptimeCard extends LitElement {
 
     let currentStatus = this.sensor.state
     if (this.isOk(this.sensor.state) == true && alias.ok) currentStatus = alias.ok;
-    else if (!this.isOk(this.sensor.state) == false && alias.ko) currentStatus = alias.ko;
+    else if (this.isOk(this.sensor.state) == false && alias.ko) currentStatus = alias.ko;
     else if (this.isOk(this.sensor.state) == undefined) currentStatus = "Unknown"
 
     const currentColor = this.getColor(this.sensor.state);

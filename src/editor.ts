@@ -384,12 +384,16 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     }
     const target = ev.target;
     const section = target.configSection
-    const parent = section ? this._config[section] : this._config
+    const config = {... this._config}
+    const parent = section ? config[section] : config
+    
     if (target.configValue) {
       if (target.value === undefined && target.checked === undefined) {
         delete parent[target.configValue];
+        this._config = config;
       } else if (target.value === "") {
         delete parent[target.configValue];
+        this._config = config;
       } else {
         const key = target.configValue
         const rawValue = target.checked !== undefined ? target.checked : target.value
@@ -397,12 +401,12 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
 
         if (section) {
           this._config = {
-            ...this._config,
-            [section]: {...this._config[section], [key]: value}
+            ...config,
+            [section]: {... config[section], [key]: value}
           }
         } else {
           this._config = {
-            ...this._config,
+            ...config,
             [key]: value
           }
         }
