@@ -27,8 +27,8 @@ Uptime card is highly customizable.
 | entity **required** | string |  | v0.0.1 | Set the binary sensor entity id.
 | name | string |  | v0.0.1 | Set a custom title to the card.
 | icon | string |  | v0.0.1 | Set a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/).
-| ok **[for more information](okko)** | string |  | v0.0.1 | Set the state name corresponding to on.
-| ko **[for more information](okko)** | string |  | v0.0.1 | Set the state name corresponding to off.
+| ok **[for more information](https://github.com/dylandoamaral/uptime-card#on-and-off-options)** | string |  | v0.0.1 | Set the state name corresponding to on.
+| ko **[for more information](https://github.com/dylandoamaral/uptime-card#on-and-off-options)** | string |  | v0.0.1 | Set the state name corresponding to off.
 | severity | number | 100 | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
 | hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
 | update_interval | number | | v0.0.1 | Set the an interval for the card to update.
@@ -125,6 +125,7 @@ Roadmap for version 0.0.2.
 - [ ] Polish editor (new swatch input and number input)
 - [ ] Clickable card (link to website or show history)
 - [ ] Polish CSS
+- [ ] Add more customizations
 
 ## Additional information ℹ️
 ### <a name="okko"></a>On and off options
