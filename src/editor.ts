@@ -212,12 +212,13 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
           {
             type: "input",
             name: "name",
-            label: "Nane"
+            label: "Name"
           },
           {
             type: "input",
             name: "icon",
-            label: "Icon"
+            label: "Icon",
+            default: DEFAULT_ICON
           },
           {
             type: "number",

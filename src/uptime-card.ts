@@ -32,9 +32,8 @@ import { wrap, unwrap } from "./utils";
 
 /* eslint no-console: 0 */
 console.info(
-  `%c  uptime-card \n%c  version ${CARD_VERSION}    `,
-  'color: orange; font-weight: bold; background: black',
-  'color: white; font-weight: bold; background: dimgray',
+  `%c Uptime card version ${CARD_VERSION} `,
+  'color: orange; font-weight: bold; background: black'
 );
 
 // This puts your card into the UI card picker dialog
@@ -220,38 +219,29 @@ export class UptimeCard extends LitElement {
   }
 
   private findBarRepartition(period: Period): Repartition {
-    const firstPoint = this.cache.points.findIndex(point => point.x > period.from);
+    const firstPoint = this.cache.points.findIndex(point => point.x >= period.from);
     const lastPoint = this.cache.points.findIndex(point => point.x > period.to);
-    let minimum = period.from
+    const noneRepartition: Repartition = { ok: 0, ko: 0, none: 100 };
 
     let usefulPoints: Point[];
-    if (this.cache.points.length == 0) return {
-      ok: 0,
-      ko: 0,
-      none: 100,
-    };
-    else if (firstPoint == -1 || lastPoint == -1) usefulPoints = [this.cache.points[this.cache.points.length - 1]]
-    else if (firstPoint == 0 && lastPoint == 0) return {
-      ok: 0,
-      ko: 0,
-      none: 100,
+
+    if (this.cache.points.length == 0) return noneRepartition;
+    // All points are before period.from
+    else if (firstPoint == -1) usefulPoints = [this.cache.points[this.cache.points.length - 1]];
+    // All points are after period.to
+    else if (firstPoint == 0 && lastPoint == 0) return noneRepartition;
+    else if (lastPoint == -1) usefulPoints = this.cache.points
+    else {
+      const notFirst = firstPoint == 0 ? 0 : 1
+      usefulPoints = this.cache.points.slice(firstPoint - notFirst, lastPoint);
     }
-    else if (firstPoint == 0) {
-      usefulPoints = this.cache.points.slice(firstPoint, lastPoint)
-      minimum = usefulPoints[0].x
-    } else usefulPoints = this.cache.points.slice(firstPoint - 1, lastPoint)
 
-    const repartition: Repartition = {
-      ok: 0,
-      ko: 0,
-      none: 0,
-    };
-
+    const repartition: Repartition = { ok: 0, ko: 0, none: 0 };
     const total = period.to - period.from
 
     for (let i = 0; i < usefulPoints.length; i++) {
       const upper = usefulPoints[i + 1] ? usefulPoints[i + 1].x : period.to;
-      const lower = Math.max(usefulPoints[i].x, minimum);
+      const lower = Math.max(usefulPoints[i].x, period.from);
       const amount = upper - lower;
 
       if (this.isOk(usefulPoints[i].y) == true) repartition.ok += amount;
@@ -262,11 +252,7 @@ export class UptimeCard extends LitElement {
     const ok = repartition.ok / total * 100;
     const ko = repartition.ko / total * 100;
     const none = 100 - (ok + ko);
-    return {
-      ok: ok,
-      ko: ko,
-      none: none,
-    }
+    return { ok: ok, ko: ko, none: none };
   }
 
   private getUptimeSize(): number {
