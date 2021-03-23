@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-export const CARD_VERSION = '0.1.0';
+export const CARD_VERSION = '0.0.1';
 
 export const DEFAULT_CONFIG = {
     hours_to_show: 24,
@@ -15,7 +15,6 @@ export const DEFAULT_COLOR = {
 
 export const DEFAULT_SHOW = {
     header: true,
-    name: true,
     icon: true,
     status: true,
     timeline: true,
