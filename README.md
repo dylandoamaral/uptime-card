@@ -120,11 +120,11 @@ alias:
 
 Roadmap for version 0.0.2.
 
-- [] Add the card to HACS
-- [] Polish code
-- [] Polish editor (new swatch input and number input)
-- [] Clickable card (link to website or show history)
-- [] Polish CSS
+- [ ] Add the card to HACS
+- [ ] Polish code
+- [ ] Polish editor (new swatch input and number input)
+- [ ] Clickable card (link to website or show history)
+- [ ] Polish CSS
 
 ## Additional information ℹ️
 ### <a name="okko"></a>On and off options
