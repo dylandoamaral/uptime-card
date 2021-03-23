@@ -16,45 +16,6 @@ import { DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_SHOW, DEFAULT_BAR, DEFAULT_ICON 
 import { CardConfig } from './types/config';
 import { InputProperty, Option, UnionProperty, Property, NumberProperty, DropdownProperty, SwitchProperty } from "./types/editor"
 
-const options = {
-  required: {
-    icon: 'tune',
-    name: 'Mandatory',
-    secondary: 'Required options for this card to function',
-    show: true,
-  },
-  customization: {
-    icon: 'cog',
-    name: 'Global customization',
-    secondary: 'Customize the name, icon, etc',
-    show: false,
-  },
-  bar: {
-    icon: 'chart-bar',
-    name: 'Bar customization',
-    secondary: 'Customize the bar style',
-    show: false,
-  },
-  color: {
-    icon: 'palette',
-    name: 'Color customization',
-    secondary: 'Customize the color palette',
-    show: false,
-  },
-  show: {
-    icon: 'eye',
-    name: 'Toggle elements',
-    secondary: 'Show or hide uptime card elements',
-    show: false,
-  },
-  alias: {
-    icon: 'reload',
-    name: 'Alias',
-    secondary: 'Replace status name by alias',
-    show: false,
-  },
-};
-
 @customElement('uptime-card-editor')
 export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
   @property({ attribute: false }) public hass?: HomeAssistant;

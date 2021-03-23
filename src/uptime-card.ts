@@ -230,10 +230,10 @@ export class UptimeCard extends LitElement {
     else if (firstPoint == -1) usefulPoints = [this.cache.points[this.cache.points.length - 1]];
     // All points are after period.to
     else if (firstPoint == 0 && lastPoint == 0) return noneRepartition;
-    else if (lastPoint == -1) usefulPoints = this.cache.points
     else {
-      const notFirst = firstPoint == 0 ? 0 : 1
-      usefulPoints = this.cache.points.slice(firstPoint - notFirst, lastPoint);
+      const isNotFirst = firstPoint == 0 ? 0 : 1
+      const last = lastPoint == -1 ? this.cache.points.length : lastPoint
+      usefulPoints = this.cache.points.slice(firstPoint - isNotFirst, last);
     }
 
     const repartition: Repartition = { ok: 0, ko: 0, none: 0 };
@@ -315,6 +315,8 @@ export class UptimeCard extends LitElement {
         return this.findBarRepartition(period)
       }
     )
+
+    console.log(repartitions)
 
     return html`
       <ha-card class="flex">
