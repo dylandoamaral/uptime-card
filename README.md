@@ -10,7 +10,7 @@ A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI 
 
 ### Manual install
 
-1. Download and copy `mini-graph-card-bundle.js` from the [latest release](https://github.com/dylandoamaral/uptime-card/releases/latest) into your `config/www` directory.
+1. Download and copy `uptime-card.js` from the [latest release](https://github.com/dylandoamaral/uptime-card/releases/latest) into your `config/www` directory.
 
 2. Add the resource reference inside your `configuration.yaml`.
 
@@ -148,3 +148,7 @@ These options follow the following rules:
 ### Contribution
 
 Don't hesitate to ask for features or to contribute yourself ⭐.
+
+### Inspiration
+
+This repo is inspired by [mini-graph-card](https://github.com/kalkih/mini-graph-card) and [boilerplate-card](https://github.com/custom-cards/boilerplate-card)
