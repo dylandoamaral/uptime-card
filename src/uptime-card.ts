@@ -117,7 +117,6 @@ export class UptimeCard extends LitElement {
   }
 
   private async updateData(): Promise<void> {
-    console.log("hey")
     const { entity, hours_to_show } = this.config;
     this.sensor = this._hass.states[this.config.entity];
 
