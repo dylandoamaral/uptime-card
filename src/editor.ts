@@ -207,6 +207,11 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             name: "ko",
             label: "Ko status name"
           },
+          {
+            type: "input",
+            name: "average_text",
+            label: "Average text"
+          },
         ]
       },
       bar: {
@@ -329,6 +334,13 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             section: "show",
             label: "Toggle footer",
             default: DEFAULT_SHOW.footer
+          },
+          {
+            type: "switch",
+            name: "average",
+            section: "show",
+            label: "Toggle average",
+            default: DEFAULT_SHOW.average
           }
         ]
       },

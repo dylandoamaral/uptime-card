@@ -3,7 +3,8 @@ export const CARD_VERSION = '0.0.1';
 
 export const DEFAULT_CONFIG = {
     hours_to_show: 24,
-    severity: 100
+    severity: 100,
+    average_text: "%"
 };
 
 export const DEFAULT_COLOR = {
@@ -19,6 +20,7 @@ export const DEFAULT_SHOW = {
     status: true,
     timeline: true,
     footer: true,
+    average: true
 };
 
 export const DEFAULT_BAR = {
