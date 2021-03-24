@@ -56,16 +56,15 @@ export class UptimeCard extends LitElement {
 
   @property({ attribute: false }) public _hass!: HomeAssistant;
   @internalProperty() private config!: CardConfig;
-  @internalProperty() private sensor!: HassEntity;
+  @internalProperty() private sensor?: HassEntity;
   @internalProperty() private interval!: NodeJS.Timeout;
   @internalProperty() private cache!: CacheData;
-  @internalProperty() private updating = false;
   @internalProperty() private initialized = false;
 
   public set hass(hass: HomeAssistant) {
     this._hass = hass;
-    this.sensor = this._hass.states[this.config.entity];
-    if (this.sensor == undefined) this.initialized = false;
+    this.sensor = hass.states[this.config.entity];
+    this.initialized = true;
     this.updateData();
   }
 
@@ -84,7 +83,7 @@ export class UptimeCard extends LitElement {
       tap_action: { action: 'more-info' }
     };
 
-    this.updateData()
+    if (this.initialized) this.updateData()
   }
 
   protected shouldUpdate(changedProps: PropertyValues): boolean {
@@ -118,20 +117,22 @@ export class UptimeCard extends LitElement {
   }
 
   private async updateData(): Promise<void> {
-    this.updating = true;
+    console.log("hey")
+    const { entity, hours_to_show } = this.config;
+    this.sensor = this._hass.states[this.config.entity];
 
-    if (this.initialized == false) {
-      if (this._hass == undefined) return
-      this.sensor = this._hass.states[this.config.entity];
-      if (this.sensor == undefined) return
+    if (this.sensor == undefined) {
+      this.cache = {
+        points: [],
+        lastFetched: -1,
+        lastChanged: -1,
+        hoursToShow: hours_to_show
+      }
+      return;
     }
 
-    this.initialized = true;
-
-    const { entity, hours_to_show } = this.config;
     const data: CacheData = await this.getCache(entity);
     const now = new Date().getTime()
-
     let cache: CacheData;
 
     if (data == undefined) {
@@ -177,7 +178,6 @@ export class UptimeCard extends LitElement {
 
     await this.setCache(entity, cache)
     this.cache = cache
-    this.updating = false;
   }
 
   async getCache(key: string): Promise<any> {
@@ -305,8 +305,6 @@ export class UptimeCard extends LitElement {
    */
 
   protected render(): TemplateResult {
-    if (this.initialized == false) return html``;
-
     const { bar } = this.config
 
     const repartitions = [...Array(bar.amount).keys()].map(
@@ -315,8 +313,6 @@ export class UptimeCard extends LitElement {
         return this.findBarRepartition(period)
       }
     )
-
-    console.log(repartitions)
 
     return html`
       <ha-card class="flex">
@@ -348,27 +344,35 @@ export class UptimeCard extends LitElement {
     `;
   }
 
-  private renderState(): TemplateResult | string {
-    const { alias, show } = this.config
+  private renderState(): TemplateResult {
+    const { alias, show, color } = this.config
 
-    let currentStatus = this.sensor.state
-    if (this.isOk(this.sensor.state) == true && alias.ok) currentStatus = alias.ok;
-    else if (this.isOk(this.sensor.state) == false && alias.ko) currentStatus = alias.ko;
-    else if (this.isOk(this.sensor.state) == undefined) currentStatus = "Unknown"
+    let currentStatus: string;
+    let currentColor: string;
+    if (this.sensor == undefined) {
+      currentStatus = "Unknown"
+      currentColor = color.none
+    } else {
+      if (this.isOk(this.sensor.state) == true && alias.ok) currentStatus = alias.ok;
+      else if (this.isOk(this.sensor.state) == false && alias.ko) currentStatus = alias.ko;
+      else if (this.isOk(this.sensor.state) == undefined) currentStatus = "Unknown"
+      else currentStatus = this.sensor.state
 
-    const currentColor = this.getColor(this.sensor.state);
+      currentColor = this.getColor(this.sensor.state);
+    }
+
     const currentColorCss = `color: ${currentColor};`
 
     return show.status ? html`
       <div class="status">
         <span style=${currentColorCss}>${currentStatus}</span>
       </div>
-    `: "";
+    `: html``;
   }
 
   private renderIcon(): TemplateResult | string {
     const { icon, show } = this.config;
-    const currentIcon = icon || this.sensor.attributes.icon || DEFAULT_ICON;
+    const currentIcon = icon || this.sensor?.attributes.icon || DEFAULT_ICON;
 
     return show.icon ? html`
       <div class="icon flex">
