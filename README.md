@@ -82,44 +82,80 @@ Option from version `v0.0.2` are not available yet since it is the work in progr
 
 ## Example 📊
 
-Here is an example with pretty much every options:
+### Example 1
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/example.png" />
+  <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/example_1.png" />
 </p>
 
 ```yaml
 type: 'custom:uptime-card'
 entity: binary_sensor.updater
-name: Updater
-icon: 'mdi:server'
+icon: 'mdi:raspberry-pi'
 severity: 100
-hours_to_show: 100
-update_interval: 100
 ok: 'on'
 ko: 'off'
-average_text: '% uptime'
-bar:
-  height: 55
-  spacing: 4
-  round: 2
-  amount: 72
-color:
-  ok: '#B0E0E6'
-  ko: '#C66445'
-  half: '#C6B145'
-  none: '#C9C9C9'
-show:
-  header: true
-  icon: true
-  status: true
-  footer: true
-  option: true
-  timeline: true
-  average: true
+name: HA update
 alias:
-  ko: No Update !
   ok: Update available !
+  ko: No update for the moment...
+hours_to_show: 168
+show:
+  footer: false
+```
+
+### Example 2
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/example_2.png" />
+</p>
+
+```yaml
+type: 'custom:uptime-card'
+bar:
+  spacing: 4
+  height: 10
+  round: 4
+icon: 'mdi:weather-sunny'
+entity: sun.sun
+name: Sun
+ko: below_horizon
+alias:
+  ko: Below Horizon
+  ok: Above Horizon
+average_text: '% above horizon'
+hours_to_show: 24
+color:
+  ok: '#f9d71c'
+  ko: '#053752'
+  half: '#EF810E'
+show:
+  average: false
+```
+
+### Example 3
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/example_3.png" />
+</p>
+
+```yaml
+type: 'custom:uptime-card'
+entity: binary_sensor.ping_google # You can add one of these using https://www.home-assistant.io/integrations/ping/
+icon: 'mdi:heart'
+ko: off
+ok: on
+bar:
+  height: 46
+  round: 0
+  spacing: 10
+  amount: 6
+alias:
+  ok: Up !
+  ko: Down :(
+hours_to_show: 72
+name: 'https://www.google.com/'
+severity: 100
 ```
 
 ## Roadmap 🗺️
