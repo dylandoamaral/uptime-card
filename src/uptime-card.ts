@@ -14,8 +14,7 @@ import {
 import {
   HomeAssistant,
   hasConfigOrEntityChanged,
-  LovelaceCardEditor,
-  getLovelace
+  LovelaceCardEditor
 } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket'
 import localForage from 'localforage/src/localforage';
@@ -423,23 +422,27 @@ export class UptimeCard extends LitElement {
     ></rect>`;
   }
 
-  private renderFooter(repartitions: Repartition[]): TemplateResult | string {
-    const { show } = this.config;
+  private renderFooter(repartitions: Repartition[]): TemplateResult {
+    const { show } = this.config
 
-    if (show.footer == false) return ""
-
-    const sumOk = repartitions.reduce((prev, curr) => prev + curr.ok, 0)
-    const uptime = (sumOk / repartitions.length).toFixed(2);
-    const minimalDate = this.generateMinimalDate()
-
-    return html`
+    return show.footer ? html`
     <div class="footer">
-      <div class="footer-text">${minimalDate}</div>
-      ${this.renderLine()}
-      <div class="footer-text">${uptime}% uptime</div>
+      <div class="footer-text">${this.generateMinimalDate()}</div>
+      ${show.average ? this.renderLine() : html``}
+      ${this.renderAverage(repartitions)}
       ${this.renderLine()}
       <div class="footer-text">Now</div>
-    </div>`;
+    </div>`: html``;
+  }
+
+  private renderAverage(repartitions: Repartition[]): TemplateResult {
+    const { show, average_text } = this.config
+    const sumOk = repartitions.reduce((prev, curr) => prev + curr.ok, 0)
+    const uptime = (sumOk / repartitions.length).toFixed(2);
+
+    return show.average ? html`
+      <div class="footer-text">${uptime}${average_text}</div>
+    ` : html``;
   }
 
   private generateMinimalDate(): string {
@@ -469,26 +472,6 @@ export class UptimeCard extends LitElement {
 
   private renderLine(): TemplateResult {
     return html`<div class="line"></div>`
-  }
-
-
-  private _showWarning(warning: string): TemplateResult {
-    return html`
-      <hui-warning>${warning}</hui-warning>
-    `;
-  }
-
-  private _showError(error: string): TemplateResult {
-    const errorCard = document.createElement('hui-error-card');
-    errorCard.setConfig({
-      type: 'error',
-      error,
-      origConfig: this.config,
-    });
-
-    return html`
-      ${errorCard}
-    `;
   }
 
   static get styles(): CSSResult {

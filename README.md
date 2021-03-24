@@ -20,6 +20,8 @@ A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI 
 
 Uptime card is highly customizable.
 
+Option from version `v0.0.2` are not available yet since it is the work in progress release.
+
 ### Global configuration
 
 | Name | Type | Default | Since | Description |
@@ -32,6 +34,7 @@ Uptime card is highly customizable.
 | severity | number | 100 | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
 | hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
 | update_interval | number | | v0.0.1 | Set the an interval for the card to update.
+| average_text | string | % | v0.0.2 | Set the average text.
 
 ### Bar configuration
 
@@ -66,6 +69,7 @@ Uptime card is highly customizable.
 | status | boolean | true | v0.0.1 | Show the status.
 | timeline | boolean | true | v0.0.1 | Show the timeline.
 | footer | boolean | true | v0.0.1 | Show the footer.
+| average | boolean | true | v0.0.2 | Show the average.
 
 ### Alias configuration
 
@@ -78,7 +82,7 @@ Uptime card is highly customizable.
 
 ## Example 📊
 
-Here is an example with pretty much every configurations:
+Here is an example with pretty much every options:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/example.png" />
@@ -94,6 +98,7 @@ hours_to_show: 100
 update_interval: 100
 ok: 'on'
 ko: 'off'
+average_text: '% uptime'
 bar:
   height: 55
   spacing: 4
@@ -111,6 +116,7 @@ show:
   footer: true
   option: true
   timeline: true
+  average: true
 alias:
   ko: No Update !
   ok: Update available !
@@ -118,7 +124,7 @@ alias:
 
 ## Roadmap 🗺️
 
-Roadmap for version 0.0.2.
+Roadmap for version 0.1.0.
 
 - [ ] Add the card to HACS
 - [ ] Polish code
@@ -128,9 +134,9 @@ Roadmap for version 0.0.2.
 - [ ] Add more customizations
 
 ## Additional information ℹ️
-### <a name="okko"></a>On and off options
+### Ok and ko options
 
-By default, the uptime card will be in `unknown state` because it doesn't know which status correspon an `ok` signal or a `ko` signal. You can specify which states is one or another using `ok` and `ko` options.
+By default, the uptime card will be in `unknown` state because it doesn't know which status correspond to an `ok` signal or a `ko` signal. You can specify it using either `ok` or `ko` options.
 
 These options follow the following rules:
 - if ok is not defined and ko is not defined -> `unknown`
@@ -151,4 +157,4 @@ Don't hesitate to ask for features or to contribute yourself ⭐.
 
 ### Inspiration
 
-This repo is inspired by [mini-graph-card](https://github.com/kalkih/mini-graph-card) and [boilerplate-card](https://github.com/custom-cards/boilerplate-card)
+This repository is inspired by [mini-graph-card](https://github.com/kalkih/mini-graph-card) and [boilerplate-card](https://github.com/custom-cards/boilerplate-card).

@@ -6,6 +6,7 @@ interface ShowConfig {
     status: boolean;
     timeline: boolean;
     footer: boolean;
+    average: boolean;
 }
 
 interface ColorConfig {
@@ -38,6 +39,7 @@ export interface CardConfig extends LovelaceCardConfig {
     severity: number;
     hours_to_show: number;
     update_interval?: number;
+    average_text?: string;
     color: ColorConfig;
     alias: AliasConfig;
     show: ShowConfig;
