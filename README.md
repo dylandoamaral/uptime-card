@@ -29,12 +29,15 @@ Option from version `v0.0.2` are not available yet since it is the work in progr
 | entity **required** | string |  | v0.0.1 | Set the binary sensor entity id.
 | name | string |  | v0.0.1 | Set a custom title to the card.
 | icon | string |  | v0.0.1 | Set a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/).
-| ok **[for more information](https://github.com/dylandoamaral/uptime-card#on-and-off-options)** | string |  | v0.0.1 | Set the state name corresponding to on.
-| ko **[for more information](https://github.com/dylandoamaral/uptime-card#on-and-off-options)** | string |  | v0.0.1 | Set the state name corresponding to off.
+| ok **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)** | string |  | v0.0.1 | Set the state name corresponding to on.
+| ko **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)** | string |  | v0.0.1 | Set the state name corresponding to off.
 | severity | number | 100 | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
 | hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
 | update_interval | number | | v0.0.1 | Set the an interval for the card to update.
 | average_text | string | % | v0.0.2 | Set the average text.
+| title_adaptive_color | boolean | false | v0.0.2 | The title text color is the same as the current status color.
+| status_adaptive_color | boolean | false | v0.0.2 | The status text color is the same as the current status color.
+| icon_adaptive_color | boolean | false | v0.0.2 | The icon color is the same as the current status color.
 
 ### Bar configuration
 
@@ -57,6 +60,9 @@ Option from version `v0.0.2` are not available yet since it is the work in progr
 | ko | color | #C66445 | v0.0.1 | Set the ko color.
 | half | color | #C6B145 | v0.0.1 | Set the half color.
 | none | color | #C9C9C9 | v0.0.1 | Set the none color.
+| title | color | grey | v0.0.2 | Set the title text color, title_adaptive_color must be false.
+| status | color | gray | v0.0.2 | Set the status text color, status_adaptive_color must be false.
+| icon | color | | v0.0.2 | Set the icon text color, icon_adaptive_color must be false.
 
 ### Show configuration
 

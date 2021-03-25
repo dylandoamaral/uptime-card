@@ -191,10 +191,11 @@ export class UptimeCard extends LitElement {
     return localForage.setItem(key, wrap(data))
   }
 
-  private isOk(state: string): boolean | undefined {
+  private isOk(state?: string): boolean | undefined {
     const { ok, ko } = this.config
 
-    if (ok == state) return true;
+    if (state == undefined) return undefined;
+    else if (ok == state) return true;
     else if (ko == state) return false;
     else {
       if (ok == undefined && ko == undefined) return undefined;
@@ -265,14 +266,16 @@ export class UptimeCard extends LitElement {
   private getColor(state?: string): string {
     const { color } = this.config
 
-    let c: string;
-
-    if (state == undefined) return color.none
-
     if (this.isOk(state) == true) return color.ok
-    else if (this.isOk(state) == false) return color.ko
+    if (this.isOk(state) == false) return color.ko
 
     return color.none
+  }
+
+  private getCssColor(adaptive: boolean, default_color: string): string {
+    const colorCurr = adaptive == true ? this.getColor(this.sensor?.state) : (default_color || undefined)
+    const colorCss = colorCurr ? `color: ${colorCurr};` : ''
+    return colorCss;
   }
 
   private async fetchRecent(entity: string, start: Date, end: Date): Promise<Point[]> {
@@ -333,47 +336,41 @@ export class UptimeCard extends LitElement {
   }
 
   private renderName(): TemplateResult {
-    const { name } = this.config
+    const { name, color, title_adaptive_color } = this.config
 
     return html`
       <div class="name">
-        <span>${name}</span>
+        <span style=${this.getCssColor(title_adaptive_color, color.title)}>${name}</span>
       </div>
     `;
   }
 
   private renderState(): TemplateResult {
-    const { alias, show, color } = this.config
+    const { alias, show, color, status_adaptive_color } = this.config
 
     let currentStatus: string;
-    let currentColor: string;
     if (this.sensor == undefined) {
       currentStatus = "Unknown"
-      currentColor = color.none
     } else {
       if (this.isOk(this.sensor.state) == true && alias.ok) currentStatus = alias.ok;
       else if (this.isOk(this.sensor.state) == false && alias.ko) currentStatus = alias.ko;
       else if (this.isOk(this.sensor.state) == undefined) currentStatus = "Unknown"
       else currentStatus = this.sensor.state
-
-      currentColor = this.getColor(this.sensor.state);
     }
-
-    const currentColorCss = `color: ${currentColor};`
 
     return show.status ? html`
       <div class="status">
-        <span style=${currentColorCss}>${currentStatus}</span>
+        <span style=${this.getCssColor(status_adaptive_color, color.status)}>${currentStatus}</span>
       </div>
     `: html``;
   }
 
   private renderIcon(): TemplateResult | string {
-    const { icon, show } = this.config;
+    const { icon, show, icon_adaptive_color, color } = this.config;
     const currentIcon = icon || this.sensor?.attributes.icon || DEFAULT_ICON;
 
     return show.icon ? html`
-      <div class="icon flex">
+      <div class="icon flex" style=${this.getCssColor(icon_adaptive_color, color.icon)}>
         <ha-icon .icon=${currentIcon}></ha-icon>
       </div>
     ` : '';
