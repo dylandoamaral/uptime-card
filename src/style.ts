@@ -35,7 +35,7 @@ const style = css`
     font-weight: var(--mcg-title-font-weight, 500);
     max-height: 1.4em;
     min-height: 1.4em;
-    opacity: .65;
+    color: grey;
   }
 
   .icon {
@@ -59,6 +59,7 @@ const style = css`
     font-weight: var(--mcg-title-font-weight, 500);
     max-height: 1em;
     min-height: 1em;
+    color: gray;
   }
 
   .timeline {

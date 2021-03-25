@@ -14,6 +14,9 @@ interface ColorConfig {
     ko: string;
     half: string;
     none: string;
+    title: string;
+    status: string;
+    icon: string;
 }
 
 interface AliasConfig {
@@ -40,6 +43,9 @@ export interface CardConfig extends LovelaceCardConfig {
     hours_to_show: number;
     update_interval?: number;
     average_text?: string;
+    title_adaptive_color: boolean;
+    status_adaptive_color: boolean;
+    icon_adaptive_color: boolean;
     color: ColorConfig;
     alias: AliasConfig;
     show: ShowConfig;
