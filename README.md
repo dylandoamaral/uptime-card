@@ -101,13 +101,21 @@ icon: 'mdi:raspberry-pi'
 severity: 100
 ok: 'on'
 ko: 'off'
+bar:
+  height: 46
+  round: 1
+  spacing: 4
+  amount: 36
 name: HA update
 alias:
   ok: Update available !
   ko: No update for the moment...
+color:
+  icon: grey
 hours_to_show: 168
 show:
   footer: false
+status_adaptive_color: true
 ```
 
 ### Example 2
@@ -120,23 +128,24 @@ show:
 type: 'custom:uptime-card'
 bar:
   spacing: 4
+  amount: 36
   height: 10
   round: 4
 icon: 'mdi:weather-sunny'
+severity: 100
 entity: sun.sun
 name: Sun
 ko: below_horizon
-alias:
-  ko: Below Horizon
-  ok: Above Horizon
 average_text: '% above horizon'
 hours_to_show: 24
 color:
   ok: '#f9d71c'
   ko: '#053752'
   half: '#EF810E'
+icon_adaptive_color: true
 show:
   average: false
+  status: false
 ```
 
 ### Example 3
@@ -149,19 +158,25 @@ show:
 type: 'custom:uptime-card'
 entity: binary_sensor.ping_google # You can add one of these using https://www.home-assistant.io/integrations/ping/
 icon: 'mdi:heart'
-ko: off
-ok: on
+ko: o
 bar:
   height: 46
   round: 0
   spacing: 10
   amount: 6
-alias:
-  ok: Up !
-  ko: Down :(
+show:
+  status: false
+  icon: false
+color:
+  ok: '#45C669'
+  ko: '#C66445'
+  none: '#C9C9C9'
+  half: '#C6B145'
+title_adaptive_color: true
 hours_to_show: 72
 name: 'https://www.google.com/'
 severity: 100
+average_text: '% uptime'
 ```
 
 ## Roadmap 🗺️
