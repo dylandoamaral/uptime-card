@@ -139,8 +139,6 @@ export class UptimeCard extends LitElement {
       // First time we see the entity
       const lastChanged = new Date(this.sensor.last_changed).getTime();
       const point = { x: lastChanged, y: this.getStatus() };
-      console.log(this.sensor)
-      console.log(point)
 
       cache = {
         points: [point],
@@ -178,7 +176,6 @@ export class UptimeCard extends LitElement {
       }
     }
 
-    console.log(cache)
     await this.setCache(key, cache)
     this.cache = cache
   }
@@ -199,7 +196,6 @@ export class UptimeCard extends LitElement {
   private isOk(status?: string): boolean | undefined {
     const { ok, ko } = this.config
 
-    console.log({ ok, ko, status })
     if (status == undefined) return undefined;
     else if (ok == status) return true;
     else if (ko == status) return false;
@@ -286,8 +282,8 @@ export class UptimeCard extends LitElement {
 
   private getStatus(): string {
     const { attribute } = this.config
-    const status = attribute ? String(this.sensor?.attributes[attribute]) : this.sensor?.state
-    return status || "Unknown"
+    const status = attribute ? this.sensor?.attributes[attribute] : this.sensor?.state
+    return status ? String(status) : "Unknown"
   }
 
   private async fetchRecent(entity: string, start: Date, end: Date): Promise<Point[]> {
@@ -300,8 +296,8 @@ export class UptimeCard extends LitElement {
     const result: ApiPoint[][] = await this._hass.callApi('GET', url);
 
     const points = result[0].map(result => {
-      const status = attribute ? String(result.attributes[attribute]) : result.state
-      return { x: new Date(result.last_changed).getTime(), y: status }
+      const status = attribute ? result.attributes[attribute] : result.state
+      return { x: new Date(result.last_changed).getTime(), y: status ? String(status) : status }
     });
 
     return points.filter(point => point.y != undefined);
