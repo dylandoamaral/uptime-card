@@ -35,6 +35,7 @@ interface BarConfig {
 export interface CardConfig extends LovelaceCardConfig {
     type: string;
     entity: string;
+    attribute?: string;
     name?: string;
     icon?: string;
     on?: string;

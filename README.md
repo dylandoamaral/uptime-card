@@ -27,6 +27,7 @@ Option from version `v0.0.2` are not available yet since it is the work in progr
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
 | entity **required** | string |  | v0.0.1 | Set the binary sensor entity id.
+| attribute | string |  | v0.0.2 | Set the attribute name if the state to monitor isn't the default one.
 | name | string |  | v0.0.1 | Set a custom title to the card.
 | icon | string |  | v0.0.1 | Set a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/).
 | ok **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)** | string |  | v0.0.1 | Set the state name corresponding to on.

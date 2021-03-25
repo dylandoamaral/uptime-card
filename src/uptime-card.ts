@@ -116,7 +116,7 @@ export class UptimeCard extends LitElement {
   }
 
   private async updateData(): Promise<void> {
-    const { entity, hours_to_show } = this.config;
+    const { entity, hours_to_show, attribute } = this.config;
     this.sensor = this._hass.states[this.config.entity];
 
     if (this.sensor == undefined) {
@@ -129,14 +129,18 @@ export class UptimeCard extends LitElement {
       return;
     }
 
-    const data: CacheData = await this.getCache(entity);
+    const key: string = attribute ? `${entity}z${attribute}` : entity
+
+    const data: CacheData = await this.getCache(key);
     const now = new Date().getTime()
     let cache: CacheData;
 
     if (data == undefined) {
       // First time we see the entity
       const lastChanged = new Date(this.sensor.last_changed).getTime();
-      const point = { x: lastChanged, y: this.sensor.state };
+      const point = { x: lastChanged, y: this.getStatus() };
+      console.log(this.sensor)
+      console.log(point)
 
       cache = {
         points: [point],
@@ -145,7 +149,7 @@ export class UptimeCard extends LitElement {
         hoursToShow: hours_to_show
       }
     } else {
-      // When the state is updated
+      // When the status is updated
       const oldestHistory = data.hoursToShow < hours_to_show
       const lastFetched = oldestHistory ? this.getMinimumDate() : data.lastFetched;
       const fetchedPoints = await this.fetchRecent(entity, new Date(lastFetched), new Date());
@@ -163,7 +167,7 @@ export class UptimeCard extends LitElement {
         };
       } else {
         const lastChanged = new Date(this.sensor.last_changed).getTime();
-        const point = { x: lastChanged, y: this.sensor.state };
+        const point = { x: lastChanged, y: this.getStatus() };
 
         cache = {
           points: [point],
@@ -174,7 +178,8 @@ export class UptimeCard extends LitElement {
       }
     }
 
-    await this.setCache(entity, cache)
+    console.log(cache)
+    await this.setCache(key, cache)
     this.cache = cache
   }
 
@@ -191,12 +196,13 @@ export class UptimeCard extends LitElement {
     return localForage.setItem(key, wrap(data))
   }
 
-  private isOk(state?: string): boolean | undefined {
+  private isOk(status?: string): boolean | undefined {
     const { ok, ko } = this.config
 
-    if (state == undefined) return undefined;
-    else if (ok == state) return true;
-    else if (ko == state) return false;
+    console.log({ ok, ko, status })
+    if (status == undefined) return undefined;
+    else if (ok == status) return true;
+    else if (ko == status) return false;
     else {
       if (ok == undefined && ko == undefined) return undefined;
       else if (ok == undefined) return true;
@@ -263,30 +269,42 @@ export class UptimeCard extends LitElement {
     return new Date().getTime() - this.getUptimeSize();
   }
 
-  private getColor(state?: string): string {
+  private getColor(status?: string): string {
     const { color } = this.config
 
-    if (this.isOk(state) == true) return color.ok
-    if (this.isOk(state) == false) return color.ko
+    if (this.isOk(status) == true) return color.ok
+    if (this.isOk(status) == false) return color.ko
 
     return color.none
   }
 
   private getCssColor(adaptive: boolean, default_color: string): string {
-    const colorCurr = adaptive == true ? this.getColor(this.sensor?.state) : (default_color || undefined)
+    const colorCurr = adaptive == true ? this.getColor(this.getStatus()) : (default_color || undefined)
     const colorCss = colorCurr ? `color: ${colorCurr};` : ''
     return colorCss;
   }
 
+  private getStatus(): string {
+    const { attribute } = this.config
+    const status = attribute ? String(this.sensor?.attributes[attribute]) : this.sensor?.state
+    return status || "Unknown"
+  }
+
   private async fetchRecent(entity: string, start: Date, end: Date): Promise<Point[]> {
+    const { attribute } = this.config
     let url = 'history/period';
     if (start) url += `/${start.toISOString()}`;
     url += `?filter_entity_id=${entity}`;
     if (end) url += `&end_time=${end.toISOString()}`;
-    url += '&minimal_response';
+    if (attribute == undefined) url += '&minimal_response';
     const result: ApiPoint[][] = await this._hass.callApi('GET', url);
 
-    return result[0].map(result => { return { x: new Date(result.last_changed).getTime(), y: result.state } });
+    const points = result[0].map(result => {
+      const status = attribute ? String(result.attributes[attribute]) : result.state
+      return { x: new Date(result.last_changed).getTime(), y: status }
+    });
+
+    return points.filter(point => point.y != undefined);
   }
 
   private cleanPoints(points: Point[]): Point[] {
@@ -352,10 +370,9 @@ export class UptimeCard extends LitElement {
     if (this.sensor == undefined) {
       currentStatus = "Unknown"
     } else {
-      if (this.isOk(this.sensor.state) == true && alias.ok) currentStatus = alias.ok;
-      else if (this.isOk(this.sensor.state) == false && alias.ko) currentStatus = alias.ko;
-      else if (this.isOk(this.sensor.state) == undefined) currentStatus = "Unknown"
-      else currentStatus = this.sensor.state
+      if (this.isOk(this.getStatus()) == true && alias.ok) currentStatus = alias.ok;
+      else if (this.isOk(this.getStatus()) == false && alias.ko) currentStatus = alias.ko;
+      else currentStatus = this.getStatus()
     }
 
     return show.status ? html`
@@ -388,6 +405,7 @@ export class UptimeCard extends LitElement {
     const bars = repartitions.map(
       (repartition, idx) => {
         let barColor: string;
+
         if (repartition.none == 100) barColor = color.none;
         else if (repartition.ok == 100) barColor = color.ok;
         else if (repartition.ko >= severity) barColor = color.ko;
