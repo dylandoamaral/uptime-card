@@ -136,7 +136,6 @@ severity: 100
 entity: sun.sun
 name: Sun
 ko: below_horizon
-average_text: '% above horizon'
 hours_to_show: 24
 color:
   ok: '#f9d71c'
