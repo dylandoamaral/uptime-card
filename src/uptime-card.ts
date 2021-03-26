@@ -103,6 +103,11 @@ export class UptimeCard extends LitElement {
         super.disconnectedCallback();
     }
 
+    /**
+     * Update the cache to retrieve needed point either from home assistant API
+     * https://developers.home-assistant.io/docs/api/rest/ or from hass current
+     * entity state.
+     */
     private async updateData(): Promise<void> {
         const { entity, hours_to_show } = this.config;
         this.sensor = this._hass.states[this.config.entity];
@@ -166,6 +171,10 @@ export class UptimeCard extends LitElement {
         this.cache = cache;
     }
 
+    /**
+     * Retrieve an element from the cache.
+     * @param key The key of the cached value.
+     */
     async getCache(key: string): Promise<any> {
         const data: string | null = await localForage.getItem(key);
         if (data == undefined) {
@@ -174,10 +183,21 @@ export class UptimeCard extends LitElement {
         } else return unwrap(data);
     }
 
+    /**
+     * Store a key/value element into the cache.
+     * @param key The key of the cached value.
+     * @param dataThe The cached value.
+     */
     async setCache(key: string, data: any): Promise<any> {
         return localForage.setItem(key, wrap(data));
     }
 
+    /**
+     * Return if the current state of the entity is
+     * ok, ko or undefined based on ok and ko option from
+     * the configuration.
+     * @param state The current state of the entity.
+     */
     private isOk(state?: string): boolean | undefined {
         const { ok, ko } = this.config;
 
@@ -192,6 +212,10 @@ export class UptimeCard extends LitElement {
         }
     }
 
+    /**
+     * Determine the period of a future bar based on his index.
+     * @param index The bar index between 0 and bar.amount - 1.
+     */
     private findBarPeriod(index: number): Period {
         const { bar } = this.config;
         const millisecondsPerBar = this.getUptimeSize() / bar.amount;
@@ -204,6 +228,11 @@ export class UptimeCard extends LitElement {
         };
     }
 
+    /**
+     * Find the repartition between ok, ko and none for a particular period
+     * according to the point from the cache.
+     * @param period The period to extract repartition from.
+     */
     private findBarRepartition(period: Period): Repartition {
         const firstPoint = this.cache.points.findIndex(point => point.x >= period.from);
         const lastPoint = this.cache.points.findIndex(point => point.x > period.to);
@@ -241,15 +270,25 @@ export class UptimeCard extends LitElement {
         return { ok: ok, ko: ko, none: none };
     }
 
+    /**
+     * Return the total duration of the uptime bar in milliseconds.
+     */
     private getUptimeSize(): number {
         const { hours_to_show } = this.config;
         return hours_to_show * 3.6e6;
     }
 
+    /**
+     * Return the minimum date of the uptime bar in epoch.
+     */
     private getMinimumDate(): number {
         return new Date().getTime() - this.getUptimeSize();
     }
 
+    /**
+     * Return the color of the entity based on his status.
+     * @param state The current state of the entity.
+     */
     private getColor(state?: string): string {
         const { color } = this.config;
 
@@ -259,12 +298,23 @@ export class UptimeCard extends LitElement {
         return color.none;
     }
 
+    /**
+     * Return the css that should give the color a card part.
+     * @param adaptive True if the color should adapt to the current status.
+     * @param default_color The default color of the entity.
+     */
     private getCssColor(adaptive: boolean, default_color: string): string {
         const colorCurr = adaptive == true ? this.getColor(this.sensor?.state) : default_color || undefined;
         const colorCss = colorCurr ? `color: ${colorCurr};` : '';
         return colorCss;
     }
 
+    /**
+     * Fetch the recent points from the home assistant api.
+     * @param entity The name of the entity.
+     * @param start The start date to retrieve information.
+     * @param end The end date to retrieve information.
+     */
     private async fetchRecent(entity: string, start: Date, end: Date): Promise<Point[]> {
         let url = 'history/period';
         if (start) url += `/${start.toISOString()}`;
