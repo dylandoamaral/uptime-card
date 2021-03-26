@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/camelcase */
-import { fireEvent,HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers';
+import { fireEvent, HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers';
 import {
     css,
     CSSResult,
