@@ -11,26 +11,26 @@ export interface Property {
     section?: string;
     name: string;
     label: string;
-    default?: any;
+    default?: string | boolean | number;
 }
 
 export interface DropdownProperty extends Property {
-    type: "dropdown";
+    type: 'dropdown';
     items: string[];
 }
 
 export interface InputProperty extends Property {
-    type: "input";
+    type: 'input';
 }
 
 export interface NumberProperty extends Property {
-    type: "number";
+    type: 'number';
     min: number;
     max: number;
 }
 
 export interface SwitchProperty extends Property {
-    type: "switch";
+    type: 'switch';
 }
 
-export type UnionProperty = DropdownProperty | InputProperty | NumberProperty | SwitchProperty
+export type UnionProperty = DropdownProperty | InputProperty | NumberProperty | SwitchProperty;
