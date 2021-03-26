@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
-export const CARD_VERSION = '0.0.1';
+export const CARD_VERSION = '0.0.2';
 
 export const DEFAULT_CONFIG = {
     hours_to_show: 24,
     severity: 100,
     average_text: '%',
-    title_adaptive_color: true,
-    status_adaptive_color: true,
-    icon_adaptive_color: true,
+    title_adaptive_color: false,
+    status_adaptive_color: false,
+    icon_adaptive_color: false,
 };
 
 export const DEFAULT_COLOR = {

@@ -37,9 +37,9 @@ Uptime card is highly customizable.
 | hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
 | update_interval | number | | v0.0.1 | Set the an interval for the card to update.
 | average_text | string | % | v0.0.2 | Set the average text.
-| title_adaptive_color | boolean | false | v0.0.2 | The title text color is the same as the current status color.
-| status_adaptive_color | boolean | false | v0.0.2 | The status text color is the same as the current status color.
-| icon_adaptive_color | boolean | false | v0.0.2 | The icon color is the same as the current status color.
+| title_adaptive_color | boolean | true (due to an error will be false in v0.0.3) | v0.0.2 | The title text color is the same as the current status color.
+| status_adaptive_color | boolean | true (due to an error will be false in v0.0.3) | v0.0.2 | The status text color is the same as the current status color.
+| icon_adaptive_color | boolean | true (due to an error will be false in v0.0.3) | v0.0.2 | The icon color is the same as the current status color.
 
 ### Bar configuration
 
