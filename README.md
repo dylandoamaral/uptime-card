@@ -8,6 +8,10 @@ A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI 
 
 ## Install  🏠
 
+### HACS (recommended)
+
+This card is available in [HACS](https://hacs.xyz/) (Home Assistant Community Store).
+
 ### Manual install
 
 1. Download and copy `uptime-card.js` from the [latest release](https://github.com/dylandoamaral/uptime-card/releases/latest) into your `config/www` directory.
@@ -19,8 +23,6 @@ A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI 
 ## Configurations ⚙️
 
 Uptime card is highly customizable.
-
-Option from version `v0.0.2` are not available yet since it is the work in progress release.
 
 ### Global configuration
 
@@ -180,14 +182,10 @@ average_text: '% uptime'
 
 ## Roadmap 🗺️
 
-Roadmap for version 0.1.0.
-
-- [ ] Add the card to HACS
-- [ ] Polish code
-- [ ] Polish editor (new swatch input and number input)
+- [X] Add the card to HACS
 - [ ] Clickable card (link to website or show history)
-- [ ] Polish CSS
-- [ ] Add more customizations
+- [ ] Calendar mode
+- [ ] More customizations
 
 ## Additional information ℹ️
 ### Ok and ko options
