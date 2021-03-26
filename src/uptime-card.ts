@@ -62,7 +62,6 @@ export class UptimeCard extends LitElement {
 
   public set hass(hass: HomeAssistant) {
     this._hass = hass;
-    this.sensor = hass.states[this.config.entity];
     this.initialized = true;
     this.updateData();
   }
@@ -129,7 +128,10 @@ export class UptimeCard extends LitElement {
       return;
     }
 
-    const key: string = attribute ? `${entity}z${attribute}` : entity
+    const key: string = attribute ? `${entity}#${attribute}` : entity
+    const status = this.getStatus()
+
+    if (status == undefined) return;
 
     const data: CacheData = await this.getCache(key);
     const now = new Date().getTime()
@@ -138,7 +140,7 @@ export class UptimeCard extends LitElement {
     if (data == undefined) {
       // First time we see the entity
       const lastChanged = new Date(this.sensor.last_changed).getTime();
-      const point = { x: lastChanged, y: this.getStatus() };
+      const point = { x: lastChanged, y: status };
 
       cache = {
         points: [point],
@@ -165,7 +167,7 @@ export class UptimeCard extends LitElement {
         };
       } else {
         const lastChanged = new Date(this.sensor.last_changed).getTime();
-        const point = { x: lastChanged, y: this.getStatus() };
+        const point = { x: lastChanged, y: status };
 
         cache = {
           points: [point],
@@ -280,10 +282,10 @@ export class UptimeCard extends LitElement {
     return colorCss;
   }
 
-  private getStatus(): string {
+  private getStatus(): string | undefined {
     const { attribute } = this.config
     const status = attribute ? this.sensor?.attributes[attribute] : this.sensor?.state
-    return status ? String(status) : "Unknown"
+    return status != undefined ? String(status) : undefined
   }
 
   private async fetchRecent(entity: string, start: Date, end: Date): Promise<Point[]> {
@@ -295,12 +297,15 @@ export class UptimeCard extends LitElement {
     if (attribute == undefined) url += '&minimal_response';
     const result: ApiPoint[][] = await this._hass.callApi('GET', url);
 
-    const points = result[0].map(result => {
-      const status = attribute ? result.attributes[attribute] : result.state
-      return { x: new Date(result.last_changed).getTime(), y: status ? String(status) : status }
+    let points: Point[] = []
+    result[0].forEach(element => {
+      const status = attribute ? element.attributes[attribute] : element.state
+      if (status != undefined) {
+        points.push({ x: new Date(element.last_changed).getTime(), y: String(status) })
+      }
     });
 
-    return points.filter(point => point.y != undefined);
+    return points;
   }
 
   private cleanPoints(points: Point[]): Point[] {
@@ -362,13 +367,14 @@ export class UptimeCard extends LitElement {
   private renderState(): TemplateResult {
     const { alias, show, color, status_adaptive_color } = this.config
 
+    const unknown_status = "Unknown"
     let currentStatus: string;
     if (this.sensor == undefined) {
-      currentStatus = "Unknown"
+      currentStatus = unknown_status
     } else {
       if (this.isOk(this.getStatus()) == true && alias.ok) currentStatus = alias.ok;
       else if (this.isOk(this.getStatus()) == false && alias.ko) currentStatus = alias.ko;
-      else currentStatus = this.getStatus()
+      else currentStatus = this.getStatus() || unknown_status
     }
 
     return show.status ? html`
