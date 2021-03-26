@@ -33,6 +33,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^1.19.1",
     "rollup": "^1.32.1",
     "rollup-plugin-babel": "^4.4.0",
@@ -49,7 +50,8 @@
   "scripts": {
     "start": "rollup -c rollup.config.dev.js --watch",
     "build": "npm run lint && npm run rollup",
-    "lint": "eslint src/*.ts",
-    "rollup": "rollup -c"
+    "check": "eslint src/*.ts --fix",
+    "rollup": "rollup -c",
+    "format": "eslint src/**/*.ts && prettier --config .prettierrc.js 'src/**/*.ts' --write"
   }
 }
