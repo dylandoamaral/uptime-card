@@ -159,7 +159,7 @@ show:
 type: 'custom:uptime-card'
 entity: binary_sensor.ping_google # You can add one of these using https://www.home-assistant.io/integrations/ping/
 icon: 'mdi:heart'
-ko: o
+ko: off
 bar:
   height: 46
   round: 0
@@ -168,11 +168,6 @@ bar:
 show:
   status: false
   icon: false
-color:
-  ok: '#45C669'
-  ko: '#C66445'
-  none: '#C9C9C9'
-  half: '#C6B145'
 title_adaptive_color: true
 hours_to_show: 72
 name: 'https://www.google.com/'
