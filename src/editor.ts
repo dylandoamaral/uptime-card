@@ -83,7 +83,8 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     return html`
       <paper-input
         label=${property.label}
-        .value=${this.getPropertyValue(property) || property.default || ""}
+        placeholder=${property.default || ""}
+        .value=${this.getPropertyValue(property) || ""}
         .configValue=${property.name}
         .configSection=${property.section}
         @value-changed=${this._valueChanged}
@@ -95,11 +96,16 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     return html`
       <paper-input
         label=${property.label}
-        .value=${this.getPropertyValue(property) || property.default || ""}
+        placeholder=${property.default || ""}
+        .value=${this.getPropertyValue(property) || ""}
         .configValue=${property.name}
         .configSection=${property.section}
         .number=${true}
         @value-changed=${this._valueChanged}
+        min=${property.min}
+        max=${property.max}
+        prevent-invalid-input
+        allowed-pattern="^[0-9]+$"
       ></paper-input>
     `
   }
@@ -213,6 +219,24 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             label: "Average text",
             default: DEFAULT_CONFIG.average_text
           },
+          {
+            type: "switch",
+            name: "title_adaptive_color",
+            label: "Adaptive color for title",
+            default: DEFAULT_CONFIG.title_adaptive_color
+          },
+          {
+            type: "switch",
+            name: "status_adaptive_color",
+            label: "Adaptive color for status",
+            default: DEFAULT_CONFIG.status_adaptive_color
+          },
+          {
+            type: "switch",
+            name: "icon_adaptive_color",
+            label: "Adaptive color for icon",
+            default: DEFAULT_CONFIG.icon_adaptive_color
+          },
         ]
       },
       bar: {
@@ -292,6 +316,26 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             section: "color",
             label: "Half's element color",
             default: DEFAULT_COLOR.half
+          },
+          {
+            type: "input",
+            name: "title",
+            section: "color",
+            label: "Title text color",
+            default: DEFAULT_COLOR.title
+          },
+          {
+            type: "input",
+            name: "status",
+            section: "color",
+            label: "Status text color",
+            default: DEFAULT_COLOR.status
+          },
+          {
+            type: "input",
+            name: "icon",
+            section: "color",
+            label: "Icon color",
           },
         ]
       },
