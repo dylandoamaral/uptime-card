@@ -26,7 +26,6 @@ const style = css`
 
     .header {
         justify-content: space-between;
-        padding-bottom: 8px;
     }
 
     .name > span {
@@ -48,10 +47,6 @@ const style = css`
         width: 1.7em;
     }
 
-    .status {
-        padding-bottom: 8px;
-    }
-
     .status > span {
         font-size: 1em;
         font-weight: var(--mcg-title-font-weight, 500);
@@ -60,7 +55,7 @@ const style = css`
     }
 
     .timeline {
-        padding-top: 2px;
+        padding-top: 10px;
         padding-bottom: 0px;
     }
 
