@@ -5,6 +5,7 @@ const style = css`
         display: flex;
         flex-direction: column;
     }
+
     ha-card {
         flex-direction: column;
         flex: 1;
@@ -12,11 +13,9 @@ const style = css`
         position: relative;
         overflow: hidden;
     }
+
     ha-card > div {
-        padding: 0px 16px 16px 16px;
-    }
-    ha-card > div:last-child {
-        padding-bottom: 0;
+        padding: 0px 16px;
     }
 
     .flex {
@@ -27,7 +26,7 @@ const style = css`
 
     .header {
         justify-content: space-between;
-        padding-bottom: 0px;
+        padding-bottom: 8px;
     }
 
     .name > span {
@@ -50,7 +49,7 @@ const style = css`
     }
 
     .status {
-        padding-bottom: 10px;
+        padding-bottom: 8px;
     }
 
     .status > span {
