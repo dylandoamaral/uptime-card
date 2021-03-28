@@ -5,6 +5,7 @@ const style = css`
         display: flex;
         flex-direction: column;
     }
+
     ha-card {
         flex-direction: column;
         flex: 1;
@@ -12,11 +13,9 @@ const style = css`
         position: relative;
         overflow: hidden;
     }
+
     ha-card > div {
-        padding: 0px 16px 16px 16px;
-    }
-    ha-card > div:last-child {
-        padding-bottom: 0;
+        padding: 0px 16px;
     }
 
     .flex {
@@ -27,7 +26,6 @@ const style = css`
 
     .header {
         justify-content: space-between;
-        padding-bottom: 0px;
     }
 
     .name > span {
@@ -49,10 +47,6 @@ const style = css`
         width: 1.7em;
     }
 
-    .status {
-        padding-bottom: 10px;
-    }
-
     .status > span {
         font-size: 1em;
         font-weight: var(--mcg-title-font-weight, 500);
@@ -61,7 +55,7 @@ const style = css`
     }
 
     .timeline {
-        padding-top: 2px;
+        padding-top: 10px;
         padding-bottom: 0px;
     }
 
