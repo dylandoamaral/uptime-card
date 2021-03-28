@@ -323,9 +323,11 @@ export class UptimeCard extends LitElement {
         url += '&minimal_response';
         const result: ApiPoint[][] = await this._hass.callApi('GET', url);
 
-        return result[0].map(result => {
-            return { x: new Date(result.last_changed).getTime(), y: result.state };
-        });
+        return result[0]
+            ? result[0].map(result => {
+                  return { x: new Date(result.last_changed).getTime(), y: result.state };
+              })
+            : [];
     }
 
     private cleanPoints(points: Point[]): Point[] {
