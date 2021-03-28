@@ -8,6 +8,8 @@ A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI 
 
 ## Install  🏠
 
+:warning: Versions 0.X.X are not stable and still have many bugs, don't hesitate to raise an issue if something is wrong with the card or if you have a feature request. Therefore, it will need many updates, until the version 1.0.0, in order to fix as much as possible bugs as fast as possible.
+
 ### HACS (recommended)
 
 This card is available in [HACS](https://hacs.xyz/) (Home Assistant Community Store).
@@ -181,6 +183,30 @@ average_text: '% uptime'
 - [ ] Clickable card (link to website or show history)
 - [ ] Calendar mode
 - [ ] More customizations
+
+## For developers 👨‍💻
+
+If you want to add a feature or fix a bug by yourself, follow these instructions:
+
+1. Inside a home assistant environment, clone the repository into `config/www`.
+
+2. Add the resource reference (https://www.home-assistant.io/lovelace/dashboards-and-views/#resources).
+
+```yaml
+resources:
+  - url: /local/uptime-card/dist/uptime-card.js
+    type: module
+```
+
+3. Install dependencies (requires `nodejs` and `npm`).
+
+4. Start the auto build on save.
+
+```bash
+npm start
+```
+
+5. Make changes.
 
 ## Additional information ℹ️
 ### Ok and ko options
