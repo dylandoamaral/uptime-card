@@ -199,16 +199,21 @@ export class UptimeCard extends LitElement {
      * @param state The current state of the entity.
      */
     private isOk(state?: string): boolean | undefined {
-        const { ok, ko } = this.config;
+        const { ok, ko, entity } = this.config;
 
         if (state == undefined) return undefined;
         else if (ok == state) return true;
         else if (ko == state) return false;
         else {
-            if (ok == undefined && ko == undefined) return undefined;
-            else if (ok == undefined) return true;
-            else if (ko == undefined) return false;
-            return undefined;
+            if (ok == undefined && ko == undefined) {
+                if (entity.startsWith('binary_sensor')) {
+                    if (state == 'on') return true;
+                    else if (state == 'off') return false;
+                    return undefined;
+                }
+                return undefined;
+            } else if (ok == undefined) return true;
+            return false;
         }
     }
 
