@@ -31,12 +31,12 @@ Uptime card is highly customizable.
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
 | entity **required** | string |  | v0.0.1 | Set the binary sensor entity id.
+| ok | string |  | v0.0.1 | Set the state name corresponding to on, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
+| ko | string |  | v0.0.1 | Set the state name corresponding to off, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
+| hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
 | name | string |  | v0.0.1 | Set a custom title to the card.
 | icon | string |  | v0.0.1 | Set a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/).
-| ok **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)** | string |  | v0.0.1 | Set the state name corresponding to on.
-| ko **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)** | string |  | v0.0.1 | Set the state name corresponding to off.
 | severity | number | 100 | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
-| hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
 | update_interval | number | | v0.0.1 | Set the an interval for the card to update.
 | average_text | string | % | v0.0.2 | Set the average text.
 | title_adaptive_color | boolean | true (due to an error will be false in v0.0.3) | v0.0.2 | The title text color is the same as the current status color.
@@ -102,14 +102,6 @@ Uptime card is highly customizable.
 type: 'custom:uptime-card'
 entity: binary_sensor.updater
 icon: 'mdi:raspberry-pi'
-severity: 100
-ok: 'on'
-ko: 'off'
-bar:
-  height: 46
-  round: 1
-  spacing: 4
-  amount: 36
 name: HA update
 alias:
   ok: Update available !
@@ -132,15 +124,12 @@ status_adaptive_color: true
 type: 'custom:uptime-card'
 bar:
   spacing: 4
-  amount: 36
   height: 10
   round: 4
 icon: 'mdi:weather-sunny'
-severity: 100
 entity: sun.sun
 name: Sun
 ko: below_horizon
-hours_to_show: 24
 color:
   ok: '#f9d71c'
   ko: '#053752'
@@ -161,7 +150,6 @@ show:
 type: 'custom:uptime-card'
 entity: binary_sensor.ping_google # You can add one of these using https://www.home-assistant.io/integrations/ping/
 icon: 'mdi:heart'
-ko: off
 bar:
   height: 46
   round: 0
@@ -173,7 +161,6 @@ show:
 title_adaptive_color: true
 hours_to_show: 72
 name: 'https://www.google.com/'
-severity: 100
 average_text: '% uptime'
 ```
 
@@ -183,6 +170,7 @@ average_text: '% uptime'
 - [ ] Clickable card (link to website or show history)
 - [ ] Calendar mode
 - [ ] More customizations
+- [ ] Add tooltip for bars
 
 ## For developers 👨‍💻
 
@@ -211,7 +199,7 @@ npm start
 ## Additional information ℹ️
 ### Ok and ko options
 
-By default, the uptime card will be in `unknown` state because it doesn't know which status correspond to an `ok` signal or a `ko` signal. You can specify it using either `ok` or `ko` options.
+For non binary sensor, the uptime card will be in `unknown` state because it doesn't know which status correspond to an `ok` signal or a `ko` signal. You can specify it using either `ok` or `ko` options.
 
 These options follow the following rules:
 - if ok is not defined and ko is not defined -> `unknown`
@@ -228,7 +216,7 @@ These options follow the following rules:
 
 ### Contribution
 
-Don't hesitate to ask for features or to contribute yourself ⭐.
+Don't hesitate to ask for features or to contribute by yourself ⭐.
 
 ### Inspiration
 
