@@ -39,9 +39,9 @@ Uptime card is highly customizable.
 | severity | number | 100 | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
 | update_interval | number | | v0.0.1 | Set the an interval for the card to update.
 | average_text | string | % | v0.0.2 | Set the average text.
-| title_adaptive_color | boolean | true | v0.0.2 | The title text color is the same as the current status color.
-| status_adaptive_color | boolean | true | v0.0.2 | The status text color is the same as the current status color.
-| icon_adaptive_color | boolean | true | v0.0.2 | The icon color is the same as the current status color.
+| title_adaptive_color | boolean | false | v0.0.2 | The title text color is the same as the current status color.
+| status_adaptive_color | boolean | false | v0.0.2 | The status text color is the same as the current status color.
+| icon_adaptive_color | boolean | false | v0.0.2 | The icon color is the same as the current status color.
 
 ### Bar configuration
 
