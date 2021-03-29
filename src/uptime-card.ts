@@ -52,6 +52,12 @@ export class UptimeCard extends LitElement {
     @internalProperty() private initialized = false;
 
     public set hass(hass: HomeAssistant) {
+        this.cache = {
+            points: [],
+            lastFetched: -1,
+            lastChanged: -1,
+            hoursToShow: this.config?.hours_to_show || DEFAULT_CONFIG.hours_to_show,
+        };
         this._hass = hass;
         this.sensor = hass.states[this.config.entity];
         this.initialized = true;
@@ -112,15 +118,7 @@ export class UptimeCard extends LitElement {
         const { entity, hours_to_show } = this.config;
         this.sensor = this._hass.states[this.config.entity];
 
-        if (this.sensor == undefined) {
-            this.cache = {
-                points: [],
-                lastFetched: -1,
-                lastChanged: -1,
-                hoursToShow: hours_to_show,
-            };
-            return;
-        }
+        if (this.sensor == undefined) return;
 
         const data: CacheData = await this.getCache(entity);
         const now = new Date().getTime();
@@ -206,7 +204,7 @@ export class UptimeCard extends LitElement {
         else if (ko == state) return false;
         else {
             if (ok == undefined && ko == undefined) {
-                if (entity.startsWith('binary_sensor')) {
+                if (entity != undefined && entity.startsWith('binary_sensor')) {
                     if (state == 'on') return true;
                     else if (state == 'off') return false;
                     return undefined;
