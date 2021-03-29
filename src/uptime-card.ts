@@ -49,7 +49,6 @@ export class UptimeCard extends LitElement {
     @internalProperty() private sensor?: HassEntity;
     @internalProperty() private interval!: NodeJS.Timeout;
     @internalProperty() private cache!: CacheData;
-    @internalProperty() private initialized = false;
 
     public set hass(hass: HomeAssistant) {
         this.cache = {
@@ -60,7 +59,7 @@ export class UptimeCard extends LitElement {
         };
         this._hass = hass;
         this.sensor = hass.states[this.config.entity];
-        this.initialized = true;
+
         this.updateData();
     }
 
@@ -79,7 +78,7 @@ export class UptimeCard extends LitElement {
             tap_action: { action: 'more-info' },
         };
 
-        if (this.initialized) this.updateData();
+        this.updateData();
     }
 
     protected shouldUpdate(changedProps: PropertyValues): boolean {
@@ -115,6 +114,8 @@ export class UptimeCard extends LitElement {
      * entity state.
      */
     private async updateData(): Promise<void> {
+        if (this.config == undefined || this._hass == undefined) return;
+
         const { entity, hours_to_show } = this.config;
         this.sensor = this._hass.states[this.config.entity];
 
@@ -124,8 +125,21 @@ export class UptimeCard extends LitElement {
         const now = new Date().getTime();
         let cache: CacheData;
 
-        if (data == undefined) {
-            // First time we see the entity
+        const fetchEverything = data == undefined || data.hoursToShow < hours_to_show;
+        const lastFetched = fetchEverything ? this.getMinimumDate() : data.lastFetched;
+        const fetchedPoints = await this.fetchRecent(entity, new Date(lastFetched), new Date());
+        const points = fetchEverything ? fetchedPoints : [...data.points, ...fetchedPoints];
+        const index = points.findIndex(point => point.x > this.getMinimumDate());
+        const usefulPoints = index == 0 ? points : points.slice(index - 1);
+        const cleanedPoints = this.cleanPoints(usefulPoints);
+        if (cleanedPoints.length > 0) {
+            cache = {
+                points: cleanedPoints,
+                lastFetched: now,
+                lastChanged: cleanedPoints[cleanedPoints.length - 1].x,
+                hoursToShow: hours_to_show,
+            };
+        } else {
             const lastChanged = new Date(this.sensor.last_changed).getTime();
             const point = { x: lastChanged, y: this.sensor.state };
 
@@ -135,37 +149,10 @@ export class UptimeCard extends LitElement {
                 lastChanged: lastChanged,
                 hoursToShow: hours_to_show,
             };
-        } else {
-            // When the state is updated
-            const oldestHistory = data.hoursToShow < hours_to_show;
-            const lastFetched = oldestHistory ? this.getMinimumDate() : data.lastFetched;
-            const fetchedPoints = await this.fetchRecent(entity, new Date(lastFetched), new Date());
-            const points = oldestHistory ? fetchedPoints : [...data.points, ...fetchedPoints];
-            const index = points.findIndex(point => point.x > this.getMinimumDate());
-            const usefulPoints = index == 0 ? points : points.slice(index - 1);
-            const cleanedPoints = this.cleanPoints(usefulPoints);
-
-            if (cleanedPoints.length > 0) {
-                cache = {
-                    points: cleanedPoints,
-                    lastFetched: now,
-                    lastChanged: cleanedPoints[cleanedPoints.length - 1].x,
-                    hoursToShow: hours_to_show,
-                };
-            } else {
-                const lastChanged = new Date(this.sensor.last_changed).getTime();
-                const point = { x: lastChanged, y: this.sensor.state };
-
-                cache = {
-                    points: [point],
-                    lastFetched: now,
-                    lastChanged: lastChanged,
-                    hoursToShow: hours_to_show,
-                };
-            }
         }
 
         await this.setCache(entity, cache);
+
         this.cache = cache;
     }
 
