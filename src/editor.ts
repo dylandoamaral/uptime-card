@@ -167,9 +167,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         if (this._helpers === undefined) return;
         this._initialized = true;
 
-        const entities = Object.keys(this.hass.states).filter(
-            eid => eid.substr(0, eid.indexOf('.')) === 'binary_sensor',
-        );
+        const entities = Object.keys(this.hass.states);
 
         this.options = {
             mandatory: {
