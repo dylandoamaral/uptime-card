@@ -50,19 +50,21 @@ export class UptimeCard extends LitElement {
     @internalProperty() private interval!: NodeJS.Timeout;
     @internalProperty() private cache!: CacheData;
 
+    /**
+     * Called when the state of Home Assistant changes (frequent).
+     * @param config The new hass.
+     */
     public set hass(hass: HomeAssistant) {
-        this.cache = {
-            points: [],
-            lastFetched: -1,
-            lastChanged: -1,
-            hoursToShow: this.config?.hours_to_show || DEFAULT_CONFIG.hours_to_show,
-        };
         this._hass = hass;
         this.sensor = hass.states[this.config.entity];
 
         this.updateData();
     }
 
+    /**
+     * Called when the configuration change (rare).
+     * @param config The new config.
+     */
     public setConfig(config: CardConfig): void {
         if (!config) {
             throw new Error('Invalid configuration !');
@@ -110,8 +112,7 @@ export class UptimeCard extends LitElement {
 
     /**
      * Update the cache to retrieve needed point either from home assistant API
-     * https://developers.home-assistant.io/docs/api/rest/ or from hass current
-     * entity state.
+     * https://developers.home-assistant.io/docs/api/rest/
      */
     private async updateData(): Promise<void> {
         if (this.config == undefined || this._hass == undefined) return;
@@ -122,16 +123,28 @@ export class UptimeCard extends LitElement {
         if (this.sensor == undefined) return;
 
         const data: CacheData = await this.getCache(entity);
+
+        if (data != undefined) this.cache = data;
+
         const now = new Date().getTime();
         let cache: CacheData;
 
         const fetchEverything = data == undefined || data.hoursToShow < hours_to_show;
         const lastFetched = fetchEverything ? this.getMinimumDate() : data.lastFetched;
-        const fetchedPoints = await this.fetchRecent(entity, new Date(lastFetched), new Date());
+
+        const from_date = new Date(lastFetched);
+        const to_date = new Date();
+
+        // To avoid to many API requests we limit the fetching
+        // to a maximum of one time every 10 seconds
+        if (to_date.getTime() - from_date.getTime() < 10000) return;
+
+        const fetchedPoints = await this.fetchRecent(entity, from_date, to_date);
         const points = fetchEverything ? fetchedPoints : [...data.points, ...fetchedPoints];
         const index = points.findIndex(point => point.x > this.getMinimumDate());
         const usefulPoints = index == 0 ? points : points.slice(index - 1);
         const cleanedPoints = this.cleanPoints(usefulPoints);
+
         if (cleanedPoints.length > 0) {
             cache = {
                 points: cleanedPoints,
@@ -224,9 +237,12 @@ export class UptimeCard extends LitElement {
      * @param period The period to extract repartition from.
      */
     private findBarRepartition(period: Period): Repartition {
+        const noneRepartition: Repartition = { ok: 0, ko: 0, none: 100 };
+
+        if (this.cache == undefined) return noneRepartition;
+
         const firstPoint = this.cache.points.findIndex(point => point.x >= period.from);
         const lastPoint = this.cache.points.findIndex(point => point.x > period.to);
-        const noneRepartition: Repartition = { ok: 0, ko: 0, none: 100 };
 
         let usefulPoints: Point[];
 
