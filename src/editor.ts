@@ -94,7 +94,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             <paper-input
                 label=${property.label}
                 placeholder=${property.default || ''}
-                .value=${this.getPropertyValue(property) || ''}
+                .value=${this.getPropertyValue(property)}
                 .configValue=${property.name}
                 .configSection=${property.section}
                 @value-changed=${this._valueChanged}
@@ -107,7 +107,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             <paper-input
                 label=${property.label}
                 placeholder=${property.default || ''}
-                .value=${this.getPropertyValue(property) || ''}
+                .value=${this.getPropertyValue(property)}
                 .configValue=${property.name}
                 .configSection=${property.section}
                 .number=${true}
@@ -121,11 +121,16 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     private renderSwitchProperty(property: SwitchProperty): TemplateResult {
+        const checked = this.getPropertyValue(property);
         return html`
             <br />
             <ha-formfield .label=${property.label}>
                 <ha-switch
-                    .checked=${this.getPropertyValue(property) || property.default || false}
+                    .checked=${checked != undefined
+                        ? checked
+                        : property.default != undefined
+                        ? property.default
+                        : false}
                     .configValue=${property.name}
                     .configSection=${property.section}
                     @change=${this._valueChanged}
