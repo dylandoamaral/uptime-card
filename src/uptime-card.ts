@@ -27,9 +27,9 @@ import {
     DEFAULT_TOOLTIP,
 } from './const';
 import style from './style';
-import { ApiPoint, CacheData, Period, Point, Repartition, BarData } from './types/card';
+import { ApiPoint, BarData, CacheData, Period, Point, Repartition } from './types/card';
 import { CardConfig } from './types/config';
-import { unwrap, wrap, template } from './utils';
+import { template, unwrap, wrap } from './utils';
 
 /* eslint no-console: 0 */
 console.info(`%c Uptime card version ${CARD_VERSION} `, 'color: orange; font-weight: bold; background: black');
@@ -432,7 +432,7 @@ export class UptimeCard extends LitElement {
     }
 
     private renderTooltip(): TemplateResult {
-        const { hours_to_show, tooltip, show } = this.config;
+        const { hours_to_show, tooltip } = this.config;
         if (this.tooltip == undefined) return html``;
         const locale = this._hass.language || 'en-US';
         const hourOption = {
@@ -537,8 +537,8 @@ export class UptimeCard extends LitElement {
             height=${height}
             width=${width}
             fill=${color}
-            @mouseover=${() => (this.tooltip = data)}
-            @mouseout=${() => (this.tooltip = undefined)}>
+            @mouseover=${(): BarData => (this.tooltip = data)}
+            @mouseout=${(): undefined => (this.tooltip = undefined)}>
         ></rect>`;
     }
 
