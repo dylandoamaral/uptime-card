@@ -61,7 +61,6 @@ const style = css`
 
     .status > .tooltip {
         font-size: 0.8em;
-        color: grey;
     }
 
     .bar {

@@ -8,6 +8,7 @@ export const DEFAULT_CONFIG = {
     title_adaptive_color: false,
     status_adaptive_color: false,
     icon_adaptive_color: false,
+    tooltip_adaptive_color: false,
 };
 
 export const DEFAULT_COLOR = {
@@ -17,11 +18,12 @@ export const DEFAULT_COLOR = {
     none: '#C9C9C9',
     title: 'grey',
     status: 'gray',
+    tooltip: 'grey',
 };
 
 export const DEFAULT_SHOW = {
     header: true,
-    name: true,
+    title: true,
     icon: true,
     status: true,
     timeline: true,

@@ -385,16 +385,16 @@ export class UptimeCard extends LitElement {
         return show.header
             ? html`
                   <div class="header flex">
-                      ${this.renderName()} ${this.renderIcon()}
+                      ${this.renderTitle()} ${this.renderIcon()}
                   </div>
               `
             : '';
     }
 
-    private renderName(): TemplateResult {
+    private renderTitle(): TemplateResult {
         const { name, color, title_adaptive_color, show } = this.config;
 
-        return show.name
+        return show.title
             ? html`
                   <div class="name">
                       <span style=${this.getCssColor(title_adaptive_color, color.title)}>${name}</span>
@@ -425,6 +425,7 @@ export class UptimeCard extends LitElement {
             else if (this.isOk(this.sensor.state) == undefined) currentStatus = 'Unknown';
             else currentStatus = this.sensor.state;
         }
+        console.log();
 
         return html`
             <span style=${this.getCssColor(status_adaptive_color, color.status)}>${currentStatus}</span>
@@ -432,7 +433,7 @@ export class UptimeCard extends LitElement {
     }
 
     private renderTooltip(): TemplateResult {
-        const { hours_to_show, tooltip } = this.config;
+        const { hours_to_show, tooltip, tooltip_adaptive_color, color } = this.config;
         if (this.tooltip == undefined) return html``;
         const locale = this._hass.language || 'en-US';
         const hourOption = {
@@ -456,8 +457,16 @@ export class UptimeCard extends LitElement {
             '${average}': average,
         });
 
+        let textColor: string = color.tooltip;
+        if (tooltip_adaptive_color) {
+            if (this.tooltip.repartition.ok == 100) textColor = color.ok;
+            else if (this.tooltip.repartition.ko == 100) textColor = color.ko;
+            else if (this.tooltip.repartition.none == 100) textColor = color.none;
+            else textColor = color.half;
+        }
+
         return html`
-            <span class="tooltip">${text}</span>
+            <span class="tooltip" style="color: ${textColor};">${text}</span>
         `;
     }
 

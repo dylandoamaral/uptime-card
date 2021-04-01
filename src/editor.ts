@@ -256,6 +256,12 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         label: 'Adaptive color for icon',
                         default: DEFAULT_CONFIG.icon_adaptive_color,
                     },
+                    {
+                        type: 'switch',
+                        name: 'tooltip_adaptive_color',
+                        label: 'Adaptive color for tooltip',
+                        default: DEFAULT_CONFIG.tooltip_adaptive_color,
+                    },
                 ],
             },
             bar: {
@@ -356,6 +362,13 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         section: 'color',
                         label: 'Icon color',
                     },
+                    {
+                        type: 'input',
+                        name: 'tooltip',
+                        section: 'color',
+                        label: 'Tooltip text color',
+                        default: DEFAULT_COLOR.tooltip,
+                    },
                 ],
             },
             show: {
@@ -373,10 +386,10 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                     },
                     {
                         type: 'switch',
-                        name: 'name',
+                        name: 'title',
                         section: 'show',
-                        label: 'Toggle name',
-                        default: DEFAULT_SHOW.name,
+                        label: 'Toggle title',
+                        default: DEFAULT_SHOW.title,
                     },
                     {
                         type: 'switch',
