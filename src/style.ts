@@ -31,8 +31,6 @@ const style = css`
     .name > span {
         font-size: 1.2em;
         font-weight: var(--mcg-title-font-weight, 500);
-        max-height: 1.4em;
-        min-height: 1.4em;
     }
 
     .icon {
@@ -47,11 +45,29 @@ const style = css`
         width: 1.7em;
     }
 
+    .status {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align_items: flex-end;
+    }
+
     .status > span {
         font-size: 1em;
         font-weight: var(--mcg-title-font-weight, 500);
         max-height: 1em;
         min-height: 1em;
+    }
+
+    .status > .tooltip {
+        font-size: 0.8em;
+        color: grey;
+    }
+
+    .bar {
+        transition-property: height y;
+        transition-duration: 0.3s;
+        transition-timing-function: ease;
     }
 
     .timeline {

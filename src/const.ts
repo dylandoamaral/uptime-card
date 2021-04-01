@@ -21,6 +21,8 @@ export const DEFAULT_COLOR = {
 
 export const DEFAULT_SHOW = {
     header: true,
+    information: true,
+    name: true,
     icon: true,
     status: true,
     timeline: true,
@@ -33,6 +35,12 @@ export const DEFAULT_BAR = {
     round: 1,
     spacing: 4,
     amount: 36,
+};
+
+export const DEFAULT_TOOLTIP = {
+    hour24: false,
+    template: '${from_date} - ${to_date} | ${average}%',
+    animation: true,
 };
 
 export const DEFAULT_ICON = 'mdi:heart';

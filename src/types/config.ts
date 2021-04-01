@@ -2,6 +2,7 @@ import { LovelaceCardConfig } from 'custom-card-helpers';
 
 interface ShowConfig {
     header: boolean;
+    name: boolean;
     icon: boolean;
     status: boolean;
     timeline: boolean;
@@ -31,6 +32,12 @@ interface BarConfig {
     amount: number;
 }
 
+interface TooltipConfig {
+    hour24: boolean;
+    template: string;
+    animation: boolean;
+}
+
 // Snake case here to respect Yaml home assistant
 export interface CardConfig extends LovelaceCardConfig {
     type: string;
@@ -50,4 +57,5 @@ export interface CardConfig extends LovelaceCardConfig {
     alias: AliasConfig;
     show: ShowConfig;
     bar: BarConfig;
+    tooltip: TooltipConfig;
 }

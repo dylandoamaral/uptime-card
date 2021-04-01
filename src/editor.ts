@@ -12,7 +12,7 @@ import {
     TemplateResult,
 } from 'lit-element';
 
-import { DEFAULT_BAR, DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_ICON, DEFAULT_SHOW } from './const';
+import { DEFAULT_BAR, DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_ICON, DEFAULT_SHOW, DEFAULT_TOOLTIP } from './const';
 import { CardConfig } from './types/config';
 import {
     DropdownProperty,
@@ -373,6 +373,13 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                     },
                     {
                         type: 'switch',
+                        name: 'name',
+                        section: 'show',
+                        label: 'Toggle name',
+                        default: DEFAULT_SHOW.name,
+                    },
+                    {
+                        type: 'switch',
                         name: 'icon',
                         section: 'show',
                         label: 'Toggle icon',
@@ -425,6 +432,35 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         name: 'ko',
                         section: 'alias',
                         label: 'Alias for Ko status',
+                    },
+                ],
+            },
+            tooltip: {
+                icon: 'tooltip-text',
+                name: 'Tooltip elements',
+                description: 'Handle tooltip information',
+                show: false,
+                properties: [
+                    {
+                        type: 'switch',
+                        name: 'hour24',
+                        section: 'tooltip',
+                        label: 'Set to true to display times in 24-hour format.',
+                        default: DEFAULT_TOOLTIP.hour24,
+                    },
+                    {
+                        type: 'switch',
+                        name: 'animation',
+                        section: 'tooltip',
+                        label: 'Set to true to show the animation.',
+                        default: DEFAULT_TOOLTIP.animation,
+                    },
+                    {
+                        type: 'input',
+                        name: 'template',
+                        section: 'tooltip',
+                        label: 'Template of the tooltip.',
+                        default: DEFAULT_TOOLTIP.template,
                     },
                 ],
             },

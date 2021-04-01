@@ -17,11 +17,19 @@ import {
 } from 'lit-element';
 import localForage from 'localforage/src/localforage';
 
-import { CARD_VERSION, DEFAULT_BAR, DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_ICON, DEFAULT_SHOW } from './const';
+import {
+    CARD_VERSION,
+    DEFAULT_BAR,
+    DEFAULT_COLOR,
+    DEFAULT_CONFIG,
+    DEFAULT_ICON,
+    DEFAULT_SHOW,
+    DEFAULT_TOOLTIP,
+} from './const';
 import style from './style';
-import { ApiPoint, CacheData, Period, Point, Repartition } from './types/card';
+import { ApiPoint, CacheData, Period, Point, Repartition, BarData } from './types/card';
 import { CardConfig } from './types/config';
-import { unwrap, wrap } from './utils';
+import { unwrap, wrap, template } from './utils';
 
 /* eslint no-console: 0 */
 console.info(`%c Uptime card version ${CARD_VERSION} `, 'color: orange; font-weight: bold; background: black');
@@ -49,6 +57,7 @@ export class UptimeCard extends LitElement {
     @internalProperty() private sensor?: HassEntity;
     @internalProperty() private interval!: NodeJS.Timeout;
     @internalProperty() private cache!: CacheData;
+    @internalProperty() private tooltip?: BarData;
 
     /**
      * Called when the state of Home Assistant changes (frequent).
@@ -77,6 +86,7 @@ export class UptimeCard extends LitElement {
             alias: { ...config.alias },
             show: { ...DEFAULT_SHOW, ...config.show },
             bar: { ...DEFAULT_BAR, ...config.bar },
+            tooltip: { ...DEFAULT_TOOLTIP, ...config.tooltip },
             tap_action: { action: 'more-info' },
         };
 
@@ -355,15 +365,16 @@ export class UptimeCard extends LitElement {
     protected render(): TemplateResult {
         const { bar } = this.config;
 
-        const repartitions = [...Array(bar.amount).keys()].map((_, idx) => {
+        const barData = [...Array(bar.amount).keys()].map((_, idx) => {
             const period = this.findBarPeriod(idx);
-            return this.findBarRepartition(period);
+            const repartition = this.findBarRepartition(period);
+            return { period: period, repartition: repartition, index: idx };
         });
 
         return html`
             <ha-card class="flex">
-                ${this.renderHeader()} ${this.renderState()} ${this.renderTimeline(repartitions)}
-                ${this.renderFooter(repartitions)}
+                ${this.renderHeader()} ${this.renderStatus()} ${this.renderTimeline(barData)}
+                ${this.renderFooter(barData.map(data => data.repartition))}
             </ha-card>
         `;
     }
@@ -381,17 +392,29 @@ export class UptimeCard extends LitElement {
     }
 
     private renderName(): TemplateResult {
-        const { name, color, title_adaptive_color } = this.config;
+        const { name, color, title_adaptive_color, show } = this.config;
 
-        return html`
-            <div class="name">
-                <span style=${this.getCssColor(title_adaptive_color, color.title)}>${name}</span>
-            </div>
-        `;
+        return show.name
+            ? html`
+                  <div class="name">
+                      <span style=${this.getCssColor(title_adaptive_color, color.title)}>${name}</span>
+                  </div>
+              `
+            : html``;
     }
 
+    private renderStatus(): TemplateResult {
+        const { show } = this.config;
+        return show.status
+            ? html`
+                  <div class="status">
+                      ${this.renderState()} ${this.renderTooltip()}
+                  </div>
+              `
+            : html``;
+    }
     private renderState(): TemplateResult {
-        const { alias, show, color, status_adaptive_color } = this.config;
+        const { alias, color, status_adaptive_color } = this.config;
 
         let currentStatus: string;
         if (this.sensor == undefined) {
@@ -403,13 +426,39 @@ export class UptimeCard extends LitElement {
             else currentStatus = this.sensor.state;
         }
 
-        return show.status
-            ? html`
-                  <div class="status">
-                      <span style=${this.getCssColor(status_adaptive_color, color.status)}>${currentStatus}</span>
-                  </div>
-              `
-            : html``;
+        return html`
+            <span style=${this.getCssColor(status_adaptive_color, color.status)}>${currentStatus}</span>
+        `;
+    }
+
+    private renderTooltip(): TemplateResult {
+        const { hours_to_show, tooltip, show } = this.config;
+        if (this.tooltip == undefined) return html``;
+        const locale = this._hass.language || 'en-US';
+        const hourOption = {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: tooltip.hour24 == false,
+        };
+        const dayOption = {
+            ...hourOption,
+            weekday: 'short',
+            day: 'numeric',
+        };
+        const fromOption = hours_to_show < 24 ? hourOption : dayOption;
+        const fromDate = new Date(this.tooltip.period.from).toLocaleString(locale, fromOption);
+        const toDate = new Date(this.tooltip.period.to).toLocaleString(locale, hourOption);
+        const average = this.tooltip.repartition.ok.toFixed(2);
+
+        const text = template(tooltip.template, {
+            '${from_date}': fromDate,
+            '${to_date}': toDate,
+            '${average}': average,
+        });
+
+        return html`
+            <span class="tooltip">${text}</span>
+        `;
     }
 
     private renderIcon(): TemplateResult | string {
@@ -425,8 +474,11 @@ export class UptimeCard extends LitElement {
             : '';
     }
 
-    private renderTimeline(repartitions: Repartition[]): TemplateResult | string {
-        const { show, color, bar, severity } = this.config;
+    private renderTimeline(barData: BarData[]): TemplateResult | string {
+        const { show, color, bar, severity, tooltip } = this.config;
+
+        const offset = 5;
+        const height = bar.height + offset;
         const width = 500;
         const spacingTotalWidth = bar.spacing * (bar.amount - 1);
         const barWidth = Math.floor((width - spacingTotalWidth) / bar.amount);
@@ -434,26 +486,32 @@ export class UptimeCard extends LitElement {
 
         if (show.timeline == false) return '';
 
-        const bars = repartitions.map((repartition, idx) => {
+        const bars = barData.map((data, idx) => {
             let barColor: string;
-            if (repartition.none == 100) barColor = color.none;
-            else if (repartition.ok == 100) barColor = color.ok;
-            else if (repartition.ko >= severity) barColor = color.ko;
+            if (data.repartition.none == 100) barColor = color.none;
+            else if (data.repartition.ok == 100) barColor = color.ok;
+            else if (data.repartition.ko >= severity) barColor = color.ko;
             else barColor = color.half;
+
+            const shouldNotBeSelected =
+                this.tooltip?.index != idx || show.status == false || tooltip.animation == false;
+            const height = shouldNotBeSelected ? bar.height : bar.height + offset;
+            const y = shouldNotBeSelected ? offset : 0;
 
             return this.renderBar(
                 idx * (barWidth + bar.spacing) + leftTotalWidth / 2,
-                0,
+                y,
                 barWidth,
-                bar.height,
+                height,
                 barColor,
                 bar.round,
+                data,
             );
         });
 
         return html`
             <div class="timeline">
-                <svg width="100%" height="100%" } viewBox="0 0 ${width} ${bar.height}">
+                <svg width="100%" height="100%" } viewBox="0 0 ${width} ${height}">
                     ${bars}
                 </svg>
             </div>
@@ -467,23 +525,27 @@ export class UptimeCard extends LitElement {
         height: number,
         color: string,
         round: number,
+        data: BarData,
     ): TemplateResult {
-        return svg`<rect
-      class='bar'
-      x=${x}
-      y=${y}
-      rx=${round}
-      ry=${round}
-      height=${height}
-      width=${width}
-      fill=${color}
-    ></rect>`;
+        return svg`
+        <rect
+            class='bar'
+            x=${x}
+            y=${y}
+            rx=${round}
+            ry=${round}
+            height=${height}
+            width=${width}
+            fill=${color}
+            @mouseover=${() => (this.tooltip = data)}
+            @mouseout=${() => (this.tooltip = undefined)}>
+        ></rect>`;
     }
 
     private renderFooter(repartitions: Repartition[]): TemplateResult {
         const { show } = this.config;
 
-        return show.footer
+        return show.footer && show.timeline
             ? html`
                   <div class="footer">
                       <div class="footer-text">${this.generateMinimalDate()}</div>
