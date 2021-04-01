@@ -99,8 +99,8 @@ Uptime card is highly customizable.
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| hour24 | boolean | true | v0.1.0 | Set to true to display times in 24-hour format.
-| template | string | `${from_date} - ${to_date} | ${average}%` | v0.0.1 | Set a template format of the tooltip.
+| hour24 | boolean | false | v0.1.0 | Set to true to display times in 24-hour format.
+| template | string | `${from_date} - ${to_date} | ${average}%` | v0.1.0 | Set a template format of the tooltip.
 | animation | boolean | true | v0.1.0 | Set to true to show bar animation on hover.
 
 For the template, available interpolations are:
