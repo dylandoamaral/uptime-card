@@ -27,3 +27,9 @@ export interface CacheData {
     lastChanged: number;
     hoursToShow: number;
 }
+
+export interface BarData {
+    period: Period;
+    repartition: Repartition;
+    index: number;
+}

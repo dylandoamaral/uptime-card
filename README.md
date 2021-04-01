@@ -42,6 +42,7 @@ Uptime card is highly customizable.
 | title_adaptive_color | boolean | false | v0.0.2 | The title text color is the same as the current status color.
 | status_adaptive_color | boolean | false | v0.0.2 | The status text color is the same as the current status color.
 | icon_adaptive_color | boolean | false | v0.0.2 | The icon color is the same as the current status color.
+| tooltip_adaptive_color | boolean | false | v0.1.0 | The tooltip text color is the same as the selected bar color.
 
 ### Bar configuration
 
@@ -67,6 +68,7 @@ Uptime card is highly customizable.
 | title | color | grey | v0.0.2 | Set the title text color, title_adaptive_color must be false.
 | status | color | gray | v0.0.2 | Set the status text color, status_adaptive_color must be false.
 | icon | color | | v0.0.2 | Set the icon text color, icon_adaptive_color must be false.
+| tooltip | color | grey | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
 
 ### Show configuration
 
@@ -75,6 +77,7 @@ Uptime card is highly customizable.
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
 | header | boolean | true | v0.0.1 | Show the header.
+| title | boolean | true | v0.1.0 | Show the title.
 | icon | boolean | true | v0.0.1 | Show the icon.
 | status | boolean | true | v0.0.1 | Show the status.
 | timeline | boolean | true | v0.0.1 | Show the timeline.
@@ -89,6 +92,21 @@ Uptime card is highly customizable.
 |------|:----:|:-------:|:-----:|-------------|
 | ok | string | | v0.0.1 | Set a friendly name for ok state.
 | ko | string | | v0.0.1 | Set a friendly name for ko state.
+
+### Tooltip configuration
+
+**Parent key:** tooltip
+
+| Name | Type | Default | Since | Description |
+|------|:----:|:-------:|:-----:|-------------|
+| hour24 | boolean | false | v0.1.0 | Set to true to display times in 24-hour format.
+| template | string | `${from_date} - ${to_date} | ${average}%` | v0.1.0 | Set a template format of the tooltip.
+| animation | boolean | true | v0.1.0 | Set to true to show bar animation on hover.
+
+For the template, available interpolations are:
+- `${from_date}`: the start date of the bar.
+- `${to_date}`: the end date of the bar.
+- `${average}`: the percentage of `on` during the period.
 
 ## Example 📊
 
