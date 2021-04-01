@@ -425,7 +425,6 @@ export class UptimeCard extends LitElement {
             else if (this.isOk(this.sensor.state) == undefined) currentStatus = 'Unknown';
             else currentStatus = this.sensor.state;
         }
-        console.log();
 
         return html`
             <span style=${this.getCssColor(status_adaptive_color, color.status)}>${currentStatus}</span>
