@@ -106,7 +106,7 @@ Uptime card is highly customizable.
 For the template, available interpolations are:
 - `${from_date}`: the start date of the bar.
 - `${to_date}`: the end date of the bar.
-- `${average}`: the percentage of on during the period.
+- `${average}`: the percentage of `on` during the period.
 
 ## Example 📊
 
