@@ -21,7 +21,6 @@ export const DEFAULT_COLOR = {
 
 export const DEFAULT_SHOW = {
     header: true,
-    information: true,
     name: true,
     icon: true,
     status: true,
