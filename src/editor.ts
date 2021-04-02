@@ -234,6 +234,12 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                     },
                     {
                         type: 'input',
+                        name: 'status_template',
+                        label: 'The template of the status',
+                        default: DEFAULT_CONFIG.status_template,
+                    },
+                    {
+                        type: 'input',
                         name: 'average_text',
                         label: 'Average text',
                         default: DEFAULT_CONFIG.average_text,
