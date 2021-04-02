@@ -33,7 +33,7 @@ Uptime card is highly customizable.
 | entity **required** | string |  | v0.0.1 | Set the binary sensor entity id.
 | ok | string |  | v0.0.1 | Set the state name corresponding to on, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
 | ko | string |  | v0.0.1 | Set the state name corresponding to off, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
-| status_template | string | [[ current ]] | v0.1.0 | Set the template for the status **[for more information](https://github.com/dylandoamaral/uptime-card#template)**.
+| status_template | string | [[ current ]] | v0.1.0 | Set the template for the status **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
 | hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
 | name | string |  | v0.0.1 | Set a custom title to the card.
 | icon | string |  | v0.0.1 | Set a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/).
