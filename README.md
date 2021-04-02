@@ -264,14 +264,14 @@ By default each templates have his own interpolations.
 
 The status have the following interpolation:
 - `[[ current ]]`: the current status.
-- `[[ ok ]]|: the ok status.
+- `[[ ok ]]`: the ok status.
 - `[[ ko ]]`: the the ko status.
 
 #### Tooltip
 
 The tooltip have the following interpolation:
 - `[[ from_date ]]`: the start date of the bar.
-- `[[ to_date ]]|: the end date of the bar.
+- `[[ to_date ]]`: the end date of the bar.
 - `[[ average ]]`: the percentage of `on` during the period.
 
 #### Example
