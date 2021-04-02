@@ -14,7 +14,7 @@ export const unwrap = (object: string): any => JSON.parse(object);
  * @param sensor The current card sensor.
  */
 export const template = (template: string, variables: { [id: string]: string }, sensor?: HassEntity): string => {
-    const regex: RegExp = /\[\[ ([a-zA-Z0-9_.-]*) \]\]/g;
+    const regex = /\[\[ ([a-zA-Z0-9_.-]*) \]\]/g;
     const potentialInterpolations = [...template.matchAll(regex)].map(values => values[1]);
 
     if (potentialInterpolations == undefined) return template;
