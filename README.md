@@ -276,9 +276,9 @@ The tooltip have the following interpolation:
 
 #### Example
 
-I can combine all of them to create a sentence for exemple for status of a `sun.sun` entity:
+I can combine all of them to create a sentence.
 
-I can specify the following template: `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` and it will print `Sun is Above Horizon` (If the sensor is in ok state and if the alias is `Above Horizon`).
+As an example, for status of a `sun.sun` entity, I can specify the following template: `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` and it will print `Sun is Above Horizon` (If the sensor is in ok state and if the alias is `Above Horizon`).
 
 ### Contribution
 
