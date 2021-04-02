@@ -5,6 +5,7 @@ export const DEFAULT_CONFIG = {
     hours_to_show: 24,
     severity: 100,
     average_text: '%',
+    status_template: '[[ current ]]',
     title_adaptive_color: false,
     status_adaptive_color: false,
     icon_adaptive_color: false,
@@ -40,7 +41,7 @@ export const DEFAULT_BAR = {
 
 export const DEFAULT_TOOLTIP = {
     hour24: false,
-    template: '${from_date} - ${to_date} | ${average}%',
+    template: '[[ from_date ]] - [[ to_date ]] | [[ average ]]%',
     animation: true,
 };
 

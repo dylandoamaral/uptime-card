@@ -405,6 +405,7 @@ export class UptimeCard extends LitElement {
 
     private renderStatus(): TemplateResult {
         const { show } = this.config;
+
         return show.status
             ? html`
                   <div class="status">
@@ -414,7 +415,7 @@ export class UptimeCard extends LitElement {
             : html``;
     }
     private renderState(): TemplateResult {
-        const { alias, color, status_adaptive_color } = this.config;
+        const { alias, color, status_adaptive_color, status_template, ok, ko } = this.config;
 
         let currentStatus: string;
         if (this.sensor == undefined) {
@@ -426,8 +427,18 @@ export class UptimeCard extends LitElement {
             else currentStatus = this.sensor.state;
         }
 
+        const text = template(
+            status_template,
+            {
+                current: currentStatus,
+                ok: alias.ok || ok || '[[ ok ]]',
+                ko: alias.ko || ko || '[[ ko ]]',
+            },
+            this.sensor,
+        );
+
         return html`
-            <span style=${this.getCssColor(status_adaptive_color, color.status)}>${currentStatus}</span>
+            <span style=${this.getCssColor(status_adaptive_color, color.status)}>${text}</span>
         `;
     }
 
@@ -450,11 +461,15 @@ export class UptimeCard extends LitElement {
         const toDate = new Date(this.tooltip.period.to).toLocaleString(locale, hourOption);
         const average = this.tooltip.repartition.ok.toFixed(2);
 
-        const text = template(tooltip.template, {
-            '${from_date}': fromDate,
-            '${to_date}': toDate,
-            '${average}': average,
-        });
+        const text = template(
+            tooltip.template,
+            {
+                from_date: fromDate,
+                to_date: toDate,
+                average: average,
+            },
+            this.sensor,
+        );
 
         let textColor: string = color.tooltip;
         if (tooltip_adaptive_color) {

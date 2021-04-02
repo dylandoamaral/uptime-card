@@ -33,6 +33,7 @@ Uptime card is highly customizable.
 | entity **required** | string |  | v0.0.1 | Set the binary sensor entity id.
 | ok | string |  | v0.0.1 | Set the state name corresponding to on, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
 | ko | string |  | v0.0.1 | Set the state name corresponding to off, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
+| status_template | string | [[ current ]] | v0.1.0 | Set the template for the status **[for more information](https://github.com/dylandoamaral/uptime-card#template)**.
 | hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
 | name | string |  | v0.0.1 | Set a custom title to the card.
 | icon | string |  | v0.0.1 | Set a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/).
@@ -100,13 +101,9 @@ Uptime card is highly customizable.
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
 | hour24 | boolean | false | v0.1.0 | Set to true to display times in 24-hour format.
-| template | string | `${from_date} - ${to_date} | ${average}%` | v0.1.0 | Set a template format of the tooltip.
+| template | string | `[[ from_date ]] - [[ to_date ]] | [[ average ]]%` | v0.1.0 | Set the template for the tooltip **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
 | animation | boolean | true | v0.1.0 | Set to true to show bar animation on hover.
 
-For the template, available interpolations are:
-- `${from_date}`: the start date of the bar.
-- `${to_date}`: the end date of the bar.
-- `${average}`: the percentage of `on` during the period.
 
 ## Example 📊
 
@@ -184,11 +181,9 @@ average_text: '% uptime'
 
 ## Roadmap 🗺️
 
-- [X] Add the card to HACS
-- [ ] Clickable card (link to website or show history)
-- [ ] Calendar mode
-- [ ] More customizations
-- [ ] Add tooltip for bars
+- Clickable card (link to website or show history)
+- Calendar mode
+- More customizations
 
 ## For developers 👨‍💻
 
@@ -231,6 +226,54 @@ These options follow the following rules:
   - if the state name equals ok -> `ok`
   - if the state name equals ko -> `ko`
   - if not -> `unknown`
+
+## Templating
+
+It is possible to apply templates for status and tooltip. It allows you to customize the text of these inputs according to a particul template.
+
+Generally speaking, template allows you to print either current values from the sensor or special variables only available either for the status or the tooltip.
+
+Either general or specific interpolations exist using `[[ my.key ]]`.
+
+### Generic interpolations
+
+By default for both status and tooltip you can print sensor data.
+
+For example, if we are currently using the sensor `sun.sun`, I have the following attributes:
+
+```
+next_dawn: 2021-04-03T04:35:43+00:00
+next_dusk: 2021-04-02T18:49:59+00:00
+next_midnight: 2021-04-02T23:43:38+00:00
+next_noon: 2021-04-02T11:44:03+00:00
+next_rising: 2021-04-03T05:10:32+00:00
+next_setting: 2021-04-02T18:15:16+00:00
+elevation: 38.83
+azimuth: 148.33
+rising: true
+friendly_name: Sun
+```
+
+I can for example print the friendly_name using `[[ sun.sun.attributes.friendly_name]]`.
+
+### Specific interpolations
+
+By default each templates have his own interpolations.
+
+#### Status
+
+The status have the following interpolation:
+- `[[ current ]]`: the current status.
+- `[[ ok ]]|: the ok status.
+- `[[ ko ]]`: the the ko status.
+
+#### Tooltip
+
+The tooltip have the following interpolation:
+- `[[ from_date ]]`: the start date of the bar.
+- `[[ to_date ]]|: the end date of the bar.
+- `[[ average ]]`: the percentage of `on` during the period.
+
 
 ### Contribution
 
