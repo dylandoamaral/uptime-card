@@ -229,11 +229,11 @@ These options follow the following rules:
 
 ## Templating
 
-It is possible to apply templates for status and tooltip. It allows you to customize the text of these inputs according to a particul template.
+It is possible to apply templates for status and tooltip. It allows you to customize the text of these inputs according to a particular template.
 
 Generally speaking, template allows you to print either current values from the sensor or special variables only available either for the status or the tooltip.
 
-Either general or specific interpolations exist using `[[ my.key ]]`.
+Either generic or specific interpolations exist using `[[ my.key ]]` structure.
 
 ### Generic interpolations
 
@@ -274,6 +274,11 @@ The tooltip have the following interpolation:
 - `[[ to_date ]]|: the end date of the bar.
 - `[[ average ]]`: the percentage of `on` during the period.
 
+#### Example
+
+I can combine all of them to create a sentence for exemple for status of a `sun.sun` entity:
+
+I can specify the following template: `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` and it will print `Sun is Above Horizon` (If the sensor is in ok state and if the alias is `Above Horizon`).
 
 ### Contribution
 
