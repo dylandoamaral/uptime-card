@@ -56,7 +56,7 @@ Uptime card is highly customizable.
 
 ### Color config
 
-**Parent key:** color
+**Parent key:** `color`
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
@@ -71,7 +71,7 @@ Uptime card is highly customizable.
 
 ### `show` config
 
-**Parent key:** show
+**Parent key:** `show`
 
 | Name | Default | Options | Description |
 |------:|:------:|:-----:|-------------|
@@ -85,7 +85,7 @@ Uptime card is highly customizable.
 
 ### Alias config
 
-**Parent key:** alias
+**Parent key:** `alias`
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
