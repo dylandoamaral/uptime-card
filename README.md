@@ -207,7 +207,7 @@ npm start
 
 ## Additional information ℹ️
 
-### `Ok` and `ko` options
+### `ok` and `ko` options
 
 For non binary sensors, the uptime card will be in `unknown` state because the card cannot ascertain whether it's state corresponds to `ok` or `ko`.
 
