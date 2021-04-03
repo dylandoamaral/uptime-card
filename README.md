@@ -1,6 +1,6 @@
 # Uptime Card
 
-A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI to display binary sensors in a nice way.
+A minimalist card inspired by the [reddit status](https://www.redditstatus.com) UI to display binary sensors in a nice way.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/showcase.png" />
@@ -8,7 +8,7 @@ A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI 
 
 ## Install  🏠
 
-:warning: Versions 0.x.x are not very stable and still have many bugs, please raise an issue if you encounter a bug or have a feature request.
+:warning: Versions 0.x.x are not very stable and still have many bugs, please create an issue if you encounter a bug or have a feature request.
 
 ### HACS (recommended)
 
@@ -28,20 +28,20 @@ Uptime card is highly customizable.
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| entity **required** | string |  | v0.0.1 | Set the binary sensor entity id.
-| ok | string |  | v0.0.1 | Set the state name corresponding to on, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
-| ko | string |  | v0.0.1 | Set the state name corresponding to off, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
-| status_template | string | [[ current ]] | v0.1.0 | Set the template for the status **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
-| hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
-| name | string |  | v0.0.1 | Set a custom title to the card.
-| icon | string |  | v0.0.1 | Set a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/).
-| severity | number | 100 | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
-| update_interval | number | | v0.0.1 | Set the an interval for the card to update.
-| average_text | string | % | v0.0.2 | Set the average text.
+| entity (**required**) | string |  | v0.0.1 | Specify entity ID of the sensor
+| ok | string |  | v0.0.1 | Specify the `on` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
+| ko | string |  | v0.0.1 | Specify the `off` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
+| name | string |  | v0.0.1 | Set a custom title of the card.
+| icon | string |  | v0.0.1 | Specify a custom icon, e.g. `mdi:home`
+| hours_to_show | number | `24` | v0.0.1 | Set the number of hours to show.
+| update_interval | number | | v0.0.1 | Set the update interval for the card.
+| average_text | string | `%`| v0.0.2 | Set the average text to be displayed at the bottom.
+| severity | number | `100` | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
+| status_template | string | `[[ current ]]` | v0.1.0 | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
 | title_adaptive_color | boolean | `false` | v0.0.2 | Make the title color adapt with the entity color.
-| status_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the primary entity color.
-| icon_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the primary entity color.
-| tooltip_adaptive_color | boolean | `false` | v0.1.0 | Make the name color adapt with the primary entity color.
+| status_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the entity color.
+| icon_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the entity color.
+| tooltip_adaptive_color | boolean | `false` | v0.1.0 | Make the name color adapt with the entity color.
 
 ### Bar configuration
 
@@ -62,11 +62,11 @@ Uptime card is highly customizable.
 |------|:----:|:-------:|:-----:|-------------|
 | ok | color | ![ ](https://dummyimage.com/20x10/45c669&amp;text=+) `#45C669` | v0.0.1 | Set the `ok` color.
 | ko | color | ![ ](https://dummyimage.com/20x10/c66445&amp;text=+) `#C66445` | v0.0.1 | Set the `ko` color.
-| half | color | ![ ](https://dummyimage.com/20x10/c6b145&amp;text=+) `#C6B145` | v0.0.1 | Set the half color.
-| none | color | ![ ](https://dummyimage.com/20x10/c9c9c9&amp;text=+) `#C9C9C9` | v0.0.1 | Set the none color.
+| half | color | ![ ](https://dummyimage.com/20x10/c6b145&amp;text=+) `#C6B145` | v0.0.1 | Set the `half` color.
+| none | color | ![ ](https://dummyimage.com/20x10/c9c9c9&amp;text=+) `#C9C9C9` | v0.0.1 | Set the `none` color.
 | title | color | `grey` | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.
 | status | color | `gray` | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.
-| icon | color | | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be false.
+| icon | color | | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`.
 | tooltip | color | `grey` | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
 
 ### `Show` configuration
@@ -98,9 +98,9 @@ Uptime card is highly customizable.
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| hour24 | boolean | `false` | v0.1.0 | Set to true to display 24-hour time.
-| template | string | `[[ from_date ]] - [[ to_date ]] \| [[ average ]]%` | v0.1.0 | Set the template for the tooltip **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
-| animation | boolean | `true` | v0.1.0 | Set to true to show bar animation on hover.
+| hour24 | boolean | `false` | v0.1.0 | Set to `true` to display time in 24-hour format.
+| template | string | `[[ from_date ]] - [[ to_date ]] \| [[ average ]]%` | v0.1.0 | Set a template for the tooltip **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
+| animation | boolean | `true` | v0.1.0 | Set to `true` to show bar animation on hover.
 
 ## Examples 📊
 
