@@ -8,7 +8,7 @@ A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI 
 
 ## Install  🏠
 
-:warning: Versions 0.x.x are not very stable and still have many bugs, please raise an issue if you face a bug or have a feature request.
+:warning: Versions 0.x.x are not very stable and still have many bugs, please raise an issue if you encounter a bug or have a feature request.
 
 ### HACS (recommended)
 
@@ -38,10 +38,10 @@ Uptime card is highly customizable.
 | severity | number | 100 | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
 | update_interval | number | | v0.0.1 | Set the an interval for the card to update.
 | average_text | string | % | v0.0.2 | Set the average text.
-| title_adaptive_color | boolean | false | v0.0.2 | The title text color is the same as the current status color.
-| status_adaptive_color | boolean | false | v0.0.2 | The status text color is the same as the current status color.
-| icon_adaptive_color | boolean | false | v0.0.2 | The icon color is the same as the current status color.
-| tooltip_adaptive_color | boolean | false | v0.1.0 | The tooltip text color is the same as the selected bar color.
+| title_adaptive_color | boolean | `false` | v0.0.2 | Make the title color adapt with the entity color.
+| status_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the primary entity color.
+| icon_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the primary entity color.
+| tooltip_adaptive_color | boolean | `false` | v0.1.0 | Make the name color adapt with the primary entity color.
 
 ### Bar configuration
 
@@ -60,14 +60,14 @@ Uptime card is highly customizable.
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| ok | color | #45C669 | v0.0.1 | Set the ok color.
-| ko | color | #C66445 | v0.0.1 | Set the ko color.
-| half | color | #C6B145 | v0.0.1 | Set the half color.
-| none | color | #C9C9C9 | v0.0.1 | Set the none color.
-| title | color | grey | v0.0.2 | Set the title text color, title_adaptive_color must be false.
-| status | color | gray | v0.0.2 | Set the status text color, status_adaptive_color must be false.
-| icon | color | | v0.0.2 | Set the icon text color, icon_adaptive_color must be false.
-| tooltip | color | grey | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
+| ok | color | ![ ](https://dummyimage.com/20x10/45c669&amp;text=+) `#45C669` | v0.0.1 | Set the `ok` color.
+| ko | color | ![ ](https://dummyimage.com/20x10/c66445&amp;text=+) `#C66445` | v0.0.1 | Set the `ko` color.
+| half | color | ![ ](https://dummyimage.com/20x10/c6b145&amp;text=+) `#C6B145` | v0.0.1 | Set the half color.
+| none | color | ![ ](https://dummyimage.com/20x10/c9c9c9&amp;text=+) `#C9C9C9` | v0.0.1 | Set the none color.
+| title | color | `grey` | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.
+| status | color | `gray` | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.
+| icon | color | | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be false.
+| tooltip | color | `grey` | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
 
 ### `Show` configuration
 
@@ -76,7 +76,7 @@ Uptime card is highly customizable.
 | Name | Default | Options | Description |
 |------:|:------:|:-----:|-------------|
 | header | `true` | `true`/`false` | Show/hide the header.
-| title | `true` | `true`/`false` | Show the title.
+| title | `true` | `true`/`false` | Show/hide the title.
 | icon | `true` | `true`/`false` | Show/hide the icon.
 | status | `true` | `true`/`false` | Show/hide the status.
 | timeline | `true` | `true`/`false` | Show/hide the timeline.
@@ -99,20 +99,10 @@ Uptime card is highly customizable.
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
 | hour24 | boolean | `false` | v0.1.0 | Set to true to display 24-hour time.
-| template | string | `[[ from_date ]] - [[ to_date ]] | [[ average ]]%` | v0.1.0 | Set the template for the tooltip **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
+| template | string | `[[ from_date ]] - [[ to_date ]] \| [[ average ]]%` | v0.1.0 | Set the template for the tooltip **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
 | animation | boolean | `true` | v0.1.0 | Set to true to show bar animation on hover.
 
 ## Examples 📊
-
-### Tooltip configuration
-
-**Parent key:** tooltip
-
-| Name | Type | Default | Since | Description |
-|------|:----:|:-------:|:-----:|-------------|
-| hour24 | boolean | false | v0.1.0 | Set to true to display times in 24-hour format.
-| template | string | `[[ from_date ]] - [[ to_date ]] | [[ average ]]%` | v0.1.0 | Set the template for the tooltip **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
-| animation | boolean | true | v0.1.0 | Set to true to show bar animation on hover.
 
 ### Example 1
 
@@ -197,7 +187,7 @@ average_text: '% uptime'
 If you want to add a feature or fix a bug by yourself, follow these instructions:
 
 1. Inside a Home Assistant environment, clone the repository into `config/www`.
-2. Add the resource reference (https://www.home-assistant.io/lovelace/dashboards-and-views/#resources).
+2. [Add the resource reference](https://www.home-assistant.io/lovelace/dashboards-and-views/#resources).
 
 ```yaml
 resources:
@@ -215,11 +205,15 @@ npm start
 5. Make changes.
 
 ## Additional information ℹ️
+
 ### Ok and ko options
 
-For non binary sensor, the uptime card will be in `unknown` state because it doesn't know which status correspond to an `ok` signal or a `ko` signal. You can specify it using either `ok` or `ko` options.
+For non binary sensors, the uptime card will be in `unknown` state because the card cannot ascertain whether it's state corresponds to `ok` or `ko`.
 
-These options follow the following rules:
+These can be indiviually specified with either `ok` or `ko`.
+
+These options follow these rules:
+
 - if ok is not defined and ko is not defined -> `unknown`
 - if ok is defined and ko is not defined:
   - if the state name equals ok -> `ok`
@@ -234,19 +228,19 @@ These options follow the following rules:
 
 ## Templating
 
-It is possible to apply templates for status and tooltip. It allows you to customize the text of these inputs according to a particular template.
+JavaScript templates can be used to customize the status and tooltip.
 
-Generally speaking, template allows you to print either current values from the sensor or special variables only available either for the status or the tooltip.
+Generally speaking, templates allows the ability to print either current values from the sensor or special variables, available either for the status or the tooltip.
 
-Either generic or specific interpolations exist using `[[ my.key ]]` structure.
+Either generic or specific interpolations exist using `[[ my.key ]]` JS structure.
 
 ### Generic interpolations
 
-By default for both status and tooltip you can print sensor data.
+By default, for both `status` and `tooltip` you can print sensor data.
 
-For example, if we are currently using the sensor `sun.sun`, I have the following attributes:
+For example, using sensor `sun.sun` has the following attributes:
 
-```
+```yaml
 next_dawn: 2021-04-03T04:35:43+00:00
 next_dusk: 2021-04-02T18:49:59+00:00
 next_midnight: 2021-04-02T23:43:38+00:00
@@ -259,31 +253,35 @@ rising: true
 friendly_name: Sun
 ```
 
-I can for example print the friendly_name using `[[ sun.sun.attributes.friendly_name]]`.
+The attribute `friendly_name` can be used using template, `[[ sun.sun.attributes.friendly_name ]]`.
 
 ### Specific interpolations
 
-By default each templates have his own interpolations.
+By default each template has their own interpolations.
 
-#### Status
+#### `Status`
 
-The status have the following interpolation:
+`status` has the following interpolations:
+
 - `[[ current ]]`: the current status.
-- `[[ ok ]]`: the ok status.
-- `[[ ko ]]`: the the ko status.
+- `[[ ok ]]`: the `ok` status.
+- `[[ ko ]]`: the the `ko` status.
 
-#### Tooltip
+#### `Tooltip`
 
-The tooltip have the following interpolation:
+`tooltip` has the following interpolations:
+
 - `[[ from_date ]]`: the start date of the bar.
 - `[[ to_date ]]`: the end date of the bar.
 - `[[ average ]]`: the percentage of `on` during the period.
 
 #### Example
 
-I can combine all of them to create a sentence.
+These can be combined to create a sentence.
 
-As an example, for status of a `sun.sun` entity, I can specify the following template: `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` and it will print `Sun is Above Horizon` (If the sensor is in ok state and if the alias is `Above Horizon`).
+As an example, to retrieve the status of a `sun.sun` entity, template `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` can be specified.
+
+Which will print `Sun is Above Horizon` (if sensor is in `ok` state and if alias is `Above Horizon`.)
 
 ### Contribution
 
