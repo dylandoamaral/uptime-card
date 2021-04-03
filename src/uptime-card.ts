@@ -456,7 +456,7 @@ export class UptimeCard extends LitElement {
             weekday: 'short',
             day: 'numeric',
         };
-        const fromOption = hours_to_show < 24 ? hourOption : dayOption;
+        const fromOption = hours_to_show <= 24 ? hourOption : dayOption;
         const fromDate = new Date(this.tooltip.period.from).toLocaleString(locale, fromOption);
         const toDate = new Date(this.tooltip.period.to).toLocaleString(locale, hourOption);
         const average = this.tooltip.repartition.ok.toFixed(2);
