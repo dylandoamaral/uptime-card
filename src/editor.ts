@@ -12,7 +12,7 @@ import {
     TemplateResult,
 } from 'lit-element';
 
-import { DEFAULT_BAR, DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_ICON, DEFAULT_SHOW } from './const';
+import { DEFAULT_BAR, DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_ICON, DEFAULT_SHOW, DEFAULT_TOOLTIP } from './const';
 import { CardConfig } from './types/config';
 import {
     DropdownProperty,
@@ -94,7 +94,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             <paper-input
                 label=${property.label}
                 placeholder=${property.default || ''}
-                .value=${this.getPropertyValue(property) || ''}
+                .value=${this.getPropertyValue(property)}
                 .configValue=${property.name}
                 .configSection=${property.section}
                 @value-changed=${this._valueChanged}
@@ -107,7 +107,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             <paper-input
                 label=${property.label}
                 placeholder=${property.default || ''}
-                .value=${this.getPropertyValue(property) || ''}
+                .value=${this.getPropertyValue(property)}
                 .configValue=${property.name}
                 .configSection=${property.section}
                 .number=${true}
@@ -121,11 +121,16 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     }
 
     private renderSwitchProperty(property: SwitchProperty): TemplateResult {
+        const checked = this.getPropertyValue(property);
         return html`
             <br />
             <ha-formfield .label=${property.label}>
                 <ha-switch
-                    .checked=${this.getPropertyValue(property) || property.default || false}
+                    .checked=${checked != undefined
+                        ? checked
+                        : property.default != undefined
+                        ? property.default
+                        : false}
                     .configValue=${property.name}
                     .configSection=${property.section}
                     @change=${this._valueChanged}
@@ -229,6 +234,12 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                     },
                     {
                         type: 'input',
+                        name: 'status_template',
+                        label: 'The template of the status',
+                        default: DEFAULT_CONFIG.status_template,
+                    },
+                    {
+                        type: 'input',
                         name: 'average_text',
                         label: 'Average text',
                         default: DEFAULT_CONFIG.average_text,
@@ -250,6 +261,12 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         name: 'icon_adaptive_color',
                         label: 'Adaptive color for icon',
                         default: DEFAULT_CONFIG.icon_adaptive_color,
+                    },
+                    {
+                        type: 'switch',
+                        name: 'tooltip_adaptive_color',
+                        label: 'Adaptive color for tooltip',
+                        default: DEFAULT_CONFIG.tooltip_adaptive_color,
                     },
                 ],
             },
@@ -351,6 +368,13 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         section: 'color',
                         label: 'Icon color',
                     },
+                    {
+                        type: 'input',
+                        name: 'tooltip',
+                        section: 'color',
+                        label: 'Tooltip text color',
+                        default: DEFAULT_COLOR.tooltip,
+                    },
                 ],
             },
             show: {
@@ -365,6 +389,13 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         section: 'show',
                         label: 'Toggle header',
                         default: DEFAULT_SHOW.header,
+                    },
+                    {
+                        type: 'switch',
+                        name: 'title',
+                        section: 'show',
+                        label: 'Toggle title',
+                        default: DEFAULT_SHOW.title,
                     },
                     {
                         type: 'switch',
@@ -420,6 +451,35 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         name: 'ko',
                         section: 'alias',
                         label: 'Alias for Ko status',
+                    },
+                ],
+            },
+            tooltip: {
+                icon: 'tooltip-text',
+                name: 'Tooltip elements',
+                description: 'Handle tooltip information',
+                show: false,
+                properties: [
+                    {
+                        type: 'switch',
+                        name: 'hour24',
+                        section: 'tooltip',
+                        label: 'Set to true to display times in 24-hour format.',
+                        default: DEFAULT_TOOLTIP.hour24,
+                    },
+                    {
+                        type: 'switch',
+                        name: 'animation',
+                        section: 'tooltip',
+                        label: 'Set to true to show the animation.',
+                        default: DEFAULT_TOOLTIP.animation,
+                    },
+                    {
+                        type: 'input',
+                        name: 'template',
+                        section: 'tooltip',
+                        label: 'Template of the tooltip.',
+                        default: DEFAULT_TOOLTIP.template,
                     },
                 ],
             },

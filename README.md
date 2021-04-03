@@ -60,13 +60,13 @@ Uptime card is highly customizable.
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| ok | color | `#45C669` | v0.0.1 | Set the `ok` color.
-| ko | color | `#C66445` | v0.0.1 | Set the `ko` color.
-| half | color | `#C6B145` | v0.0.1 | Set the half color.
-| none | color | `#C9C9C9` | v0.0.1 | Set the none color.
-| title | color | `grey` | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.
-| status | color | `gray` | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.
-| icon | color | | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be false.
+| ok | color | #45C669 | v0.0.1 | Set the ok color.
+| ko | color | #C66445 | v0.0.1 | Set the ko color.
+| half | color | #C6B145 | v0.0.1 | Set the half color.
+| none | color | #C9C9C9 | v0.0.1 | Set the none color.
+| title | color | grey | v0.0.2 | Set the title text color, title_adaptive_color must be false.
+| status | color | gray | v0.0.2 | Set the status text color, status_adaptive_color must be false.
+| icon | color | | v0.0.2 | Set the icon text color, icon_adaptive_color must be false.
 | tooltip | color | grey | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
 
 ### `Show` configuration
@@ -102,8 +102,17 @@ Uptime card is highly customizable.
 | template | string | `[[ from_date ]] - [[ to_date ]] | [[ average ]]%` | v0.1.0 | Set the template for the tooltip **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
 | animation | boolean | `true` | v0.1.0 | Set to true to show bar animation on hover.
 
-
 ## Examples 📊
+
+### Tooltip configuration
+
+**Parent key:** tooltip
+
+| Name | Type | Default | Since | Description |
+|------|:----:|:-------:|:-----:|-------------|
+| hour24 | boolean | false | v0.1.0 | Set to true to display times in 24-hour format.
+| template | string | `[[ from_date ]] - [[ to_date ]] | [[ average ]]%` | v0.1.0 | Set the template for the tooltip **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
+| animation | boolean | true | v0.1.0 | Set to true to show bar animation on hover.
 
 ### Example 1
 
