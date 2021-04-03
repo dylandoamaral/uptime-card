@@ -6,7 +6,7 @@ A minimalist card inspired by the [reddit status](https://www.redditstatus.com) 
   <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/showcase.png" />
 </p>
 
-## Install  🏠
+## Install 🏠
 
 :warning: Versions 0.x.x are not very stable and still have many bugs, please create an issue if you encounter a bug or have a feature request.
 
@@ -20,11 +20,11 @@ This card is available in [HACS](https://hacs.xyz/) (Home Assistant Community St
 2. Add the resource reference inside your `configuration.yaml` with URL `/local/uptime-card.js` and type `module`.
 3. Add the custom card to your panel and 🚀.
 
-## Configurations ⚙️
+## Configuration ⚙️
 
 Uptime card is highly customizable.
 
-### Global configuration
+### Global config
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
@@ -43,7 +43,7 @@ Uptime card is highly customizable.
 | icon_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the entity color.
 | tooltip_adaptive_color | boolean | `false` | v0.1.0 | Make the name color adapt with the entity color.
 
-### Bar configuration
+### Bar config
 
 **Parent key:** `bar`
 
@@ -54,7 +54,7 @@ Uptime card is highly customizable.
 | spacing | number | `4` | v0.0.1 | Set the spacing between the bars.
 | amount | number | `36` | v0.0.1 | Set the number of bars.
 
-### Color configuration
+### Color config
 
 **Parent key:** color
 
@@ -69,7 +69,7 @@ Uptime card is highly customizable.
 | icon | color | | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`.
 | tooltip | color | `grey` | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
 
-### `Show` configuration
+### `show` config
 
 **Parent key:** show
 
@@ -83,7 +83,7 @@ Uptime card is highly customizable.
 | average | `true` | `true`/`false` | Show/hide the average.
 | footer | `true` | `true`/`false` | Show/hide the footer.
 
-### Alias configuration
+### Alias config
 
 **Parent key:** alias
 
@@ -92,7 +92,7 @@ Uptime card is highly customizable.
 | ok | string | | v0.0.1 | Set a friendly name for `ok` state.
 | ko | string | | v0.0.1 | Set a friendly name for `ko` state.
 
-### Tooltip configuration
+### Tooltip config
 
 **Parent key:** `tooltip`
 
@@ -160,7 +160,8 @@ show:
 
 ```yaml
 type: 'custom:uptime-card'
-entity: binary_sensor.ping_google # You can add one of these using https://www.home-assistant.io/integrations/ping/
+entity: binary_sensor.ping_google 
+# Home Assistant ping integration - https://www.home-assistant.io/integrations/ping
 icon: 'mdi:heart'
 bar:
   height: 46
@@ -172,7 +173,7 @@ show:
   icon: false
 title_adaptive_color: true
 hours_to_show: 72
-name: 'https://www.google.com/'
+name: 'Google.com'
 average_text: '% uptime'
 ```
 
@@ -206,7 +207,7 @@ npm start
 
 ## Additional information ℹ️
 
-### Ok and ko options
+### `Ok` and `ko` options
 
 For non binary sensors, the uptime card will be in `unknown` state because the card cannot ascertain whether it's state corresponds to `ok` or `ko`.
 
