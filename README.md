@@ -69,7 +69,7 @@ Uptime card is highly customizable.
 | icon | color | | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`.
 | tooltip | color | `grey` | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
 
-### `show` config
+### Show config
 
 **Parent key:** `show`
 
