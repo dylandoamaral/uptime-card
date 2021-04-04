@@ -1,14 +1,14 @@
 # Uptime Card
 
-A minimalist card inspired by [reddit status](https://www.redditstatus.com/) UI to display binary sensors in a nice way.
+A minimalist card inspired by the [reddit status](https://www.redditstatus.com) UI to display binary sensors in a nice way.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/showcase.png" />
 </p>
 
-## Install  🏠
+## Install 🏠
 
-:warning: Versions 0.X.X are not stable and still have many bugs, don't hesitate to raise an issue if something is wrong with the card or if you have a feature request. Therefore, it will need many updates, until the version 1.0.0, in order to fix as much as possible bugs as fast as possible.
+:warning: Versions 0.x.x are not very stable and still have many bugs, please create an issue if you encounter a bug or have a feature request.
 
 ### HACS (recommended)
 
@@ -17,95 +17,92 @@ This card is available in [HACS](https://hacs.xyz/) (Home Assistant Community St
 ### Manual install
 
 1. Download and copy `uptime-card.js` from the [latest release](https://github.com/dylandoamaral/uptime-card/releases/latest) into your `config/www` directory.
-
 2. Add the resource reference inside your `configuration.yaml` with URL `/local/uptime-card.js` and type `module`.
-
 3. Add the custom card to your panel and 🚀.
 
-## Configurations ⚙️
+## Configuration ⚙️
 
 Uptime card is highly customizable.
 
-### Global configuration
+### Global config
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| entity **required** | string |  | v0.0.1 | Set the binary sensor entity id.
-| ok | string |  | v0.0.1 | Set the state name corresponding to on, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
-| ko | string |  | v0.0.1 | Set the state name corresponding to off, either ok or ko should be setup if the entity is not a binary sensor **[for more information](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
-| status_template | string | [[ current ]] | v0.1.0 | Set the template for the status **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
-| hours_to_show | number | 24 | v0.0.1 | Set the number of hours to show.
-| name | string |  | v0.0.1 | Set a custom title to the card.
-| icon | string |  | v0.0.1 | Set a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/).
-| severity | number | 100 | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
-| update_interval | number | | v0.0.1 | Set the an interval for the card to update.
-| average_text | string | % | v0.0.2 | Set the average text.
-| title_adaptive_color | boolean | false | v0.0.2 | The title text color is the same as the current status color.
-| status_adaptive_color | boolean | false | v0.0.2 | The status text color is the same as the current status color.
-| icon_adaptive_color | boolean | false | v0.0.2 | The icon color is the same as the current status color.
-| tooltip_adaptive_color | boolean | false | v0.1.0 | The tooltip text color is the same as the selected bar color.
+| entity (**required**) | string |  | v0.0.1 | Specify entity ID of the sensor
+| ok | string |  | v0.0.1 | Specify the `on` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
+| ko | string |  | v0.0.1 | Specify the `off` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
+| name | string |  | v0.0.1 | Set a custom title of the card.
+| icon | string |  | v0.0.1 | Specify a custom icon, e.g. `mdi:home`
+| hours_to_show | number | `24` | v0.0.1 | Set the number of hours to show.
+| update_interval | number | | v0.0.1 | Set the update interval for the card.
+| average_text | string | `%`| v0.0.2 | Set the average text to be displayed at the bottom.
+| severity | number | `100` | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
+| status_template | string | `[[ current ]]` | v0.1.0 | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
+| title_adaptive_color | boolean | `false` | v0.0.2 | Make the title color adapt with the entity color.
+| status_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the entity color.
+| icon_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the entity color.
+| tooltip_adaptive_color | boolean | `false` | v0.1.0 | Make the name color adapt with the entity color.
 
-### Bar configuration
+### Bar config
 
-**Parent key:** bar
-
-| Name | Type | Default | Since | Description |
-|------|:----:|:-------:|:-----:|-------------|
-| height | number | 46 | v0.0.1 | Set the height of the bars.
-| round | number | 1 | v0.0.1 | Set the round radius for the bars.
-| spacing | number | 4 | v0.0.1 | Set the spacing between the bars.
-| amount | number | 36 | v0.0.1 | Set the number bars.
-
-### Color configuration
-
-**Parent key:** color
+**Parent key:** `bar`
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| ok | color | #45C669 | v0.0.1 | Set the ok color.
-| ko | color | #C66445 | v0.0.1 | Set the ko color.
-| half | color | #C6B145 | v0.0.1 | Set the half color.
-| none | color | #C9C9C9 | v0.0.1 | Set the none color.
-| title | color | grey | v0.0.2 | Set the title text color, title_adaptive_color must be false.
-| status | color | gray | v0.0.2 | Set the status text color, status_adaptive_color must be false.
-| icon | color | | v0.0.2 | Set the icon text color, icon_adaptive_color must be false.
-| tooltip | color | grey | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
+| height | number | `46` | v0.0.1 | Set the height of the bars.
+| round | number | `1` | v0.0.1 | Set the round radius for the bars.
+| spacing | number | `4` | v0.0.1 | Set the spacing between the bars.
+| amount | number | `36` | v0.0.1 | Set the number of bars.
 
-### Show configuration
+### Color config
 
-**Parent key:** show
+**Parent key:** `color`
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| header | boolean | true | v0.0.1 | Show the header.
-| title | boolean | true | v0.1.0 | Show the title.
-| icon | boolean | true | v0.0.1 | Show the icon.
-| status | boolean | true | v0.0.1 | Show the status.
-| timeline | boolean | true | v0.0.1 | Show the timeline.
-| footer | boolean | true | v0.0.1 | Show the footer.
-| average | boolean | true | v0.0.2 | Show the average.
+| ok | color | ![ ](https://dummyimage.com/20x10/45c669&amp;text=+) `#45C669` | v0.0.1 | Set the `ok` color.
+| ko | color | ![ ](https://dummyimage.com/20x10/c66445&amp;text=+) `#C66445` | v0.0.1 | Set the `ko` color.
+| half | color | ![ ](https://dummyimage.com/20x10/c6b145&amp;text=+) `#C6B145` | v0.0.1 | Set the `half` color.
+| none | color | ![ ](https://dummyimage.com/20x10/c9c9c9&amp;text=+) `#C9C9C9` | v0.0.1 | Set the `none` color.
+| title | color | `grey` | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.
+| status | color | `gray` | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.
+| icon | color | | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`.
+| tooltip | color | `grey` | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
 
-### Alias configuration
+### Show config
 
-**Parent key:** alias
+**Parent key:** `show`
+
+| Name | Default | Options | Since | Description |
+|------:|:------:|:-----:|:------:|:-------------|
+| header | `true` | `true`/`false` | v0.0.1 | Show/hide the header.
+| title | `true` | `true`/`false` | v0.1.0 | Show/hide the title.
+| icon | `true` | `true`/`false` | v0.0.1 | Show/hide the icon.
+| status | `true` | `true`/`false` | v0.0.1 | Show/hide the status.
+| timeline | `true` | `true`/`false` | v0.0.1 | Show/hide the timeline.
+| average | `true` | `true`/`false` | v0.0.2 | Show/hide the average.
+| footer | `true` | `true`/`false` | v0.0.1 | Show/hide the footer.
+
+### Alias config
+
+**Parent key:** `alias`
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| ok | string | | v0.0.1 | Set a friendly name for ok state.
-| ko | string | | v0.0.1 | Set a friendly name for ko state.
+| ok | string | | v0.0.1 | Set a friendly name for `ok` state.
+| ko | string | | v0.0.1 | Set a friendly name for `ko` state.
 
-### Tooltip configuration
+### Tooltip config
 
-**Parent key:** tooltip
+**Parent key:** `tooltip`
 
 | Name | Type | Default | Since | Description |
 |------|:----:|:-------:|:-----:|-------------|
-| hour24 | boolean | false | v0.1.0 | Set to true to display times in 24-hour format.
-| template | string | `[[ from_date ]] - [[ to_date ]] | [[ average ]]%` | v0.1.0 | Set the template for the tooltip **[for more information](https://github.com/dylandoamaral/uptime-card#templating)**.
-| animation | boolean | true | v0.1.0 | Set to true to show bar animation on hover.
+| hour24 | boolean | `false` | v0.1.0 | Set to `true` to display time in 24-hour format.
+| template | string | `[[ from_date ]] - [[ to_date ]] \| [[ average ]]%` | v0.1.0 | Set a template for the tooltip **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
+| animation | boolean | `true` | v0.1.0 | Set to `true` to show bar animation on hover.
 
-
-## Example 📊
+## Examples 📊
 
 ### Example 1
 
@@ -146,7 +143,7 @@ entity: sun.sun
 name: Sun
 ko: below_horizon
 color:
-  ok: '#f9d71c'
+  ok: '#F9d71C'
   ko: '#053752'
   half: '#EF810E'
 icon_adaptive_color: true
@@ -163,7 +160,8 @@ show:
 
 ```yaml
 type: 'custom:uptime-card'
-entity: binary_sensor.ping_google # You can add one of these using https://www.home-assistant.io/integrations/ping/
+entity: binary_sensor.ping_google 
+# Home Assistant ping integration - https://www.home-assistant.io/integrations/ping
 icon: 'mdi:heart'
 bar:
   height: 46
@@ -185,36 +183,16 @@ average_text: '% uptime'
 - Calendar mode
 - More customizations
 
-## For developers 👨‍💻
-
-If you want to add a feature or fix a bug by yourself, follow these instructions:
-
-1. Inside a home assistant environment, clone the repository into `config/www`.
-
-2. Add the resource reference (https://www.home-assistant.io/lovelace/dashboards-and-views/#resources).
-
-```yaml
-resources:
-  - url: /local/uptime-card/dist/uptime-card.js
-    type: module
-```
-
-3. Install dependencies (requires `nodejs` and `npm`).
-
-4. Start the auto build on save.
-
-```bash
-npm start
-```
-
-5. Make changes.
-
 ## Additional information ℹ️
-### Ok and ko options
 
-For non binary sensor, the uptime card will be in `unknown` state because it doesn't know which status correspond to an `ok` signal or a `ko` signal. You can specify it using either `ok` or `ko` options.
+### `ok` and `ko` options
 
-These options follow the following rules:
+For non binary sensors, the uptime card will be in `unknown` state because the card cannot ascertain whether it's state corresponds to `ok` or `ko`.
+
+These can be indiviually specified with either `ok` or `ko`.
+
+These options follow these rules:
+
 - if ok is not defined and ko is not defined -> `unknown`
 - if ok is defined and ko is not defined:
   - if the state name equals ok -> `ok`
@@ -229,19 +207,19 @@ These options follow the following rules:
 
 ## Templating
 
-It is possible to apply templates for status and tooltip. It allows you to customize the text of these inputs according to a particular template.
+Custom templates can be used to customize the displayed text of `status` and `tooltip`.
 
-Generally speaking, template allows you to print either current values from the sensor or special variables only available either for the status or the tooltip.
+Generally speaking, templates allows the ability to print either current values from the sensor or special variables, available either for the status or the tooltip.
 
 Either generic or specific interpolations exist using `[[ my.key ]]` structure.
 
 ### Generic interpolations
 
-By default for both status and tooltip you can print sensor data.
+By default, for both `status` and `tooltip` you can print sensor data.
 
-For example, if we are currently using the sensor `sun.sun`, I have the following attributes:
+For example, using sensor `sun.sun` has the following attributes:
 
-```
+```yaml
 next_dawn: 2021-04-03T04:35:43+00:00
 next_dusk: 2021-04-02T18:49:59+00:00
 next_midnight: 2021-04-02T23:43:38+00:00
@@ -254,35 +232,61 @@ rising: true
 friendly_name: Sun
 ```
 
-I can for example print the friendly_name using `[[ sun.sun.attributes.friendly_name]]`.
+The attribute `friendly_name` can be used using template, `[[ sun.sun.attributes.friendly_name ]]`.
 
 ### Specific interpolations
 
-By default each templates have his own interpolations.
+By default each template has their own interpolations.
 
-#### Status
+#### `Status`
 
-The status have the following interpolation:
+`status` has the following interpolations:
+
 - `[[ current ]]`: the current status.
-- `[[ ok ]]`: the ok status.
-- `[[ ko ]]`: the the ko status.
+- `[[ ok ]]`: the `ok` status.
+- `[[ ko ]]`: the the `ko` status.
 
-#### Tooltip
+#### `Tooltip`
 
-The tooltip have the following interpolation:
+`tooltip` has the following interpolations:
+
 - `[[ from_date ]]`: the start date of the bar.
 - `[[ to_date ]]`: the end date of the bar.
 - `[[ average ]]`: the percentage of `on` during the period.
 
 #### Example
 
-I can combine all of them to create a sentence.
+These can be combined to create a sentence.
 
-As an example, for status of a `sun.sun` entity, I can specify the following template: `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` and it will print `Sun is Above Horizon` (If the sensor is in ok state and if the alias is `Above Horizon`).
+As an example, to retrieve the status of a `sun.sun` entity, template `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` can be specified.
+
+Which will print `Sun is Above Horizon` (if sensor is in `ok` state and if alias is `Above Horizon`.)
 
 ### Contribution
 
 Don't hesitate to ask for features or to contribute by yourself ⭐.
+
+## For developers 👨‍💻
+
+If you want to add a feature or fix a bug by yourself, follow these instructions:
+
+1. Inside a Home Assistant environment, clone the repository into `config/www`.
+2. [Add the resource reference](https://www.home-assistant.io/lovelace/dashboards-and-views/#resources).
+
+```yaml
+resources:
+  - url: /local/uptime-card/dist/uptime-card.js
+    type: module
+```
+
+3. Install dependencies (requires `nodejs` and `npm`).
+4. Start the auto build on save.
+
+```bash
+npm start
+```
+
+5. Make changes.
 
 ### Inspiration
 
