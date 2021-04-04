@@ -73,15 +73,15 @@ Uptime card is highly customizable.
 
 **Parent key:** `show`
 
-| Name | Default | Options | Description |
-|------:|:------:|:-----:|-------------|
-| header | `true` | `true`/`false` | Show/hide the header.
-| title | `true` | `true`/`false` | Show/hide the title.
-| icon | `true` | `true`/`false` | Show/hide the icon.
-| status | `true` | `true`/`false` | Show/hide the status.
-| timeline | `true` | `true`/`false` | Show/hide the timeline.
-| average | `true` | `true`/`false` | Show/hide the average.
-| footer | `true` | `true`/`false` | Show/hide the footer.
+| Name | Default | Options | Since | Description |
+|------:|:------:|:-----:|:------:|:-------------|
+| header | `true` | `true`/`false` | v0.0.1 | Show/hide the header.
+| title | `true` | `true`/`false` | v0.1.0 | Show/hide the title.
+| icon | `true` | `true`/`false` | v0.0.1 | Show/hide the icon.
+| status | `true` | `true`/`false` | v0.0.1 | Show/hide the status.
+| timeline | `true` | `true`/`false` | v0.0.1 | Show/hide the timeline.
+| average | `true` | `true`/`false` | v0.0.2 | Show/hide the average.
+| footer | `true` | `true`/`false` | v0.0.1 | Show/hide the footer.
 
 ### Alias config
 
@@ -173,7 +173,7 @@ show:
   icon: false
 title_adaptive_color: true
 hours_to_show: 72
-name: 'Google.com'
+name: 'https://www.google.com/'
 average_text: '% uptime'
 ```
 
@@ -182,28 +182,6 @@ average_text: '% uptime'
 - Clickable card (link to website or show history)
 - Calendar mode
 - More customizations
-
-## For developers 👨‍💻
-
-If you want to add a feature or fix a bug by yourself, follow these instructions:
-
-1. Inside a Home Assistant environment, clone the repository into `config/www`.
-2. [Add the resource reference](https://www.home-assistant.io/lovelace/dashboards-and-views/#resources).
-
-```yaml
-resources:
-  - url: /local/uptime-card/dist/uptime-card.js
-    type: module
-```
-
-3. Install dependencies (requires `nodejs` and `npm`).
-4. Start the auto build on save.
-
-```bash
-npm start
-```
-
-5. Make changes.
 
 ## Additional information ℹ️
 
@@ -229,11 +207,11 @@ These options follow these rules:
 
 ## Templating
 
-JavaScript templates can be used to customize the status and tooltip.
+Custom templates can be used to customize the displayed text of `status` and `tooltip`.
 
 Generally speaking, templates allows the ability to print either current values from the sensor or special variables, available either for the status or the tooltip.
 
-Either generic or specific interpolations exist using `[[ my.key ]]` JS structure.
+Either generic or specific interpolations exist using `[[ my.key ]]` structure.
 
 ### Generic interpolations
 
@@ -287,6 +265,28 @@ Which will print `Sun is Above Horizon` (if sensor is in `ok` state and if alias
 ### Contribution
 
 Don't hesitate to ask for features or to contribute by yourself ⭐.
+
+## For developers 👨‍💻
+
+If you want to add a feature or fix a bug by yourself, follow these instructions:
+
+1. Inside a Home Assistant environment, clone the repository into `config/www`.
+2. [Add the resource reference](https://www.home-assistant.io/lovelace/dashboards-and-views/#resources).
+
+```yaml
+resources:
+  - url: /local/uptime-card/dist/uptime-card.js
+    type: module
+```
+
+3. Install dependencies (requires `nodejs` and `npm`).
+4. Start the auto build on save.
+
+```bash
+npm start
+```
+
+5. Make changes.
 
 ### Inspiration
 
