@@ -18,7 +18,7 @@ export const DEFAULT_COLOR = {
     half: '#C6B145',
     none: '#C9C9C9',
     title: 'grey',
-    status: 'gray',
+    status: 'grey',
     tooltip: 'grey',
 };
 

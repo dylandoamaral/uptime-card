@@ -1,4 +1,13 @@
-# Uptime Card
+<h1 align="center">Uptime Card</h1>
+
+<p align="center">
+  <a href="https://github.com/custom-components/hacs">
+    <img src="https://img.shields.io/badge/HACS-Default-orange.svg" />
+  </a>
+  <a href="https://github.com/dylandoamaral/uptime-card">
+    <img src="https://img.shields.io/github/commit-activity/m/dylandoamaral/uptime-card" />
+  </a>
+</p>
 
 A minimalist card inspired by the [reddit status](https://www.redditstatus.com) UI to display binary sensors in a nice way.
 
@@ -64,10 +73,10 @@ Uptime card is highly customizable.
 | ko | color | ![ ](https://dummyimage.com/20x10/c66445&amp;text=+) `#C66445` | v0.0.1 | Set the `ko` color.
 | half | color | ![ ](https://dummyimage.com/20x10/c6b145&amp;text=+) `#C6B145` | v0.0.1 | Set the `half` color.
 | none | color | ![ ](https://dummyimage.com/20x10/c9c9c9&amp;text=+) `#C9C9C9` | v0.0.1 | Set the `none` color.
-| title | color | `grey` | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.
-| status | color | `gray` | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.
-| icon | color | | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`.
-| tooltip | color | `grey` | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
+| title | color | ![ ](https://dummyimage.com/20x10/808080&amp;text=+) `grey` | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.
+| status | color | ![ ](https://dummyimage.com/20x10/808080&amp;text=+) `grey` | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.
+| icon | color | ![ ](https://dummyimage.com/20x10/44739e&amp;text=+) `--paper-item-icon-color` | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`.
+| tooltip | color | ![ ](https://dummyimage.com/20x10/808080&amp;text=+) `grey` | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
 
 ### Show config
 

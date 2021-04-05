@@ -34,7 +34,6 @@ const style = css`
     }
 
     .icon {
-        color: var(--paper-item-icon-color, #44739e);
         display: inline-block;
         flex: 0 0 1.7em;
         text-align: center;
