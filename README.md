@@ -12,7 +12,7 @@
   </a>
 </p>
 
-<p align="center">A minimalist card inspired by the [reddit status](https://www.redditstatus.com) UI to display binary sensors in a nice way.</p>
+<p align="center">A minimalist card inspired by the <a href="https://www.redditstatus.com">reddit status</a> UI to display binary sensors in a nice way.</p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/showcase.png" />
@@ -256,7 +256,7 @@ By default each template has their own interpolations.
 
 - `[[ current ]]`: the current status.
 - `[[ ok ]]`: the `ok` status.
-- `[[ ko ]]`: the the `ko` status.
+- `[[ ko ]]`: the `ko` status.
 
 #### `Tooltip`
 
@@ -272,7 +272,7 @@ These can be combined to create a sentence.
 
 As an example, to retrieve the status of a `sun.sun` entity, template `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` can be specified.
 
-Which will print `Sun is Above Horizon` (if sensor is in `ok` state and if alias is `Above Horizon`.)
+Which will print `Sun is Above Horizon` (if the sensor is in `ok` state and if alias is `Above Horizon`.)
 
 ### Contribution
 
@@ -302,4 +302,4 @@ npm start
 
 ### Inspiration
 
-This repository is inspired by [mini-graph-card](https://github.com/kalkih/mini-graph-card) and [boilerplate-card](https://github.com/custom-cards/boilerplate-card).
+This repository is inspired by two other cards, [mini-graph-card](https://github.com/kalkih/mini-graph-card) and [boilerplate-card](https://github.com/custom-cards/boilerplate-card).
