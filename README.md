@@ -5,6 +5,9 @@
     <img src="https://img.shields.io/badge/HACS-Default-orange.svg" />
   </a>
   <a href="https://github.com/dylandoamaral/uptime-card">
+    <img src="https://img.shields.io/github/v/release/dylandoamaral/uptime-card" />
+  </a>
+  <a href="https://github.com/dylandoamaral/uptime-card">
     <img src="https://img.shields.io/github/commit-activity/m/dylandoamaral/uptime-card" />
   </a>
 </p>
