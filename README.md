@@ -12,7 +12,7 @@
   </a>
 </p>
 
-A minimalist card inspired by the [reddit status](https://www.redditstatus.com) UI to display binary sensors in a nice way.
+<p align="center">A minimalist card inspired by the [reddit status](https://www.redditstatus.com) UI to display binary sensors in a nice way.</p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/showcase.png" />
