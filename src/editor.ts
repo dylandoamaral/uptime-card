@@ -12,7 +12,15 @@ import {
     TemplateResult,
 } from 'lit-element';
 
-import { DEFAULT_BAR, DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_ICON, DEFAULT_SHOW, DEFAULT_TOOLTIP } from './const';
+import {
+    DEFAULT_ACTION,
+    DEFAULT_BAR,
+    DEFAULT_COLOR,
+    DEFAULT_CONFIG,
+    DEFAULT_ICON,
+    DEFAULT_SHOW,
+    DEFAULT_TOOLTIP,
+} from './const';
 import { CardConfig } from './types/config';
 import {
     DropdownProperty,
@@ -148,7 +156,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                 .configValue=${property.name}
                 .configSection=${property.section}
             >
-                <paper-listbox slot="dropdown-content" .selected=${property.items.indexOf(this._config?.entity || '')}>
+                <paper-listbox slot="dropdown-content" .selected=${property.selected}>
                     ${property.items.map(item => {
                         return html`
                             <paper-item>${item}</paper-item>
@@ -186,6 +194,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         items: entities,
                         name: 'entity',
                         label: 'Entity',
+                        selected: entities.indexOf(this._config?.entity || ''),
                     },
                 ],
             },
@@ -495,6 +504,9 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         name: 'action',
                         section: 'tap_action',
                         label: 'Action to perform.',
+                        selected: ['more-info', 'url'].indexOf(
+                            this._config?.tap_action?.action || DEFAULT_ACTION.action,
+                        ),
                     },
                     {
                         type: 'input',

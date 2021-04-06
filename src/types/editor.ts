@@ -17,6 +17,7 @@ export interface Property {
 export interface DropdownProperty extends Property {
     type: 'dropdown';
     items: string[];
+    selected: number;
 }
 
 export interface InputProperty extends Property {
