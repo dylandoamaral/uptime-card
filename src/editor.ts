@@ -12,7 +12,15 @@ import {
     TemplateResult,
 } from 'lit-element';
 
-import { DEFAULT_BAR, DEFAULT_COLOR, DEFAULT_CONFIG, DEFAULT_ICON, DEFAULT_SHOW, DEFAULT_TOOLTIP } from './const';
+import {
+    DEFAULT_ACTION,
+    DEFAULT_BAR,
+    DEFAULT_COLOR,
+    DEFAULT_CONFIG,
+    DEFAULT_ICON,
+    DEFAULT_SHOW,
+    DEFAULT_TOOLTIP,
+} from './const';
 import { CardConfig } from './types/config';
 import {
     DropdownProperty,
@@ -148,7 +156,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                 .configValue=${property.name}
                 .configSection=${property.section}
             >
-                <paper-listbox slot="dropdown-content" .selected=${property.items.indexOf(this._config?.entity || '')}>
+                <paper-listbox slot="dropdown-content" .selected=${property.selected}>
                     ${property.items.map(item => {
                         return html`
                             <paper-item>${item}</paper-item>
@@ -173,6 +181,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         this._initialized = true;
 
         const entities = Object.keys(this.hass.states);
+        const actions = ['more-info', 'url'];
 
         this.options = {
             mandatory: {
@@ -186,6 +195,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         items: entities,
                         name: 'entity',
                         label: 'Entity',
+                        selected: entities.indexOf(this._config?.entity || ''),
                     },
                 ],
             },
@@ -480,6 +490,28 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         section: 'tooltip',
                         label: 'Template of the tooltip.',
                         default: DEFAULT_TOOLTIP.template,
+                    },
+                ],
+            },
+            tap_action: {
+                icon: 'gesture-tap',
+                name: 'Tap action elements',
+                description: 'Handle tap action information',
+                show: false,
+                properties: [
+                    {
+                        type: 'dropdown',
+                        items: actions,
+                        name: 'action',
+                        section: 'tap_action',
+                        label: 'Action to perform.',
+                        selected: actions.indexOf(this._config?.tap_action?.action || DEFAULT_ACTION.action),
+                    },
+                    {
+                        type: 'input',
+                        name: 'url',
+                        section: 'tap_action',
+                        label: 'URL to open when action is defined as url.',
                     },
                 ],
             },

@@ -19,6 +19,7 @@ import localForage from 'localforage/src/localforage';
 
 import {
     CARD_VERSION,
+    DEFAULT_ACTION,
     DEFAULT_BAR,
     DEFAULT_COLOR,
     DEFAULT_CONFIG,
@@ -87,7 +88,7 @@ export class UptimeCard extends LitElement {
             show: { ...DEFAULT_SHOW, ...config.show },
             bar: { ...DEFAULT_BAR, ...config.bar },
             tooltip: { ...DEFAULT_TOOLTIP, ...config.tooltip },
-            tap_action: { action: 'more-info' },
+            tap_action: { ...DEFAULT_ACTION, ...config.tap_action },
         };
 
         this.updateData();
@@ -358,6 +359,28 @@ export class UptimeCard extends LitElement {
         return cleanedPoints;
     }
 
+    private handleClick(e: any): void {
+        e.stopPropagation();
+
+        const { tap_action } = this.config;
+        const entityId = this.sensor?.entity_id;
+        let event;
+
+        switch (tap_action.action) {
+            case 'more-info': {
+                if (entityId == undefined) return;
+                event = new Event('hass-more-info', { composed: true });
+                event.detail = { entityId };
+                this.dispatchEvent(event);
+                break;
+            }
+            case 'url': {
+                if (tap_action.url == undefined) return;
+                window.open(tap_action.url, '_blank')?.focus();
+            }
+        }
+    }
+
     /**
      * Rendering
      */
@@ -372,7 +395,7 @@ export class UptimeCard extends LitElement {
         });
 
         return html`
-            <ha-card class="flex">
+            <ha-card class="flex" @click=${this.handleClick}>
                 ${this.renderHeader()} ${this.renderStatus()} ${this.renderTimeline(barData)}
                 ${this.renderFooter(barData.map(data => data.repartition))}
             </ha-card>
