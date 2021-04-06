@@ -39,6 +39,11 @@ interface TooltipConfig {
     animation: boolean;
 }
 
+interface ActionConfig {
+    action: string;
+    url: string;
+}
+
 // Snake case here to respect Yaml home assistant
 export interface CardConfig extends LovelaceCardConfig {
     type: string;
@@ -61,4 +66,5 @@ export interface CardConfig extends LovelaceCardConfig {
     show: ShowConfig;
     bar: BarConfig;
     tooltip: TooltipConfig;
+    tap_action: ActionConfig;
 }

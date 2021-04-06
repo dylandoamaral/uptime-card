@@ -114,6 +114,15 @@ Uptime card is highly customizable.
 | template | string | `[[ from_date ]] - [[ to_date ]] \| [[ average ]]%` | v0.1.0 | Set a template for the tooltip **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
 | animation | boolean | `true` | v0.1.0 | Set to `true` to show bar animation on hover.
 
+### Action config
+
+**Parent key:** `tap_action`
+
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
+| action | `more-info`/`url` | `more-info` | v0.2.0 | Action to perform.
+| url | string | | v0.2.0 | URL to open when `action` is defined as `url`.
+
 ## Examples 📊
 
 ### Example 1

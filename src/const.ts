@@ -45,4 +45,8 @@ export const DEFAULT_TOOLTIP = {
     animation: true,
 };
 
+export const DEFAULT_ACTION = {
+    action: 'more-info',
+};
+
 export const DEFAULT_ICON = 'mdi:heart';

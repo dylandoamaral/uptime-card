@@ -483,6 +483,27 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                     },
                 ],
             },
+            tap_action: {
+                icon: 'gesture-tap',
+                name: 'Tap action elements',
+                description: 'Handle tap action information',
+                show: false,
+                properties: [
+                    {
+                        type: 'dropdown',
+                        items: ['more-info', 'url'],
+                        name: 'action',
+                        section: 'tap_action',
+                        label: 'Action to perform.',
+                    },
+                    {
+                        type: 'input',
+                        name: 'url',
+                        section: 'tap_action',
+                        label: 'URL to open when action is defined as url.',
+                    },
+                ],
+            },
         };
     }
 
