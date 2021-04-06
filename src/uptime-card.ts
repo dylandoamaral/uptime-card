@@ -360,8 +360,8 @@ export class UptimeCard extends LitElement {
     }
 
     private handleClick(e: any): void {
-        console.log('click');
         e.stopPropagation();
+
         const { tap_action } = this.config;
         const entityId = this.sensor?.entity_id;
         let event;
