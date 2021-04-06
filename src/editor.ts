@@ -181,6 +181,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         this._initialized = true;
 
         const entities = Object.keys(this.hass.states);
+        const actions = ['more-info', 'url'];
 
         this.options = {
             mandatory: {
@@ -500,13 +501,11 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                 properties: [
                     {
                         type: 'dropdown',
-                        items: ['more-info', 'url'],
+                        items: actions,
                         name: 'action',
                         section: 'tap_action',
                         label: 'Action to perform.',
-                        selected: ['more-info', 'url'].indexOf(
-                            this._config?.tap_action?.action || DEFAULT_ACTION.action,
-                        ),
+                        selected: actions.indexOf(this._config?.tap_action?.action || DEFAULT_ACTION.action),
                     },
                     {
                         type: 'input',
