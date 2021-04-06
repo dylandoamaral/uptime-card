@@ -376,7 +376,6 @@ export class UptimeCard extends LitElement {
             }
             case 'url': {
                 if (tap_action.url == undefined) return;
-                // window.location.href = tap_action.url;
                 window.open(tap_action.url, '_blank')?.focus();
             }
         }
