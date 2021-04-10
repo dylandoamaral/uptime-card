@@ -519,8 +519,9 @@ export class UptimeCard extends LitElement {
     }
 
     private renderIcon(): TemplateResult | string {
-        const { icon, show, icon_adaptive_color, color } = this.config;
-        const currentIcon = icon || this.sensor?.attributes.icon || DEFAULT_ICON;
+        const { icon, ko_icon, show, icon_adaptive_color, color } = this.config;
+        const useKoIcon = this.isOk(this.sensor?.state) == false && ko_icon;
+        const currentIcon = (useKoIcon ? ko_icon : icon) || this.sensor?.attributes.icon || DEFAULT_ICON;
 
         return show.icon
             ? html`
