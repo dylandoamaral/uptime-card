@@ -40,8 +40,15 @@ interface TooltipConfig {
 }
 
 interface ActionConfig {
-    action: string;
+    action: 'url' | 'more-info';
     url: string;
+}
+
+interface AlignmentConfig {
+    header: 'left' | 'center' | 'right' | 'spaced';
+    icon_first: boolean;
+    status: 'left' | 'center' | 'right' | 'spaced';
+    tooltip_first: boolean;
 }
 
 // Snake case here to respect Yaml home assistant
@@ -67,4 +74,5 @@ export interface CardConfig extends LovelaceCardConfig {
     bar: BarConfig;
     tooltip: TooltipConfig;
     tap_action: ActionConfig;
+    alignment: AlignmentConfig;
 }

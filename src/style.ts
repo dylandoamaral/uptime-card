@@ -30,6 +30,24 @@ const style = css`
 
     .header {
         justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .header[alignment='center'] {
+        justify-content: center;
+    }
+
+    .header[alignment='left'] {
+        align-self: flex-start;
+    }
+
+    .header[alignment='right'] {
+        align-self: flex-end;
+    }
+    .header[reverse] {
+        flex-direction: row-reverse;
     }
 
     .name > span {
@@ -52,7 +70,23 @@ const style = css`
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        align_items: flex-end;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .status[alignment='center'] {
+        justify-content: center;
+    }
+
+    .status[alignment='left'] {
+        align-self: flex-start;
+    }
+
+    .status[alignment='right'] {
+        align-self: flex-end;
+    }
+    .status[reverse] {
+        flex-direction: row-reverse;
     }
 
     .status > span {
@@ -73,7 +107,7 @@ const style = css`
     }
 
     .timeline {
-        padding-top: 10px;
+        padding-top: 6px;
         padding-bottom: 0px;
     }
 

@@ -20,6 +20,7 @@ import localForage from 'localforage/src/localforage';
 import {
     CARD_VERSION,
     DEFAULT_ACTION,
+    DEFAULT_ALIGNMENT,
     DEFAULT_BAR,
     DEFAULT_COLOR,
     DEFAULT_CONFIG,
@@ -96,6 +97,7 @@ export class UptimeCard extends LitElement {
             bar: { ...DEFAULT_BAR, ...config.bar },
             tooltip: { ...DEFAULT_TOOLTIP, ...config.tooltip },
             tap_action: { ...DEFAULT_ACTION, ...config.tap_action },
+            alignment: { ...DEFAULT_ALIGNMENT, ...config.alignment },
         };
 
         this.updateData();
@@ -412,11 +414,11 @@ export class UptimeCard extends LitElement {
     }
 
     private renderHeader(): TemplateResult | string {
-        const { show } = this.config;
+        const { show, alignment } = this.config;
 
         return show.header
             ? html`
-                  <div class="header flex">
+                  <div class="header flex" alignment="${alignment.header}" ?reverse="${alignment.icon_first}">
                       ${this.renderTitle()} ${this.renderIcon()}
                   </div>
               `
@@ -436,11 +438,11 @@ export class UptimeCard extends LitElement {
     }
 
     private renderStatus(): TemplateResult {
-        const { show } = this.config;
+        const { show, alignment } = this.config;
 
         return show.status
             ? html`
-                  <div class="status">
+                  <div class="status" alignment="${alignment.status}" ?reverse="${alignment.tooltip_first}">
                       ${this.renderState()} ${this.renderTooltip()}
                   </div>
               `
@@ -532,8 +534,9 @@ export class UptimeCard extends LitElement {
     private renderTimeline(barData: BarData[]): TemplateResult | string {
         const { show, color, bar, severity, tooltip } = this.config;
 
+        const shouldNotBeAnimated = show.status == false || tooltip.animation == false;
         const offset = 5;
-        const height = bar.height + offset;
+        const height = shouldNotBeAnimated ? bar.height : bar.height + offset;
         const width = 500;
         const spacingTotalWidth = bar.spacing * (bar.amount - 1);
         const barWidth = Math.floor((width - spacingTotalWidth) / bar.amount);
@@ -548,8 +551,7 @@ export class UptimeCard extends LitElement {
             else if (data.repartition.ko >= severity) barColor = color.ko;
             else barColor = color.half;
 
-            const shouldNotBeSelected =
-                this.tooltip?.index != idx || show.status == false || tooltip.animation == false;
+            const shouldNotBeSelected = this.tooltip?.index != idx || shouldNotBeAnimated;
             const height = shouldNotBeSelected ? bar.height : bar.height + offset;
             const y = shouldNotBeSelected ? offset : 0;
 

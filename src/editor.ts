@@ -14,6 +14,7 @@ import {
 
 import {
     DEFAULT_ACTION,
+    DEFAULT_ALIGNMENT,
     DEFAULT_BAR,
     DEFAULT_COLOR,
     DEFAULT_CONFIG,
@@ -182,6 +183,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
 
         const entities = Object.keys(this.hass.states);
         const actions = ['more-info', 'url'];
+        const alignments = ['center', 'right', 'left', 'spaced'];
 
         this.options = {
             mandatory: {
@@ -512,6 +514,44 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         name: 'url',
                         section: 'tap_action',
                         label: 'URL to open when action is defined as url.',
+                    },
+                ],
+            },
+            alignment: {
+                icon: 'ruler',
+                name: 'Alignment',
+                description: 'Align elements from the card',
+                show: false,
+                properties: [
+                    {
+                        type: 'dropdown',
+                        items: alignments,
+                        name: 'header',
+                        section: 'alignment',
+                        label: 'Alignment of the header.',
+                        selected: alignments.indexOf(this._config?.alignment?.header || DEFAULT_ALIGNMENT.header),
+                    },
+                    {
+                        type: 'switch',
+                        name: 'icon_first',
+                        section: 'alignment',
+                        label: 'Set to true if the icon should be placed before the title.',
+                        default: DEFAULT_ALIGNMENT.icon_first,
+                    },
+                    {
+                        type: 'dropdown',
+                        items: alignments,
+                        name: 'status',
+                        section: 'alignment',
+                        label: 'Alignment of the status.',
+                        selected: alignments.indexOf(this._config?.alignment?.status || DEFAULT_ALIGNMENT.status),
+                    },
+                    {
+                        type: 'switch',
+                        name: 'tooltip_first',
+                        section: 'alignment',
+                        label: 'Set to true if the tooltip should be placed before the state.',
+                        default: DEFAULT_ALIGNMENT.tooltip_first,
                     },
                 ],
             },

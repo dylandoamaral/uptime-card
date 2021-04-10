@@ -123,6 +123,17 @@ Uptime card is highly customizable.
 | action | `more-info`/`url` | `more-info` | v0.2.0 | Action to perform.
 | url | string | | v0.2.0 | URL to open when `action` is defined as `url`.
 
+### Alignment config
+
+**Parent key:** `alignment`
+
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
+| header | `left`/`right`/`center`/`spaced` | `spaced` | v0.2.0 | Select the spacing strategy between title and icon.
+| icon_first | `true`/`false` | `false` | v0.2.0 | Set the icon before the title.
+| status | `left`/`right`/`center`/`spaced` | `spaced` | v0.2.0 | Select the spacing strategy between state and tooltip.
+| tooltip_first | `true`/`false` | `false` | v0.2.0 | Set the tooltip before the status.
+
 ## Examples 📊
 
 ### Example 1
