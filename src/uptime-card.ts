@@ -72,6 +72,13 @@ export class UptimeCard extends LitElement {
     }
 
     /**
+     * The list of clickable actions
+     */
+    public get actions(): string[] {
+        return ['more-info', 'url'];
+    }
+
+    /**
      * Called when the configuration change (rare).
      * @param config The new config.
      */
@@ -366,6 +373,8 @@ export class UptimeCard extends LitElement {
         const entityId = this.sensor?.entity_id;
         let event;
 
+        if (!this.actions.includes(tap_action.action)) return;
+
         switch (tap_action.action) {
             case 'more-info': {
                 if (entityId == undefined) return;
@@ -386,7 +395,7 @@ export class UptimeCard extends LitElement {
      */
 
     protected render(): TemplateResult {
-        const { bar } = this.config;
+        const { bar, tap_action } = this.config;
 
         const barData = [...Array(bar.amount).keys()].map((_, idx) => {
             const period = this.findBarPeriod(idx);
@@ -395,7 +404,7 @@ export class UptimeCard extends LitElement {
         });
 
         return html`
-            <ha-card class="flex" @click=${this.handleClick}>
+            <ha-card class="flex" @click=${this.handleClick} ?hover=${this.actions.includes(tap_action.action)}>
                 ${this.renderHeader()} ${this.renderStatus()} ${this.renderTimeline(barData)}
                 ${this.renderFooter(barData.map(data => data.repartition))}
             </ha-card>
