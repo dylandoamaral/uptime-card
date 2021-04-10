@@ -49,4 +49,11 @@ export const DEFAULT_ACTION = {
     action: 'more-info',
 };
 
+export const DEFAULT_ALIGNMENT = {
+    header: 'spaced',
+    icon_first: false,
+    status: 'spaced',
+    tooltip_first: false,
+};
+
 export const DEFAULT_ICON = 'mdi:heart';
