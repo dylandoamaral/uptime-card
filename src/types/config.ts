@@ -57,6 +57,7 @@ export interface CardConfig extends LovelaceCardConfig {
     entity: string;
     name?: string;
     icon?: string;
+    ko_icon?: string;
     on?: string;
     off?: string;
     severity: number;
