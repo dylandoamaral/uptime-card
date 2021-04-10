@@ -40,7 +40,7 @@ interface TooltipConfig {
 }
 
 interface ActionConfig {
-    action: string;
+    action: 'url' | 'more-info';
     url: string;
 }
 
