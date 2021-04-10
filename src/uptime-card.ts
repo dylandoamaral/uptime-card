@@ -554,7 +554,7 @@ export class UptimeCard extends LitElement {
 
             const shouldNotBeSelected = this.tooltip?.index != idx || shouldNotBeAnimated;
             const height = shouldNotBeSelected ? bar.height : bar.height + offset;
-            const y = shouldNotBeSelected ? offset : 0;
+            const y = shouldNotBeAnimated ? 0 : shouldNotBeSelected ? offset : 0;
 
             return this.renderBar(
                 idx * (barWidth + bar.spacing) + leftTotalWidth / 2,

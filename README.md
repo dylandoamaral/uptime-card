@@ -38,8 +38,8 @@ Uptime card is highly customizable.
 
 ### Global config
 
-| Name | Type | Default | Since | Description |
-|------|:----:|:-------:|:-----:|-------------|
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
 | entity (**required**) | string |  | v0.0.1 | Specify entity ID of the sensor
 | ok | string |  | v0.0.1 | Specify the `on` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
 | ko | string |  | v0.0.1 | Specify the `off` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
@@ -51,17 +51,17 @@ Uptime card is highly customizable.
 | average_text | string | `%`| v0.0.2 | Set the average text to be displayed at the bottom.
 | severity | number | `100` | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
 | status_template | string | `[[ current ]]` | v0.1.0 | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
-| title_adaptive_color | boolean | `false` | v0.0.2 | Make the title color adapt with the entity color.
-| status_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the entity color.
-| icon_adaptive_color | boolean | `false` | v0.0.2 | Make the name color adapt with the entity color.
-| tooltip_adaptive_color | boolean | `false` | v0.1.0 | Make the name color adapt with the entity color.
+| title_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the title color adapt with the entity color.
+| status_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
+| icon_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
+| tooltip_adaptive_color | `true`/`false` | `false` | v0.1.0 | Make the name color adapt with the entity color.
 
 ### Bar config
 
 **Parent key:** `bar`
 
-| Name | Type | Default | Since | Description |
-|------|:----:|:-------:|:-----:|-------------|
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
 | height | number | `46` | v0.0.1 | Set the height of the bars.
 | round | number | `1` | v0.0.1 | Set the round radius for the bars.
 | spacing | number | `4` | v0.0.1 | Set the spacing between the bars.
@@ -71,8 +71,8 @@ Uptime card is highly customizable.
 
 **Parent key:** `color`
 
-| Name | Type | Default | Since | Description |
-|------|:----:|:-------:|:-----:|-------------|
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
 | ok | color | ![ ](https://dummyimage.com/20x10/45c669&amp;text=+) `#45C669` | v0.0.1 | Set the `ok` color.
 | ko | color | ![ ](https://dummyimage.com/20x10/c66445&amp;text=+) `#C66445` | v0.0.1 | Set the `ko` color.
 | half | color | ![ ](https://dummyimage.com/20x10/c6b145&amp;text=+) `#C6B145` | v0.0.1 | Set the `half` color.
@@ -86,22 +86,22 @@ Uptime card is highly customizable.
 
 **Parent key:** `show`
 
-| Name | Default | Options | Since | Description |
-|------:|:------:|:-----:|:------:|:-------------|
-| header | `true` | `true`/`false` | v0.0.1 | Show/hide the header.
-| title | `true` | `true`/`false` | v0.1.0 | Show/hide the title.
-| icon | `true` | `true`/`false` | v0.0.1 | Show/hide the icon.
-| status | `true` | `true`/`false` | v0.0.1 | Show/hide the status.
-| timeline | `true` | `true`/`false` | v0.0.1 | Show/hide the timeline.
-| average | `true` | `true`/`false` | v0.0.2 | Show/hide the average.
-| footer | `true` | `true`/`false` | v0.0.1 | Show/hide the footer.
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
+| header | `true`/`false` | `true` | v0.0.1 | Show/hide the header.
+| title | `true`/`false` | `true` | v0.1.0 | Show/hide the title.
+| icon | `true`/`false` | `true` | v0.0.1 | Show/hide the icon.
+| status | `true`/`false` | `true` | v0.0.1 | Show/hide the status.
+| timeline | `true`/`false` | `true` | v0.0.1 | Show/hide the timeline.
+| average | `true`/`false` | `true` | v0.0.2 | Show/hide the average.
+| footer | `true`/`false` | `true` | v0.0.1 | Show/hide the footer.
 
 ### Alias config
 
 **Parent key:** `alias`
 
-| Name | Type | Default | Since | Description |
-|------|:----:|:-------:|:-----:|-------------|
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
 | ok | string | | v0.0.1 | Set a friendly name for `ok` state.
 | ko | string | | v0.0.1 | Set a friendly name for `ko` state.
 
@@ -109,11 +109,11 @@ Uptime card is highly customizable.
 
 **Parent key:** `tooltip`
 
-| Name | Type | Default | Since | Description |
-|------|:----:|:-------:|:-----:|-------------|
-| hour24 | boolean | `false` | v0.1.0 | Set to `true` to display time in 24-hour format.
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
+| hour24 | `true`/`false` | `false` | v0.1.0 | Set to `true` to display time in 24-hour format.
 | template | string | `[[ from_date ]] - [[ to_date ]] \| [[ average ]]%` | v0.1.0 | Set a template for the tooltip **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
-| animation | boolean | `true` | v0.1.0 | Set to `true` to show bar animation on hover.
+| animation | `true`/`false` | `true` | v0.1.0 | Set to `true` to show bar animation on hover.
 
 ### Action config
 
@@ -148,15 +148,15 @@ type: 'custom:uptime-card'
 entity: binary_sensor.updater
 icon: 'mdi:raspberry-pi'
 name: HA update
+hours_to_show: 168
+status_adaptive_color: true
 alias:
   ok: Update available !
   ko: No update for the moment...
 color:
   icon: grey
-hours_to_show: 168
 show:
   footer: false
-status_adaptive_color: true
 ```
 
 ### Example 2
@@ -167,22 +167,30 @@ status_adaptive_color: true
 
 ```yaml
 type: 'custom:uptime-card'
-bar:
-  spacing: 4
-  height: 10
-  round: 4
-icon: 'mdi:weather-sunny'
 entity: sun.sun
 name: Sun
+icon: 'mdi:weather-sunny'
+ko_icon: 'mdi:weather-sunny-off'
 ko: below_horizon
+icon_adaptive_color: true
+title_adaptive_color: true
 color:
   ok: '#F9d71C'
   ko: '#053752'
   half: '#EF810E'
-icon_adaptive_color: true
+bar:
+  spacing: 4
+  height: 10
+  round: 4
 show:
   average: false
   status: false
+alignment:
+  status: spaced
+  header: left
+  icon_first: true
+tap_action:
+  action: more-info
 ```
 
 ### Example 3
@@ -193,9 +201,13 @@ show:
 
 ```yaml
 type: 'custom:uptime-card'
-entity: binary_sensor.ping_google 
+entity: binary_sensor.ping_google
 # Home Assistant ping integration - https://www.home-assistant.io/integrations/ping
+name: 'https://www.google.com/'
 icon: 'mdi:heart'
+hours_to_show: 72
+title_adaptive_color: true
+average_text: '% uptime'
 bar:
   height: 46
   round: 0
@@ -204,10 +216,12 @@ bar:
 show:
   status: false
   icon: false
-title_adaptive_color: true
-hours_to_show: 72
-name: 'https://www.google.com/'
-average_text: '% uptime'
+tap_action:
+  action: url
+  url: 'https://www.google.com/'
+alignment:
+  status: spaced
+  header: center
 ```
 
 ## Roadmap 🗺️
