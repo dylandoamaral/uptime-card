@@ -20,13 +20,13 @@ import localForage from 'localforage/src/localforage';
 import {
     CARD_VERSION,
     DEFAULT_ACTION,
+    DEFAULT_ALIGNMENT,
     DEFAULT_BAR,
     DEFAULT_COLOR,
     DEFAULT_CONFIG,
     DEFAULT_ICON,
     DEFAULT_SHOW,
     DEFAULT_TOOLTIP,
-    DEFAULT_ALIGNMENT,
 } from './const';
 import style from './style';
 import { ApiPoint, BarData, CacheData, Period, Point, Repartition } from './types/card';
