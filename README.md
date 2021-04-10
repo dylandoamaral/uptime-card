@@ -148,15 +148,15 @@ type: 'custom:uptime-card'
 entity: binary_sensor.updater
 icon: 'mdi:raspberry-pi'
 name: HA update
+hours_to_show: 168
+status_adaptive_color: true
 alias:
   ok: Update available !
   ko: No update for the moment...
 color:
   icon: grey
-hours_to_show: 168
 show:
   footer: false
-status_adaptive_color: true
 ```
 
 ### Example 2
