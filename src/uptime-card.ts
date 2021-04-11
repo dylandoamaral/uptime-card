@@ -34,7 +34,7 @@ import { CardConfig } from './types/config';
 import { template, unwrap, wrap } from './utils';
 
 /* eslint no-console: 0 */
-console.info(`%c Uptime card version ${CARD_VERSION} `, 'color: orange; font-weight: bold; background: black');
+console.info(`%c uptime-card \n    ${CARD_VERSION}    `, 'color: white; background-color: #C6B145; font-weight: 700;');
 
 // This puts your card into the UI card picker dialog
 (window as any).customCards = (window as any).customCards || [];
