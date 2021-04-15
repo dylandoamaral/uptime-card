@@ -14,10 +14,6 @@ const style = css`
         overflow: hidden;
     }
 
-    ha-card[hover] {
-        cursor: pointer;
-    }
-
     ha-card > div {
         padding: 0px 16px;
     }
@@ -26,6 +22,10 @@ const style = css`
         display: flex;
         display: -webkit-flex;
         min-width: 0;
+    }
+
+    .information[hover] {
+        cursor: pointer;
     }
 
     .header {
