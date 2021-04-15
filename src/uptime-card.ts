@@ -31,7 +31,7 @@ import {
 import style from './style';
 import { ApiPoint, BarData, CacheData, Period, Point, Repartition } from './types/card';
 import { CardConfig } from './types/config';
-import { template, unwrap, wrap } from './utils';
+import { clip, template, unwrap, wrap } from './utils';
 
 /* eslint no-console: 0 */
 console.info(`%c uptime-card \n    ${CARD_VERSION}    `, 'color: white; background-color: #C6B145; font-weight: 700;');
@@ -438,10 +438,13 @@ export class UptimeCard extends LitElement {
     private renderTitle(): TemplateResult {
         const { name, color, title_adaptive_color, show } = this.config;
 
+        let show_name = name;
+        if (show_name == undefined) show_name = this.sensor?.entity_id || '';
+
         return show.title
             ? html`
                   <div class="name">
-                      <span style=${this.getCssColor(title_adaptive_color, color.title)}>${name}</span>
+                      <span style=${this.getCssColor(title_adaptive_color, color.title)}>${clip(show_name, 30)}</span>
                   </div>
               `
             : html``;
@@ -482,7 +485,7 @@ export class UptimeCard extends LitElement {
         );
 
         return html`
-            <span style=${this.getCssColor(status_adaptive_color, color.status)}>${text}</span>
+            <span style=${this.getCssColor(status_adaptive_color, color.status)}>${clip(text, 30)}</span>
         `;
     }
 
