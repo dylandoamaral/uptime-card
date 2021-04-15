@@ -31,7 +31,7 @@ import {
 import style from './style';
 import { ApiPoint, BarData, CacheData, Period, Point, Repartition } from './types/card';
 import { CardConfig } from './types/config';
-import { template, unwrap, wrap, clip } from './utils';
+import { clip, template, unwrap, wrap } from './utils';
 
 /* eslint no-console: 0 */
 console.info(`%c uptime-card \n    ${CARD_VERSION}    `, 'color: white; background-color: #C6B145; font-weight: 700;');
