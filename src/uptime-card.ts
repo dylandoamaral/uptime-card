@@ -397,7 +397,7 @@ export class UptimeCard extends LitElement {
      */
 
     protected render(): TemplateResult {
-        const { bar, tap_action } = this.config;
+        const { bar } = this.config;
 
         const barData = [...Array(bar.amount).keys()].map((_, idx) => {
             const period = this.findBarPeriod(idx);
@@ -406,14 +406,24 @@ export class UptimeCard extends LitElement {
         });
 
         return html`
-            <ha-card class="flex" @click=${this.handleClick} ?hover=${this.actions.includes(tap_action.action)}>
-                ${this.renderHeader()} ${this.renderStatus()} ${this.renderTimeline(barData)}
+            <ha-card class="flex">
+                ${this.renderInformation()} ${this.renderTimeline(barData)}
                 ${this.renderFooter(barData.map(data => data.repartition))}
             </ha-card>
         `;
     }
 
-    private renderHeader(): TemplateResult | string {
+    private renderInformation(): TemplateResult {
+        const { tap_action } = this.config;
+
+        return html`
+            <div class="information" @click=${this.handleClick} ?hover=${this.actions.includes(tap_action.action)}>
+                ${this.renderHeader()} ${this.renderStatus()}
+            </div>
+        `;
+    }
+
+    private renderHeader(): TemplateResult {
         const { show, alignment } = this.config;
 
         return show.header
@@ -422,7 +432,7 @@ export class UptimeCard extends LitElement {
                       ${this.renderTitle()} ${this.renderIcon()}
                   </div>
               `
-            : '';
+            : html``;
     }
 
     private renderTitle(): TemplateResult {
