@@ -121,8 +121,22 @@ Uptime card is highly customizable.
 
 | Name | Type / Options | Default | Since | Description |
 |------|:--------------:|:-------:|:-----:|-------------|
-| action | `more-info`/`url` | `more-info` | v0.2.0 | Action to perform.
-| url | string | | v0.2.0 | URL to open when `action` is defined as `url`.
+| action | `more-info`/`url`/`navigate`/`toggle`/`call-service`/`fire-dom-event` | `more-info` | v0.2.0 (`more-info`/`url`) v0.3.0 (`navigate`/`toggle`/`call-service`/`fire-dom-event`)| Action to perform.
+| entity | string | | v0.3.0 | (Only for `more-info`) Override the entity for more information.
+| navigation_path | string | | v0.3.0 | (Only for `navigate`) Path to navigate to (e.g. `/lovelace/0/`).
+| ~~url~~ url_path | string | | ~~v0.2.0~~ v0.3.0 | (Only for `url`) URL to open.
+| service | string | | v0.3.0 | (Only for `call-service`) Service to call.
+| service-data | string | | v0.3.0 | (Only for `call-service`) Service data to include.
+| haptic | `success`/`warning`/`failure`/`light`/`medium`/`heavy`/`selection` | | v0.3.0 | Haptic feedback for the [Beta IOS App].(https://www.home-assistant.io/ios/beta)
+| confirmation | object | | v0.3.0 | Display a confirmation popup.
+
+
+**Parent key:** `tap_action.confirmation`
+
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
+| text | string | | v0.3.0 | This text will be displayed in the popup.
+| exemptions | array | | v0.3.0 | Any user declared in this list will not see the confirmation dialog.
 
 ### Alignment config
 

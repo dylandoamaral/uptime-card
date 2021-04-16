@@ -1,4 +1,4 @@
-import { LovelaceCardConfig } from 'custom-card-helpers';
+import { ActionConfig, LovelaceCardConfig } from 'custom-card-helpers';
 
 interface ShowConfig {
     header: boolean;
@@ -37,11 +37,6 @@ interface TooltipConfig {
     hour24: boolean;
     template: string;
     animation: boolean;
-}
-
-interface ActionConfig {
-    action: 'url' | 'more-info';
-    url: string;
 }
 
 interface AlignmentConfig {

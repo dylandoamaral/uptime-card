@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './editor';
 
-import { hasConfigOrEntityChanged, HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers';
+import { handleClick, hasConfigOrEntityChanged, HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import {
     CSSResult,
@@ -370,26 +370,8 @@ export class UptimeCard extends LitElement {
 
     private handleClick(e: any): void {
         e.stopPropagation();
-
-        const { tap_action } = this.config;
-        const entityId = this.sensor?.entity_id;
-        let event;
-
-        if (!this.actions.includes(tap_action.action)) return;
-
-        switch (tap_action.action) {
-            case 'more-info': {
-                if (entityId == undefined) return;
-                event = new Event('hass-more-info', { composed: true });
-                event.detail = { entityId };
-                this.dispatchEvent(event);
-                break;
-            }
-            case 'url': {
-                if (tap_action.url == undefined) return;
-                window.open(tap_action.url, '_blank')?.focus();
-            }
-        }
+        if (!this.config || !this._hass) return;
+        handleClick(this, this._hass, this.config, false, false);
     }
 
     /**
@@ -415,7 +397,6 @@ export class UptimeCard extends LitElement {
 
     private renderInformation(): TemplateResult {
         const { tap_action } = this.config;
-
         return html`
             <div class="information" @click=${this.handleClick} ?hover=${this.actions.includes(tap_action.action)}>
                 ${this.renderHeader()} ${this.renderStatus()}
