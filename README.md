@@ -232,7 +232,7 @@ show:
   icon: false
 tap_action:
   action: url
-  url: 'https://www.google.com/'
+  url_path: 'https://www.google.com/'
 alignment:
   status: spaced
   header: center
