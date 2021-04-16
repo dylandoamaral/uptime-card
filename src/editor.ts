@@ -18,7 +18,6 @@ import {
     DEFAULT_BAR,
     DEFAULT_COLOR,
     DEFAULT_CONFIG,
-    DEFAULT_ICON,
     DEFAULT_SHOW,
     DEFAULT_TOOLTIP,
 } from './const';
@@ -182,7 +181,8 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         this._initialized = true;
 
         const entities = Object.keys(this.hass.states);
-        const actions = ['more-info', 'url'];
+        const actions = ['more-info', 'url', 'navigate', 'toggle', 'call-service', 'fire-dom-event'];
+        const haptics = ['success', 'warning', 'failure', 'light', 'medium', 'heavy', 'selection'];
         const alignments = ['center', 'right', 'left', 'spaced'];
 
         this.options = {
@@ -515,9 +515,41 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                     },
                     {
                         type: 'input',
-                        name: 'url',
+                        name: 'entity',
                         section: 'tap_action',
-                        label: 'URL to open when action is defined as url.',
+                        label: '(Only for more-info) Override the entity for more information.',
+                    },
+                    {
+                        type: 'input',
+                        name: 'navigation_path',
+                        section: 'tap_action',
+                        label: '(Only for navigate) Path to navigate to (e.g. `/lovelace/0/`).',
+                    },
+                    {
+                        type: 'input',
+                        name: 'url_path',
+                        section: 'tap_action',
+                        label: '(Only for url) URL to open.',
+                    },
+                    {
+                        type: 'input',
+                        name: 'service',
+                        section: 'tap_action',
+                        label: '(Only for call-service) Service to call.',
+                    },
+                    {
+                        type: 'input',
+                        name: 'service-data',
+                        section: 'tap_action',
+                        label: '(Only for call-service) Service data to include.',
+                    },
+                    {
+                        type: 'dropdown',
+                        items: haptics,
+                        name: 'haptic',
+                        section: 'tap_action',
+                        label: 'Haptic feedback.',
+                        selected: actions.indexOf(this._config?.tap_action?.haptic || ''),
                     },
                 ],
             },
