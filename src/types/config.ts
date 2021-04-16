@@ -1,6 +1,4 @@
-import { LovelaceCardConfig } from 'custom-card-helpers';
-
-import { ActionConfig } from 'custom-card-helpers';
+import { ActionConfig, LovelaceCardConfig } from 'custom-card-helpers';
 
 interface ShowConfig {
     header: boolean;

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import './editor';
 
-import { hasConfigOrEntityChanged, HomeAssistant, LovelaceCardEditor, handleClick } from 'custom-card-helpers';
+import { handleClick, hasConfigOrEntityChanged, HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import {
     CSSResult,
@@ -370,7 +370,8 @@ export class UptimeCard extends LitElement {
 
     private handleClick(e: any): void {
         e.stopPropagation();
-        handleClick(this, this._hass!, this.config, false, false);
+        if (!this.config || !this._hass) return;
+        handleClick(this, this._hass, this.config, false, false);
     }
 
     /**
