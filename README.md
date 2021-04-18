@@ -55,7 +55,7 @@ Uptime card is highly customizable.
 | status_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
 | icon_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
 | tooltip_adaptive_color | `true`/`false` | `false` | v0.1.0 | Make the name color adapt with the entity color.
-| color_thresholds | list of [thresholds](https://github.com/dylandoamaral/uptime-card#color-thresholds) | | v0.4.0 | Set the color thesholds
+| color_thresholds | list of [thresholds](https://github.com/dylandoamaral/uptime-card#color-thresholds) | | v0.4.0 | Set the color thesholds.
 
 ### Bar config
 
@@ -276,7 +276,7 @@ You can specify `color_thresholds` to erase the `color.ok`, `color.ko`, `color.h
 
 | Name | Type / Options | Default | Since | Description |
 |------|:--------------:|:-------:|:-----:|-------------|
-| value |	number | | v0.4.0 |	Threshold value. |
+| value |	number | | v0.4.0 |	Threshold value.
 | color	| string | | v0.4.0 |	CSS color which will be used for levels below or equal the value field.
 
 #### Example:
