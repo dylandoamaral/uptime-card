@@ -76,7 +76,7 @@ export class UptimeCard extends LitElement {
      * The list of clickable actions
      */
     public get actions(): string[] {
-        return ['more-info', 'url'];
+        return ['more-info', 'url', 'navigate', 'toggle', 'call-service', 'fire-dom-event'];
     }
 
     /**
