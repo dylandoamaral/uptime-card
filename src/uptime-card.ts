@@ -538,10 +538,22 @@ export class UptimeCard extends LitElement {
         const useKoIcon = this.isOk(this.sensor?.state) == false && ko_icon;
         const currentIcon = (useKoIcon ? ko_icon : icon) || this.sensor?.attributes.icon || DEFAULT_ICON;
 
+        const iconDom =
+            currentIcon?.startsWith('/local') || currentIcon?.startsWith('http')
+                ? html`
+                      <div
+                          class="icon-image"
+                          style="background-image: url(${currentIcon}); background-size: cover;"
+                      ></div>
+                  `
+                : html`
+                      <ha-icon .icon=${currentIcon}></ha-icon>
+                  `;
+
         return show.icon
             ? html`
                   <div class="icon flex" style=${this.getCssColor(icon_adaptive_color, color.icon)}>
-                      <ha-icon .icon=${currentIcon}></ha-icon>
+                      ${iconDom}
                   </div>
               `
             : '';

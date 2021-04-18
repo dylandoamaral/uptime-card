@@ -61,7 +61,7 @@ const style = css`
         text-align: center;
     }
 
-    .icon > ha-icon {
+    .icon > * {
         height: 1.7em;
         width: 1.7em;
     }
