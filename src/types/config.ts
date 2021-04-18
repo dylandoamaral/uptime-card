@@ -1,5 +1,7 @@
 import { ActionConfig, LovelaceCardConfig } from 'custom-card-helpers';
 
+import { Threshold } from './card';
+
 interface ShowConfig {
     header: boolean;
     title: boolean;
@@ -71,4 +73,5 @@ export interface CardConfig extends LovelaceCardConfig {
     tooltip: TooltipConfig;
     tap_action: ActionConfig;
     alignment: AlignmentConfig;
+    color_thresholds: Threshold[];
 }

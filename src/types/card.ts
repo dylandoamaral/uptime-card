@@ -33,3 +33,8 @@ export interface BarData {
     repartition: Repartition;
     index: number;
 }
+
+export interface Threshold {
+    value: number;
+    color: string;
+}
