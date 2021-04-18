@@ -375,6 +375,27 @@ export class UptimeCard extends LitElement {
     }
 
     /**
+     * Compute the bar color according either to the color_thresholds if defined
+     * otherwise to the ok, ko and half color.
+     * @param repartition The repartition of the current bar.
+     */
+    private computeBarColor(repartition: Repartition): string {
+        const { severity, color, color_thresholds } = this.config;
+
+        if (repartition.none == 100) return color.none;
+
+        if (!color_thresholds) {
+            if (repartition.ok == 100) return color.ok;
+            else if (repartition.ko >= severity) return color.ko;
+            else return color.half;
+        } else {
+            const thresholds = color_thresholds.slice().sort((a, b) => b.value - a.value);
+            const threshold = thresholds.find(elem => elem.value <= repartition.ok);
+            return threshold ? threshold.color : color.none;
+        }
+    }
+
+    /**
      * Rendering
      */
 
@@ -527,7 +548,7 @@ export class UptimeCard extends LitElement {
     }
 
     private renderTimeline(barData: BarData[]): TemplateResult | string {
-        const { show, color, bar, severity, tooltip } = this.config;
+        const { show, bar, tooltip } = this.config;
 
         const shouldNotBeAnimated = show.status == false || tooltip.animation == false;
         const offset = 5;
@@ -540,12 +561,7 @@ export class UptimeCard extends LitElement {
         if (show.timeline == false) return '';
 
         const bars = barData.map((data, idx) => {
-            let barColor: string;
-            if (data.repartition.none == 100) barColor = color.none;
-            else if (data.repartition.ok == 100) barColor = color.ok;
-            else if (data.repartition.ko >= severity) barColor = color.ko;
-            else barColor = color.half;
-
+            const barColor = this.computeBarColor(data.repartition);
             const shouldNotBeSelected = this.tooltip?.index != idx || shouldNotBeAnimated;
             const height = shouldNotBeSelected ? bar.height : bar.height + offset;
             const y = shouldNotBeAnimated ? 0 : shouldNotBeSelected ? offset : 0;

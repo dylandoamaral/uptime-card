@@ -55,6 +55,7 @@ Uptime card is highly customizable.
 | status_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
 | icon_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
 | tooltip_adaptive_color | `true`/`false` | `false` | v0.1.0 | Make the name color adapt with the entity color.
+| color_thresholds | list of [thresholds](https://github.com/dylandoamaral/uptime-card#color-thresholds) | | v0.4.0 | Set the color thesholds.
 
 ### Bar config
 
@@ -266,6 +267,39 @@ These options follow these rules:
   - if the state name equals ko -> `ko`
   - if not -> `unknown`
 
+### Color thresholds
+
+You can specify the color of the bars using `color.ok`, `color.ko`, `color.half` and the `severity`, however you can have only three colors for your bars and you can't control them as much as you may want. That's the reason why `color_thresholds` exists.
+
+You can specify `color_thresholds` to erase the `color.ok`, `color.ko`, `color.half` behaviour by specifing a list of thresholds with the following data structure:
+
+
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
+| value | number | | v0.4.0 | Threshold value.
+| color | string | | v0.4.0 | CSS color which will be used for levels below or equal the value field.
+
+#### Example:
+
+```yaml
+color_thresholds:
+  - value: 20
+    color: red
+  - value: 40
+    color: blue
+  - value: 60
+    color: orange
+  - value: 100
+    color: green
+```
+
+With the above configuration, if the uptime of the current bar is less or equal than 20 then the bar will be red or else if it is less or equal than 40 then the bar will be blue and so on. The repartition looks like:
+
+```
+|________]________]________]________]
+0        20       40       60      100
+    red     blue    orange    green
+```
 ## Templating
 
 Custom templates can be used to customize the displayed text of `status` and `tooltip`.
