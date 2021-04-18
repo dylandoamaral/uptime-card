@@ -271,7 +271,7 @@ These options follow these rules:
 
 You can specify the color of the bars using `color.ok`, `color.ko`, `color.half` and the `severity`, however you can have only three colors for your bars and you can't control them as much as you may want. That's the reason why `color_thresholds` exists.
 
-You can specify `color_thresholds` to erase the `color.ok`, `color.ko`, `color.half` behaviour by specifing a list of thresholds composed by:
+You can specify `color_thresholds` to erase the `color.ok`, `color.ko`, `color.half` behaviour by specifing a list of thresholds with the following data structure:
 
 
 | Name | Type / Options | Default | Since | Description |
