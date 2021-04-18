@@ -184,7 +184,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         const actions = ['more-info', 'url', 'navigate', 'toggle', 'call-service', 'fire-dom-event'];
         const haptics = ['success', 'warning', 'failure', 'light', 'medium', 'heavy', 'selection'];
         const alignments = ['center', 'right', 'left', 'spaced'];
-        const effects = ['opacity', 'shadow'];
+        const effects = ['fade', 'shadow'];
         const targets = ['card', 'status', 'title', 'icon'];
 
         this.options = {

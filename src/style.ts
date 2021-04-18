@@ -1,7 +1,7 @@
 import { css } from 'lit-element';
 
 const style = css`
-    @keyframes blink-opacity {
+    @keyframes blink-fade {
         50% {
             opacity: 0;
         }
