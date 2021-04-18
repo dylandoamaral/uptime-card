@@ -276,7 +276,7 @@ You can specify `color_thresholds` to erase the `color.ok`, `color.ko`, `color.h
 
 | Name | Type / Options | Default | Since | Description |
 |------|:--------------:|:-------:|:-----:|-------------|
-| value | number | | v0.4.0 | Threshold value.
+| value | number | v0.4.0 | Threshold value.
 | color | string | | v0.4.0 | CSS color which will be used for levels below or equal the value field.
 
 #### Example:
