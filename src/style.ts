@@ -1,6 +1,18 @@
 import { css } from 'lit-element';
 
 const style = css`
+    @keyframes blink-opacity {
+        50% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes blink-shadow {
+        50% {
+            box-shadow: 0 0 20px red;
+        }
+    }
+
     :host {
         display: flex;
         flex-direction: column;

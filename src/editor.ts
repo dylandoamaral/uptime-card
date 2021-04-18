@@ -184,6 +184,8 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         const actions = ['more-info', 'url', 'navigate', 'toggle', 'call-service', 'fire-dom-event'];
         const haptics = ['success', 'warning', 'failure', 'light', 'medium', 'heavy', 'selection'];
         const alignments = ['center', 'right', 'left', 'spaced'];
+        const effects = ['opacity', 'shadow'];
+        const targets = ['card', 'status', 'title', 'icon'];
 
         this.options = {
             mandatory: {
@@ -588,6 +590,38 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         section: 'alignment',
                         label: 'Set to true if the tooltip should be placed before the state.',
                         default: DEFAULT_ALIGNMENT.tooltip_first,
+                    },
+                ],
+            },
+            blink: {
+                icon: 'alert',
+                name: 'Blink customization',
+                description: 'Customize blink',
+                show: false,
+                properties: [
+                    {
+                        type: 'dropdown',
+                        items: effects,
+                        name: 'effect',
+                        section: 'blink',
+                        label: 'The blink effect.',
+                        selected: effects.indexOf(this._config?.blink?.effect),
+                    },
+                    {
+                        type: 'dropdown',
+                        items: targets,
+                        name: 'target',
+                        section: 'blink',
+                        label: 'Set the component to blink.',
+                        selected: targets.indexOf(this._config?.blink?.target),
+                    },
+                    {
+                        type: 'number',
+                        name: 'speed',
+                        label: 'The animation speed.',
+                        section: 'blink',
+                        min: 0,
+                        max: 100,
                     },
                 ],
             },

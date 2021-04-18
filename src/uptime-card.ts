@@ -395,6 +395,18 @@ export class UptimeCard extends LitElement {
         }
     }
 
+    protected attachBlink(target: string): string {
+        const blink = this.config.blink;
+        if (
+            this.isOk(this.sensor?.state) ||
+            !blink ||
+            target != blink.target ||
+            (blink.target != 'card' && blink.effect == 'shadow')
+        )
+            return '';
+        else return `animation: blink-${blink.effect} ${blink.speed}s infinite;`;
+    }
+
     /**
      * Rendering
      */
@@ -409,7 +421,7 @@ export class UptimeCard extends LitElement {
         });
 
         return html`
-            <ha-card class="flex">
+            <ha-card class="flex" style="${this.attachBlink('card')}">
                 ${this.renderInformation()} ${this.renderTimeline(barData)}
                 ${this.renderFooter(barData.map(data => data.repartition))}
             </ha-card>
@@ -445,7 +457,7 @@ export class UptimeCard extends LitElement {
 
         return show.title
             ? html`
-                  <div class="name">
+                  <div class="name" style="${this.attachBlink('title')}">
                       <span style=${this.getCssColor(title_adaptive_color, color.title)}>${clip(show_name, 30)}</span>
                   </div>
               `
@@ -487,7 +499,9 @@ export class UptimeCard extends LitElement {
         );
 
         return html`
-            <span style=${this.getCssColor(status_adaptive_color, color.status)}>${clip(text, 30)}</span>
+            <span style="${this.getCssColor(status_adaptive_color, color.status)} ${this.attachBlink('status')}"
+                >${clip(text, 30)}</span
+            >
         `;
     }
 
@@ -543,7 +557,9 @@ export class UptimeCard extends LitElement {
                 ? html`
                       <div
                           class="icon-image"
-                          style="background-image: url(${currentIcon}); background-size: cover;"
+                          style="background-image: url(${currentIcon}); background-size: cover; style=${this.attachBlink(
+                              'icon',
+                          )}"
                       ></div>
                   `
                 : html`
@@ -552,7 +568,10 @@ export class UptimeCard extends LitElement {
 
         return show.icon
             ? html`
-                  <div class="icon flex" style=${this.getCssColor(icon_adaptive_color, color.icon)}>
+                  <div
+                      class="icon"
+                      style="${this.getCssColor(icon_adaptive_color, color.icon)} ${this.attachBlink('icon')}"
+                  >
                       ${iconDom}
                   </div>
               `
