@@ -48,6 +48,12 @@ interface AlignmentConfig {
     tooltip_first: boolean;
 }
 
+interface BlinkConfig {
+    effect: 'fade' | 'shadow';
+    target: 'card' | 'status' | 'title' | 'icon';
+    speed: number;
+}
+
 // Snake case here to respect Yaml home assistant
 export interface CardConfig extends LovelaceCardConfig {
     type: string;
@@ -74,4 +80,5 @@ export interface CardConfig extends LovelaceCardConfig {
     tap_action: ActionConfig;
     alignment: AlignmentConfig;
     color_thresholds: Threshold[];
+    blink: BlinkConfig;
 }

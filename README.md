@@ -150,6 +150,16 @@ Uptime card is highly customizable.
 | status | `left`/`right`/`center`/`spaced` | `spaced` | v0.2.0 | Select the spacing strategy between state and tooltip.
 | tooltip_first | `true`/`false` | `false` | v0.2.0 | Set the tooltip before the status.
 
+### Blink config
+
+**Parent key:** `blink`
+
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
+| effect | `fade`/`shadow` | | v0.4.0 | The blink effect (`shadow` only works with `card` target).
+| target | `card`/`status`/`title`/`icon` | | v0.4.0 | Set the component to blink.
+| speed | number | | v0.4.0 | The animation speed.
+
 ## Examples 📊
 
 ### Example 1
