@@ -143,7 +143,6 @@ export class UptimeCard extends LitElement {
         if (this.sensor == undefined) return;
 
         const status = this.getStatus()
-
         if (status == undefined) {
             this.cache = {
                 points: [],
@@ -151,6 +150,7 @@ export class UptimeCard extends LitElement {
                 lastChanged: -1,
                 hoursToShow: hours_to_show,
             };
+            return;
         }
 
         const cacheKey = attribute ? `${entity}#${attribute}` : entity
@@ -162,7 +162,7 @@ export class UptimeCard extends LitElement {
         let cache: CacheData;
 
         const fetchEverything = data == undefined || data.hoursToShow < hours_to_show;
-        const lastFetched = fetchEverything || data.lastFetched == -1 ? this.getMinimumDate() : data.lastFetched;
+        const lastFetched = fetchEverything ? this.getMinimumDate() : data.lastFetched;
 
         const from_date = new Date(lastFetched);
         const to_date = new Date();
