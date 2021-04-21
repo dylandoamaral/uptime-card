@@ -505,10 +505,10 @@ export class UptimeCard extends LitElement {
         if (this.sensor == undefined) {
             currentStatus = 'Unknown';
         } else {
-            if (this.isOk(this.sensor.state) == true && alias.ok) currentStatus = alias.ok;
-            else if (this.isOk(this.sensor.state) == false && alias.ko) currentStatus = alias.ko;
-            else if (this.isOk(this.sensor.state) == undefined) currentStatus = 'Unknown';
-            else currentStatus = this.sensor.state;
+            if (this.isOk(this.getStatus()) == true && alias.ok) currentStatus = alias.ok;
+            else if (this.isOk(this.getStatus()) == false && alias.ko) currentStatus = alias.ko;
+            else if (this.isOk(this.getStatus()) == undefined) currentStatus = 'Unknown';
+            else currentStatus = this.getStatus() || "Unknown";
         }
 
         const text = template(
