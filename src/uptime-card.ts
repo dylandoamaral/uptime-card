@@ -171,8 +171,6 @@ export class UptimeCard extends LitElement {
         // to a maximum of one time every 10 seconds
         if (to_date.getTime() - from_date.getTime() < 10000) return;
 
-        if (status == undefined) return;
-
         const fetchedPoints = await this.fetchRecent(cacheKey, from_date, to_date);
         const points = fetchEverything ? fetchedPoints : [...data.points, ...fetchedPoints];
         const index = points.findIndex(point => point.x > this.getMinimumDate());
