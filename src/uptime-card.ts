@@ -508,7 +508,7 @@ export class UptimeCard extends LitElement {
             if (this.isOk(this.getStatus()) == true && alias.ok) currentStatus = alias.ok;
             else if (this.isOk(this.getStatus()) == false && alias.ko) currentStatus = alias.ko;
             else if (this.isOk(this.getStatus()) == undefined) currentStatus = 'Unknown';
-            else currentStatus = this.getStatus() || "Unknown";
+            else currentStatus = this.getStatus() || 'Unknown';
         }
 
         const text = template(
