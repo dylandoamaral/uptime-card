@@ -137,12 +137,24 @@ export class UptimeCard extends LitElement {
     private async updateData(): Promise<void> {
         if (this.config == undefined || this._hass == undefined) return;
 
-        const { entity, hours_to_show } = this.config;
+        const { entity, hours_to_show, attribute } = this.config;
         this.sensor = this._hass.states[this.config.entity];
 
         if (this.sensor == undefined) return;
 
-        const data: CacheData = await this.getCache(entity);
+        const status = this.getStatus();
+        if (status == undefined) {
+            this.cache = {
+                points: [],
+                lastFetched: -1,
+                lastChanged: -1,
+                hoursToShow: hours_to_show,
+            };
+            return;
+        }
+
+        const cacheKey = attribute ? `${entity}#${attribute}` : entity;
+        const data: CacheData = await this.getCache(cacheKey);
 
         if (data != undefined) this.cache = data;
 
@@ -159,7 +171,7 @@ export class UptimeCard extends LitElement {
         // to a maximum of one time every 10 seconds
         if (to_date.getTime() - from_date.getTime() < 10000) return;
 
-        const fetchedPoints = await this.fetchRecent(entity, from_date, to_date);
+        const fetchedPoints = await this.fetchRecent(cacheKey, from_date, to_date);
         const points = fetchEverything ? fetchedPoints : [...data.points, ...fetchedPoints];
         const index = points.findIndex(point => point.x > this.getMinimumDate());
         const usefulPoints = index == 0 ? points : points.slice(index - 1);
@@ -174,7 +186,7 @@ export class UptimeCard extends LitElement {
             };
         } else {
             const lastChanged = new Date(this.sensor.last_changed).getTime();
-            const point = { x: lastChanged, y: this.sensor.state };
+            const point = { x: lastChanged, y: status };
 
             cache = {
                 points: [point],
@@ -184,7 +196,7 @@ export class UptimeCard extends LitElement {
             };
         }
 
-        await this.setCache(entity, cache);
+        await this.setCache(cacheKey, cache);
 
         this.cache = cache;
     }
@@ -330,9 +342,18 @@ export class UptimeCard extends LitElement {
      * @param default_color The default color of the entity.
      */
     private getCssColor(adaptive: boolean, default_color: string): string {
-        const colorCurr = adaptive == true ? this.getColor(this.sensor?.state) : default_color || undefined;
+        const colorCurr = adaptive == true ? this.getColor(this.getStatus()) : default_color || undefined;
         const colorCss = colorCurr ? `color: ${colorCurr};` : '';
         return colorCss;
+    }
+
+    /**
+     * Get the status of the current uptime card entity or null.
+     */
+    private getStatus(): string | undefined {
+        const { attribute } = this.config;
+        const status = attribute ? this.sensor?.attributes[attribute] : this.sensor?.state;
+        return status != undefined ? String(status) : undefined;
     }
 
     /**
@@ -342,16 +363,18 @@ export class UptimeCard extends LitElement {
      * @param end The end date to retrieve information.
      */
     private async fetchRecent(entity: string, start: Date, end: Date): Promise<Point[]> {
+        const { attribute } = this.config;
         let url = 'history/period';
         if (start) url += `/${start.toISOString()}`;
         url += `?filter_entity_id=${entity}`;
         if (end) url += `&end_time=${end.toISOString()}`;
-        url += '&minimal_response';
+        if (attribute == undefined) url += '&minimal_response';
         const result: ApiPoint[][] = await this._hass.callApi('GET', url);
 
         return result[0]
             ? result[0].map(result => {
-                  return { x: new Date(result.last_changed).getTime(), y: result.state };
+                  const status = attribute ? result.attributes[attribute] : result.state;
+                  return { x: new Date(result.last_changed).getTime(), y: status };
               })
             : [];
     }
@@ -398,7 +421,7 @@ export class UptimeCard extends LitElement {
     protected attachBlink(target: string): string {
         const blink = this.config.blink;
         if (
-            this.isOk(this.sensor?.state) ||
+            this.isOk(this.getStatus()) ||
             !blink ||
             target != blink.target ||
             (blink.target != 'card' && blink.effect == 'shadow')
@@ -482,10 +505,10 @@ export class UptimeCard extends LitElement {
         if (this.sensor == undefined) {
             currentStatus = 'Unknown';
         } else {
-            if (this.isOk(this.sensor.state) == true && alias.ok) currentStatus = alias.ok;
-            else if (this.isOk(this.sensor.state) == false && alias.ko) currentStatus = alias.ko;
-            else if (this.isOk(this.sensor.state) == undefined) currentStatus = 'Unknown';
-            else currentStatus = this.sensor.state;
+            if (this.isOk(this.getStatus()) == true && alias.ok) currentStatus = alias.ok;
+            else if (this.isOk(this.getStatus()) == false && alias.ko) currentStatus = alias.ko;
+            else if (this.isOk(this.getStatus()) == undefined) currentStatus = 'Unknown';
+            else currentStatus = this.getStatus() || 'Unknown';
         }
 
         const text = template(
@@ -549,7 +572,7 @@ export class UptimeCard extends LitElement {
 
     private renderIcon(): TemplateResult | string {
         const { icon, ko_icon, show, icon_adaptive_color, color } = this.config;
-        const useKoIcon = this.isOk(this.sensor?.state) == false && ko_icon;
+        const useKoIcon = this.isOk(this.getStatus()) == false && ko_icon;
         const currentIcon = (useKoIcon ? ko_icon : icon) || this.sensor?.attributes.icon || DEFAULT_ICON;
 
         const iconDom =

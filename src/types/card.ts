@@ -8,6 +8,11 @@ export interface ApiPoint {
     last_updated: string;
     state: string;
     entity_id: string;
+    attributes: Attributes;
+}
+
+interface Attributes {
+    [Key: string]: string;
 }
 
 export interface Repartition {

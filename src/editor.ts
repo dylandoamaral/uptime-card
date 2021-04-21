@@ -211,6 +211,11 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                 properties: [
                     {
                         type: 'input',
+                        name: 'attribute',
+                        label: 'Attribute',
+                    },
+                    {
+                        type: 'input',
                         name: 'name',
                         label: 'Name',
                     },

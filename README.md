@@ -41,6 +41,7 @@ Uptime card is highly customizable.
 | Name | Type / Options | Default | Since | Description |
 |------|:--------------:|:-------:|:-----:|-------------|
 | entity (**required**) | string |  | v0.0.1 | Specify entity ID of the sensor
+| attribute | string | | v0.5.0 | Set the attribute name if the state to monitor isn't the default one.
 | ok | string |  | v0.0.1 | Specify the `on` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
 | ko | string |  | v0.0.1 | Specify the `off` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
 | name | string |  | v0.0.1 | Set a custom title of the card.
