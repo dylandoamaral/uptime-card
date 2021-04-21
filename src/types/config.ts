@@ -58,6 +58,7 @@ interface BlinkConfig {
 export interface CardConfig extends LovelaceCardConfig {
     type: string;
     entity: string;
+    attribute?: string;
     name?: string;
     icon?: string;
     ko_icon?: string;
