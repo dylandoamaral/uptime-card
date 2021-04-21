@@ -342,7 +342,7 @@ export class UptimeCard extends LitElement {
      * @param default_color The default color of the entity.
      */
     private getCssColor(adaptive: boolean, default_color: string): string {
-        const colorCurr = adaptive == true ? this.getColor(this.sensor?.state) : default_color || undefined;
+        const colorCurr = adaptive == true ? this.getColor(this.getStatus()) : default_color || undefined;
         const colorCss = colorCurr ? `color: ${colorCurr};` : '';
         return colorCss;
     }
@@ -421,7 +421,7 @@ export class UptimeCard extends LitElement {
     protected attachBlink(target: string): string {
         const blink = this.config.blink;
         if (
-            this.isOk(this.sensor?.state) ||
+            this.isOk(this.getStatus()) ||
             !blink ||
             target != blink.target ||
             (blink.target != 'card' && blink.effect == 'shadow')
@@ -572,7 +572,7 @@ export class UptimeCard extends LitElement {
 
     private renderIcon(): TemplateResult | string {
         const { icon, ko_icon, show, icon_adaptive_color, color } = this.config;
-        const useKoIcon = this.isOk(this.sensor?.state) == false && ko_icon;
+        const useKoIcon = this.isOk(this.getStatus()) == false && ko_icon;
         const currentIcon = (useKoIcon ? ko_icon : icon) || this.sensor?.attributes.icon || DEFAULT_ICON;
 
         const iconDom =
