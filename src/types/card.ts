@@ -8,7 +8,7 @@ export interface ApiPoint {
     last_updated: string;
     state: string;
     entity_id: string;
-    attributes: Attributes
+    attributes: Attributes;
 }
 
 interface Attributes {

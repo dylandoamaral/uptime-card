@@ -142,7 +142,7 @@ export class UptimeCard extends LitElement {
 
         if (this.sensor == undefined) return;
 
-        const status = this.getStatus()
+        const status = this.getStatus();
         if (status == undefined) {
             this.cache = {
                 points: [],
@@ -153,7 +153,7 @@ export class UptimeCard extends LitElement {
             return;
         }
 
-        const cacheKey = attribute ? `${entity}#${attribute}` : entity
+        const cacheKey = attribute ? `${entity}#${attribute}` : entity;
         const data: CacheData = await this.getCache(cacheKey);
 
         if (data != undefined) this.cache = data;
@@ -353,9 +353,9 @@ export class UptimeCard extends LitElement {
      * Get the status of the current uptime card entity or null.
      */
     private getStatus(): string | undefined {
-        const { attribute } = this.config
-        const status = attribute ? this.sensor?.attributes[attribute] : this.sensor?.state
-        return status != undefined ? String(status) : undefined
+        const { attribute } = this.config;
+        const status = attribute ? this.sensor?.attributes[attribute] : this.sensor?.state;
+        return status != undefined ? String(status) : undefined;
     }
 
     /**
@@ -365,7 +365,7 @@ export class UptimeCard extends LitElement {
      * @param end The end date to retrieve information.
      */
     private async fetchRecent(entity: string, start: Date, end: Date): Promise<Point[]> {
-        const { attribute } = this.config
+        const { attribute } = this.config;
         let url = 'history/period';
         if (start) url += `/${start.toISOString()}`;
         url += `?filter_entity_id=${entity}`;
@@ -375,9 +375,9 @@ export class UptimeCard extends LitElement {
 
         return result[0]
             ? result[0].map(result => {
-                const status = attribute ? result.attributes[attribute] : result.state
-                return { x: new Date(result.last_changed).getTime(), y: status };
-            })
+                  const status = attribute ? result.attributes[attribute] : result.state;
+                  return { x: new Date(result.last_changed).getTime(), y: status };
+              })
             : [];
     }
 
