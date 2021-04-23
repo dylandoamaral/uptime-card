@@ -412,8 +412,8 @@ export class UptimeCard extends LitElement {
             else if (repartition.ko >= severity) return color.ko;
             else return color.half;
         } else {
-            const thresholds = color_thresholds.slice().sort((a, b) => b.value - a.value);
-            const threshold = thresholds.find(elem => elem.value <= repartition.ok);
+            const thresholds = color_thresholds.slice().sort((a, b) => a.value - b.value);
+            const threshold = thresholds.find(elem => elem.value >= repartition.ok);
             return threshold ? threshold.color : color.none;
         }
     }
