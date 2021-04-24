@@ -49,9 +49,9 @@ Uptime card is highly customizable.
 | ko_icon | string | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.2.0 | Specify a custom icon for ko status, e.g. `mdi:home`
 | hours_to_show | number | `24` | v0.0.1 | Set the number of hours to show.
 | update_interval | number | | v0.0.1 | Set the update interval for the card.
-| average_text | string | `%`| v0.0.2 | Set the average text to be displayed at the bottom.
+| average_template | string | `%`| v0.5.0 | Set the template for the average. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
 | severity | number | `100` | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
-| status_template | string | `[[ current ]]` | v0.1.0 | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
+| status_template | string | `[[ return variables.current ]]` | v0.1.0 | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
 | title_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the title color adapt with the entity color.
 | status_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
 | icon_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
@@ -114,7 +114,7 @@ Uptime card is highly customizable.
 | Name | Type / Options | Default | Since | Description |
 |------|:--------------:|:-------:|:-----:|-------------|
 | hour24 | `true`/`false` | `false` | v0.1.0 | Set to `true` to display time in 24-hour format.
-| template | string | `[[ from_date ]] - [[ to_date ]] \| [[ average ]]%` | v0.1.0 | Set a template for the tooltip **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
+| template | string | `[[ return variables.from_date ]] - [[ return variables.to_date ]] \| [[ return variables.average ]]%` | v0.1.0 | Set a template for the tooltip **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
 | animation | `true`/`false` | `true` | v0.1.0 | Set to `true` to show bar animation on hover.
 
 ### Action config
@@ -233,7 +233,7 @@ name: 'https://www.google.com/'
 icon: 'mdi:heart'
 hours_to_show: 72
 title_adaptive_color: true
-average_text: '% uptime'
+average_template: '[[ return variables.uptime.toFixed(2); ]]% uptime'
 bar:
   height: 46
   round: 0
@@ -313,15 +313,16 @@ With the above configuration, if the uptime of the current bar is less or equal 
 ```
 ## Templating
 
-Custom templates can be used to customize the displayed text of `status` and `tooltip`.
+Custom templates can be used to customize the displayed text of `status`, `average` and `tooltip`.
 
 Generally speaking, templates allows the ability to print either current values from the sensor or special variables, available either for the status or the tooltip.
 
-Either generic or specific interpolations exist using `[[ my.key ]]` structure.
+Either generic or specific interpolations exist using `[[ my.function ]]` structure.
 
+Under the hood, since v0.5.0, it uses the javascript [Function](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Function). It allows you to freely customize the fields using javascripts.
 ### Generic interpolations
 
-By default, for both `status` and `tooltip` you can print sensor data.
+By default, for both `status` and `tooltip` you can print sensor data using the variable `entity`.
 
 For example, using sensor `sun.sun` has the following attributes:
 
@@ -338,33 +339,33 @@ rising: true
 friendly_name: Sun
 ```
 
-The attribute `friendly_name` can be used using template, `[[ sun.sun.attributes.friendly_name ]]`.
+The attribute `friendly_name` can be used using template, `[[ return entity.attributes.friendly_name ]]`.
 
 ### Specific interpolations
 
-By default each template has their own interpolations.
+By default each template has their own interpolations using the variable `variables`.
 
 #### `Status`
 
 `status` has the following interpolations:
 
-- `[[ current ]]`: the current status.
-- `[[ ok ]]`: the `ok` status.
-- `[[ ko ]]`: the `ko` status.
+- `[[ return variables.current ]]`: the current status.
+- `[[ return variables.ok ]]`: the `ok` status.
+- `[[ return variables.ko ]]`: the `ko` status.
 
 #### `Tooltip`
 
 `tooltip` has the following interpolations:
 
-- `[[ from_date ]]`: the start date of the bar.
-- `[[ to_date ]]`: the end date of the bar.
-- `[[ average ]]`: the percentage of `on` during the period.
+- `[[ return variables.from_date ]]`: the start date of the bar.
+- `[[ return variables.to_date ]]`: the end date of the bar.
+- `[[ return variables.average ]]`: the percentage of `on` during the period.
 
 #### Example
 
 These can be combined to create a sentence.
 
-As an example, to retrieve the status of a `sun.sun` entity, template `[[ sun.sun.attributes.friendly_name ]] is [[ current ]]` can be specified.
+As an example, to retrieve the status of a `sun.sun` entity, template `[[ return entity.attributes.friendly_name ]] is [[ return variables.current ]]` can be specified.
 
 Which will print `Sun is Above Horizon` (if the sensor is in `ok` state and if alias is `Above Horizon`.)
 
