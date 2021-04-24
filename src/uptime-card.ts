@@ -481,7 +481,7 @@ export class UptimeCard extends LitElement {
         return show.title
             ? html`
                   <div class="name" style="${this.attachBlink('title')}">
-                      <span style=${this.getCssColor(title_adaptive_color, color.title)}>${clip(show_name, 30)}</span>
+                      <span style=${this.getCssColor(title_adaptive_color, color.title)}>${clip(show_name, 25)}</span>
                   </div>
               `
             : html``;
@@ -523,7 +523,7 @@ export class UptimeCard extends LitElement {
 
         return html`
             <span style="${this.getCssColor(status_adaptive_color, color.status)} ${this.attachBlink('status')}"
-                >${clip(text, 30)}</span
+                >${clip(text, 25)}</span
             >
         `;
     }
@@ -680,13 +680,15 @@ export class UptimeCard extends LitElement {
     }
 
     private renderAverage(repartitions: Repartition[]): TemplateResult {
-        const { show, average_text } = this.config;
+        const { show, average_template } = this.config;
         const sumOk = repartitions.reduce((prev, curr) => prev + curr.ok, 0);
-        const uptime = (sumOk / repartitions.length).toFixed(2);
+        const uptime = sumOk / repartitions.length;
+
+        const text = template(average_template, { uptime: uptime }, this.sensor);
 
         return show.average
             ? html`
-                  <div class="footer-text">${uptime}${average_text}</div>
+                  <div class="footer-text">${text}</div>
               `
             : html``;
     }
