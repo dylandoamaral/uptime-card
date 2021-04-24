@@ -233,7 +233,7 @@ name: 'https://www.google.com/'
 icon: 'mdi:heart'
 hours_to_show: 72
 title_adaptive_color: true
-average_text: '% uptime'
+average_template: '[[ return variables.uptime.toFixed(2); ]]% uptime'
 bar:
   height: 46
   round: 0
