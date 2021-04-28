@@ -10,6 +10,9 @@
   <a href="https://github.com/dylandoamaral/uptime-card">
     <img src="https://img.shields.io/github/commit-activity/m/dylandoamaral/uptime-card" />
   </a>
+  <a href="https://www.buymeacoffee.com/dylandoamaral">
+    <img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow" />
+  </a>
 </p>
 
 <p align="center">A minimalist card inspired by the <a href="https://www.redditstatus.com">reddit status</a> UI to display binary sensors in a nice way.</p>
@@ -249,12 +252,6 @@ alignment:
   status: spaced
   header: center
 ```
-
-## Roadmap 🗺️
-
-- Clickable card (link to website or show history)
-- Calendar mode
-- More customizations
 
 ## Additional information ℹ️
 
