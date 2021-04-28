@@ -515,8 +515,8 @@ export class UptimeCard extends LitElement {
             status_template,
             {
                 current: currentStatus,
-                ok: alias.ok || ok || '[[ ok ]]',
-                ko: alias.ko || ko || '[[ ko ]]',
+                ok: alias.ok || ok || '[[[ return variables.ok ]]]',
+                ko: alias.ko || ko || '[[[ return variables.ko ]]]',
             },
             this.sensor,
         );
