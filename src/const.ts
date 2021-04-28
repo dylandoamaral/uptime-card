@@ -4,8 +4,8 @@ export const CARD_VERSION = '0.4.0';
 export const DEFAULT_CONFIG = {
     hours_to_show: 24,
     severity: 100,
-    average_template: '[[ return variables.uptime.toFixed(2); ]]%',
-    status_template: '[[ return variables.current; ]]',
+    average_template: '[[[ return variables.uptime.toFixed(2); ]]]%',
+    status_template: '[[[ return variables.current; ]]]',
     title_adaptive_color: false,
     status_adaptive_color: false,
     icon_adaptive_color: false,
@@ -42,9 +42,9 @@ export const DEFAULT_BAR = {
 export const DEFAULT_TOOLTIP = {
     hour24: false,
     template:
-        '[[ return variables.from_date; ]] - \
-        [[ return variables.to_date; ]] | \
-        [[ return variables.average; ]]%',
+        '[[[ return variables.from_date; ]]] - \
+        [[[ return variables.to_date; ]]] | \
+        [[[ return variables.average; ]]]%',
     animation: true,
 };
 
