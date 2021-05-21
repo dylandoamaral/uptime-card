@@ -50,7 +50,7 @@ Uptime card is highly customizable.
 | name | string |  | v0.0.1 | Set a custom title of the card.
 | icon | string | `icon` attribute \|\| `mdi:heart` | v0.0.1 | Specify a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/) or an image from `/local` path (since v0.4.0), e.g. `mdi:home`
 | ko_icon | string | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.2.0 | Specify a custom icon for ko status, e.g. `mdi:home`
-| hours_to_show | number | `24` | v0.0.1 | Set the number of hours to show.
+| hours_to_show | number | `24` | v0.0.1 | Set the number of hours to show, you can go to the minute, you can go up to the minute (1 minute == 0.0167 hours_to_show).
 | update_interval | number | | v0.0.1 | Set the update interval for the card.
 | average_template | string | `%`| v0.5.0 | Set the template for the average. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
 | severity | number | `100` | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
