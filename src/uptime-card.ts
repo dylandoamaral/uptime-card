@@ -666,11 +666,11 @@ export class UptimeCard extends LitElement {
 
     private renderFooter(repartitions: Repartition[]): TemplateResult {
         const { show } = this.config;
-
-        return show.footer && show.timeline
+        const minimalDate = this.generateMinimalDate() || 'The future';
+        return show.footer && show.timeline && minimalDate
             ? html`
                   <div class="footer">
-                      <div class="footer-text">${this.generateMinimalDate()}</div>
+                      <div class="footer-text">${minimalDate}</div>
                       ${show.average ? this.renderLine() : html``} ${this.renderAverage(repartitions)}
                       ${this.renderLine()}
                       <div class="footer-text">Now</div>
@@ -693,26 +693,34 @@ export class UptimeCard extends LitElement {
             : html``;
     }
 
-    private generateMinimalDate(): string {
+    private generateMinimalDate(): string | null {
         const { hours_to_show } = this.config;
         if (hours_to_show == 0) return 'Now';
         else if (hours_to_show % 168 == 0) {
             const week = hours_to_show / 168;
             if (week == 1) {
-                return `${week} week ago`;
+                return `1 week ago`;
             }
             return `${week} weeks ago`;
         } else if (hours_to_show % 24 == 0) {
             const day = hours_to_show / 24;
             if (day == 1) {
-                return `${day} day ago`;
+                return `1 day ago`;
             }
             return `${day} days ago`;
-        } else {
+        } else if (hours_to_show > 1) {
             if (hours_to_show == 1) {
-                return `${hours_to_show} hour ago`;
+                return `1 hour ago`;
             }
             return `${hours_to_show} hours ago`;
+        } else if (hours_to_show > 0) {
+            const minute = Math.round(hours_to_show * 60);
+            if (minute == 1) {
+                return `1 minute ago`;
+            }
+            return `${minute} minutes ago`;
+        } else {
+            return null;
         }
     }
 
