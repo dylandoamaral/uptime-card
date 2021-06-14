@@ -73,6 +73,8 @@ export class UptimeCard extends LitElement {
 
         this._hass = hass;
         this.updateData();
+
+        this.lastUpdate = now;
     }
 
     /**
@@ -200,7 +202,6 @@ export class UptimeCard extends LitElement {
 
         await this.setCache(cacheKey, cache);
 
-        this.lastUpdate = now;
         this.cache = cache;
     }
 
