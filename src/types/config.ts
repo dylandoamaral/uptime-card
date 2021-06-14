@@ -67,7 +67,7 @@ export interface CardConfig extends LovelaceCardConfig {
     severity: number;
     status_template: string;
     hours_to_show: number;
-    update_interval?: number;
+    update_interval: number;
     average_template: string;
     title_adaptive_color: boolean;
     status_adaptive_color: boolean;

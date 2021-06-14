@@ -4,6 +4,7 @@ export const CARD_VERSION = '0.5.0';
 export const DEFAULT_CONFIG = {
     hours_to_show: 24,
     severity: 100,
+    update_interval: 30,
     average_template: '[[[ return variables.uptime.toFixed(2); ]]]%',
     status_template: '[[[ return variables.current; ]]]',
     title_adaptive_color: false,

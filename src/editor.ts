@@ -239,6 +239,14 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                     },
                     {
                         type: 'number',
+                        name: 'update_interval',
+                        label: 'Update interval',
+                        min: 0,
+                        max: 86400,
+                        default: DEFAULT_CONFIG.update_interval,
+                    },
+                    {
+                        type: 'number',
                         name: 'hours_to_show',
                         label: 'Hours to show',
                         min: 1 / 60, // One minute

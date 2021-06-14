@@ -61,15 +61,19 @@ export class UptimeCard extends LitElement {
     @internalProperty() private cache!: CacheData;
     @internalProperty() private tooltip?: BarData;
 
+    @internalProperty() private lastUpdate = 0;
+
     /**
      * Called when the state of Home Assistant changes (frequent).
      * @param config The new hass.
      */
     public set hass(hass: HomeAssistant) {
-        this._hass = hass;
-        this.sensor = hass.states[this.config.entity];
+        const now = new Date().getTime();
+        if (now - this.lastUpdate < this.config.update_interval * 1000) return;
 
+        this._hass = hass;
         this.updateData();
+        this.lastUpdate = now;
     }
 
     /**
@@ -118,9 +122,6 @@ export class UptimeCard extends LitElement {
 
     public connectedCallback(): void {
         super.connectedCallback();
-        if (this.config.update_interval) {
-            this.interval = setInterval(() => this.updateData(), this.config.update_interval * 1000);
-        }
     }
 
     public disconnectedCallback(): void {
@@ -138,9 +139,11 @@ export class UptimeCard extends LitElement {
         if (this.config == undefined || this._hass == undefined) return;
 
         const { entity, hours_to_show, attribute } = this.config;
-        this.sensor = this._hass.states[this.config.entity];
 
-        if (this.sensor == undefined) return;
+        if (this.sensor != this._hass.states[this.config.entity]) {
+            this.sensor = this._hass.states[this.config.entity];
+            if (this.sensor == undefined) return;
+        }
 
         const status = this.getStatus();
         if (status == undefined) {
@@ -158,7 +161,6 @@ export class UptimeCard extends LitElement {
 
         if (data != undefined) this.cache = data;
 
-        const now = new Date().getTime();
         let cache: CacheData;
 
         const fetchEverything = data == undefined || data.hoursToShow < hours_to_show;
@@ -171,6 +173,7 @@ export class UptimeCard extends LitElement {
         // to a maximum of one time every 10 seconds
         if (to_date.getTime() - from_date.getTime() < 10000) return;
 
+        const now = new Date().getTime();
         const fetchedPoints = await this.fetchRecent(cacheKey, from_date, to_date);
         const points = fetchEverything ? fetchedPoints : [...data.points, ...fetchedPoints];
         const index = points.findIndex(point => point.x > this.getMinimumDate());
