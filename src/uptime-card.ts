@@ -61,7 +61,7 @@ export class UptimeCard extends LitElement {
     @internalProperty() private cache!: CacheData;
     @internalProperty() private tooltip?: BarData;
 
-    @internalProperty() private lastUpdate: number = 0;
+    @internalProperty() private lastUpdate = 0;
 
     /**
      * Called when the state of Home Assistant changes (frequent).
@@ -73,7 +73,6 @@ export class UptimeCard extends LitElement {
 
         this._hass = hass;
         this.updateData();
-
         this.lastUpdate = now;
     }
 
