@@ -521,6 +521,7 @@ export class UptimeCard extends LitElement {
                 ok: alias.ok || ok || '[[[ return variables.ok ]]]',
                 ko: alias.ko || ko || '[[[ return variables.ko ]]]',
             },
+            this.config,
             this.sensor,
         );
 
@@ -557,6 +558,7 @@ export class UptimeCard extends LitElement {
                 to_date: toDate,
                 average: average,
             },
+            this.config,
             this.sensor,
         );
 
@@ -687,7 +689,7 @@ export class UptimeCard extends LitElement {
         const sumOk = repartitions.reduce((prev, curr) => prev + curr.ok, 0);
         const uptime = sumOk / repartitions.length;
 
-        const text = template(average_template, { uptime: uptime }, this.sensor);
+        const text = template(average_template, { uptime: uptime }, this.config, this.sensor);
 
         return show.average
             ? html`
