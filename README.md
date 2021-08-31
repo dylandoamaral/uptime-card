@@ -338,6 +338,19 @@ friendly_name: Sun
 
 The attribute `friendly_name` can be used using template, `[[[ return entity.attributes.friendly_name ]]]`.
 
+Since `v0.7.0`, you can get the yaml card configuration inside the template using the variable `configuration`.
+
+As an example, you can print the average uptime as `HH:MM:SS` instead of the average pourcentage using the following code in `average_template`:
+
+```js
+[[[ 
+let date = new Date(0);
+seconds = Math.trunc((configuration.hours_to_show * 3600) * variables.uptime / 100);
+date.setSeconds(seconds);
+return date.toISOString().substr(11, 8) 
+]]]
+```
+
 ### Specific interpolations
 
 By default each template has their own interpolations using the variable `variables`.
