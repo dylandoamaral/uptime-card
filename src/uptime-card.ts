@@ -721,9 +721,9 @@ export class UptimeCard extends LitElement {
         } else if (hours_to_show > 0) {
             const minute = Math.round(hours_to_show * 60);
             if (minute == 1) {
-                return `1 minute ago`;
+                return `1 min ago`;
             }
-            return `${minute} minutes ago`;
+            return `${minute} mins ago`;
         } else {
             return null;
         }
