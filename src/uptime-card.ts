@@ -713,7 +713,7 @@ export class UptimeCard extends LitElement {
                 return `1 day ago`;
             }
             return `${day} days ago`;
-        } else if (hours_to_show > 1) {
+        } else if (hours_to_show >= 1) {
             if (hours_to_show == 1) {
                 return `1 hour ago`;
             }
