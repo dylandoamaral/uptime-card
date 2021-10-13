@@ -713,7 +713,7 @@ export class UptimeCard extends LitElement {
                 return `1 day ago`;
             }
             return `${day} days ago`;
-        } else if (hours_to_show > 1) {
+        } else if (hours_to_show >= 1) {
             if (hours_to_show == 1) {
                 return `1 hour ago`;
             }
@@ -721,9 +721,9 @@ export class UptimeCard extends LitElement {
         } else if (hours_to_show > 0) {
             const minute = Math.round(hours_to_show * 60);
             if (minute == 1) {
-                return `1 minute ago`;
+                return `1 min ago`;
             }
-            return `${minute} minutes ago`;
+            return `${minute} mins ago`;
         } else {
             return null;
         }
