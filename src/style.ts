@@ -52,12 +52,13 @@ const style = css`
     }
 
     .header[alignment='left'] {
-        align-self: flex-start;
+        justify-content: flex-start;
     }
 
     .header[alignment='right'] {
-        align-self: flex-end;
+        justify-content: flex-end;
     }
+
     .header[reverse] {
         flex-direction: row-reverse;
     }

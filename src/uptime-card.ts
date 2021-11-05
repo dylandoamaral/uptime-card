@@ -465,10 +465,18 @@ export class UptimeCard extends LitElement {
 
     private renderHeader(): TemplateResult {
         const { show, alignment } = this.config;
+        let headerAlignment = alignment.header;
+        if (alignment.icon_first) {
+            if (headerAlignment === 'right') {
+                headerAlignment = 'left';
+            } else if (headerAlignment === 'left') {
+                headerAlignment = 'right';
+            }
+        }
 
         return show.header
             ? html`
-                  <div class="header flex" alignment="${alignment.header}" ?reverse="${alignment.icon_first}">
+                  <div class="header flex" alignment="${headerAlignment}" ?reverse="${alignment.icon_first}">
                       ${this.renderTitle()} ${this.renderIcon()}
                   </div>
               `
