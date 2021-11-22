@@ -484,15 +484,13 @@ export class UptimeCard extends LitElement {
     }
 
     private renderTitle(): TemplateResult {
-        const { name, color, title_adaptive_color, show } = this.config;
-
-        let show_name = name;
-        if (show_name == undefined) show_name = this.sensor?.entity_id || '';
+        const { color, title_adaptive_color, show, title_template } = this.config;
+        const text = template(title_template, {}, this.config, this.sensor);
 
         return show.title
             ? html`
                   <div class="name" style="${this.attachBlink('title')}">
-                      <span style=${this.getCssColor(title_adaptive_color, color.title)}>${clip(show_name, 25)}</span>
+                      <span style=${this.getCssColor(title_adaptive_color, color.title)}>${clip(text, 25)}</span>
                   </div>
               `
             : html``;

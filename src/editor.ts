@@ -216,11 +216,6 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                     },
                     {
                         type: 'input',
-                        name: 'name',
-                        label: 'Name',
-                    },
-                    {
-                        type: 'input',
                         name: 'icon',
                         label: 'Icon',
                     },
@@ -262,6 +257,12 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
                         type: 'input',
                         name: 'ko',
                         label: 'Ko status name',
+                    },
+                    {
+                        type: 'input',
+                        name: 'title_template',
+                        label: 'Title template',
+                        default: DEFAULT_CONFIG.title_template,
                     },
                     {
                         type: 'input',
