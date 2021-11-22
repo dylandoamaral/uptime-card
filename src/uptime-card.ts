@@ -541,17 +541,20 @@ export class UptimeCard extends LitElement {
   private renderTooltip(): TemplateResult {
     const { hours_to_show, tooltip, tooltip_adaptive_color, color } = this.config;
     if (this.tooltip == undefined) return html``;
+
     const locale = this._hass.language || 'en-US';
-    const hourOption = {
+
+    const hourOption: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: 'numeric',
       hour12: tooltip.hour24 == false,
     };
-    const dayOption = {
+    const dayOption: Intl.DateTimeFormatOptions = {
       ...hourOption,
       weekday: 'short',
       day: 'numeric',
     };
+
     const fromOption = hours_to_show <= 24 ? hourOption : dayOption;
     const fromDate = new Date(this.tooltip.period.from).toLocaleString(locale, fromOption);
     const toDate = new Date(this.tooltip.period.to).toLocaleString(locale, hourOption);
@@ -585,14 +588,12 @@ export class UptimeCard extends LitElement {
     const { icon, ko_icon, show, icon_adaptive_color, color } = this.config;
     const useKoIcon = this.isOk(this.getStatus()) == false && ko_icon;
     const currentIcon = (useKoIcon ? ko_icon : icon) || this.sensor?.attributes.icon || DEFAULT_ICON;
+    const imageStyle = `background-image: url(${currentIcon}); background-size: cover;`;
 
     const iconDom =
       currentIcon?.startsWith('/local') || currentIcon?.startsWith('http')
         ? html`
-            <div
-              class="icon-image"
-              style="background-image: url(${currentIcon}); background-size: cover; style=${this.attachBlink('icon')}"
-            ></div>
+            <div class="icon-image" style="${imageStyle} ${this.attachBlink('icon')}"></div>
           `
         : html`
             <ha-icon .icon=${currentIcon}></ha-icon>
