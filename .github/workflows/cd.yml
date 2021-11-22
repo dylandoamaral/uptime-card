@@ -1,0 +1,52 @@
+name: GGmail Continuous Deployment
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    outputs:
+      release_body: ${{ steps.release.outputs.RELEASE_BODY }}
+    steps:
+      - name: Set the release version
+        shell: bash
+        run: echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Create changes
+        shell: bash
+        run: touch CHANGES.md
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v1
+        id: git-cliff
+        with:
+          config: cliff.toml
+          args: -vv --latest --strip header
+        env:
+          OUTPUT: CHANGES.md
+      - name: Set the release body
+        id: release
+        shell: bash
+        run: |
+          r=$(cat ${{ steps.git-cliff.outputs.changelog }})
+          r="${r//'%'/'%25'}"     # Multiline escape sequences for %
+          r="${r//$'\n'/'%0A'}"   # Multiline escape sequences for '\n'
+          r="${r//$'\r'/'%0D'}"   # Multiline escape sequences for '\r'
+          echo "::set-output name=RELEASE_BODY::$r"
+      - name: Build the file
+        run: |
+          npm install
+          npm run build
+      - name: Upload the release file
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/uptime-card.js
+          tag: ${{ github.ref }}
+          release_name: 'Release v${{ env.RELEASE_VERSION }}'
+          body: ${{ steps.release.outputs.RELEASE_BODY }}
