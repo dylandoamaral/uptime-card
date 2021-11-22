@@ -18,23 +18,23 @@ export const clip = (text: string, max: number): string => (text.length > max ? 
  * @param entity The current card sensor.
  */
 export const template = (
-    template: string,
-    variables: { [id: string]: any },
-    configuration: CardConfig,
-    entity?: HassEntity,
+  template: string,
+  variables: { [id: string]: any },
+  configuration: CardConfig,
+  entity?: HassEntity,
 ): string => {
-    const regex = /\[\[\[ (.*?) \]\]\]/g;
-    const functions = [...template.matchAll(regex)].map(values => values[1]);
+  const regex = /\[\[\[ (.*?) \]\]\]/g;
+  const functions = [...template.matchAll(regex)].map(values => values[1]);
 
-    functions.forEach(f => {
-        const from = `[[[ ${f} ]]]`;
-        try {
-            const to = new Function('entity', 'variables', 'configuration', f);
-            template = template.replace(from, to(entity, variables, configuration));
-        } catch {
-            template = template.replace(from, 'error');
-        }
-    });
+  functions.forEach(f => {
+    const from = `[[[ ${f} ]]]`;
+    try {
+      const to = new Function('entity', 'variables', 'configuration', f);
+      template = template.replace(from, to(entity, variables, configuration));
+    } catch {
+      template = template.replace(from, 'error');
+    }
+  });
 
-    return template;
+  return template;
 };
