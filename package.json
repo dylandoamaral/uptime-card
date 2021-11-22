@@ -1,7 +1,7 @@
 {
   "name": "uptime-card",
   "version": "1.3.2",
-  "description": "Lovelace uptime-card",
+  "description": "Minimalistic uptime card for Home Assistant Lovelace UI",
   "keywords": [
     "home-assistant",
     "homeassistant",
@@ -11,8 +11,8 @@
     "custom-cards"
   ],
   "module": "uptime-card.js",
-  "repository": "git@github.com:custom_cards/uptime-card.git",
-  "author": "Ian Richardson <iantrich@gmail.com>",
+  "repository": "https://github.com/dylandoamaral/uptime-card",
+  "author": "Dylan Do Amaral <do.amaral.dylan@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "custom-card-helpers": "^1.6.6",
@@ -50,8 +50,8 @@
   "scripts": {
     "start": "rollup -c rollup.config.dev.js --watch",
     "build": "npm run check && npm run rollup",
-    "check": "eslint 'src/**/*.ts' && prettier --config .prettierrc.js 'src/**/*.ts' --check",
+    "check": "eslint 'src/**/*.ts' && prettier --config .prettierrc 'src/**/*.ts' --check",
     "rollup": "rollup -c",
-    "format": "eslint 'src/**/*.ts' --fix && prettier --config .prettierrc.js 'src/**/*.ts' --write"
+    "format": "eslint 'src/**/*.ts' --fix && prettier --config .prettierrc 'src/**/*.ts' --write"
   }
 }
