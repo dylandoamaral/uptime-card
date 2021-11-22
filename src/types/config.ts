@@ -59,7 +59,6 @@ export interface CardConfig extends LovelaceCardConfig {
     type: string;
     entity: string;
     attribute?: string;
-    name?: string;
     icon?: string;
     ko_icon?: string;
     on?: string;
@@ -69,6 +68,7 @@ export interface CardConfig extends LovelaceCardConfig {
     hours_to_show: number;
     update_interval: number;
     average_template: string;
+    title_template: string;
     title_adaptive_color: boolean;
     status_adaptive_color: boolean;
     icon_adaptive_color: boolean;

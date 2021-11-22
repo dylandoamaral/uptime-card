@@ -308,6 +308,7 @@ With the above configuration, if the uptime of the current bar is less or equal 
 0        20       40       60      100
     red     blue    orange    green
 ```
+
 ## Templating
 
 Custom templates can be used to customize the displayed text of `status`, `average` and `tooltip`.
@@ -317,11 +318,12 @@ Generally speaking, templates allows the ability to print either current values 
 Either generic or specific interpolations exist using `[[[ my.function ]]]` structure.
 
 Under the hood, since v0.5.0, it uses the javascript [Function](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Function). It allows you to freely customize the fields using javascripts.
+
 ### Generic interpolations
 
-By default, for both `status` and `tooltip` you can print sensor data using the variable `entity`.
+By default, for both all templates you can print sensor data using the variable `entity`.
 
-For example, using sensor `sun.sun` has the following attributes:
+For example, using sensor `sun.sun` has the following `attributes`:
 
 ```yaml
 next_dawn: 2021-04-03T04:35:43+00:00
@@ -353,7 +355,7 @@ return date.toISOString().substr(11, 8)
 
 ### Specific interpolations
 
-By default each template has their own interpolations using the variable `variables`.
+By default some templates has their own interpolations using the variable `variables`.
 
 #### `Status`
 
