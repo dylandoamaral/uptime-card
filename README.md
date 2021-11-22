@@ -51,7 +51,7 @@ Uptime card is highly customizable.
 | ko_icon | string | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.2.0 | Specify a custom icon for ko status, e.g. `mdi:home`
 | hours_to_show | number | `24` | v0.0.1 | Set the number of hours to show, you can go to the minute, you can go up to the minute (1 minute == 0.0167 hours_to_show).
 | update_interval | number | 30 | v0.0.1 | Set the minimum update interval for the card in seconds.
-| title_template | string | `%`| v0.8.0 | Set the template for the title. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
+| title_template | string | `[[[ return entity.attributes.friendly_name; ]]]`| v0.8.0 | Set the template for the title. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
 | average_template | string | `%`| v0.5.0 | Set the template for the average. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
 | severity | number | `100` | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
 | status_template | string | `[[[ return variables.current ]]]` | v0.1.0 | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
