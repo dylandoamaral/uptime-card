@@ -1,5 +1,8 @@
-/node_modules/
 /.rpt2_cache/
-package-lock.json
-/dist
 .vscode
+
+/node_modules/
+yarn-error.log
+yarn.lock
+
+/dist
