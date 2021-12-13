@@ -1,4 +1,4 @@
-name: Uptime card Continuous Integration
+name: Uptime Card Continuous Integration
 
 on:
   push:

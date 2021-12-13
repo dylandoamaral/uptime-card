@@ -1,4 +1,4 @@
-name: GGmail Continuous Deployment
+name: Uptime Card Continuous Deployment
 
 on:
   push:
