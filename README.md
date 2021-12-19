@@ -321,7 +321,7 @@ With the above configuration, if the uptime of the current bar is less or equal 
 
 ## Initialization
 
-Since `v0.9.0` you can customize the way the uptime card bards will appear. 
+Since `v0.9.0` you can customize the initialization animation. 
 
 You have three choices:
 
