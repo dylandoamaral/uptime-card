@@ -13,6 +13,24 @@ const style = css`
     }
   }
 
+  @keyframes raise {
+    0% {
+      transform: scaleY(0);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes reveal {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   :host {
     display: flex;
     flex-direction: column;
@@ -114,6 +132,7 @@ const style = css`
   }
 
   .bar {
+    transform-origin: 0 100%;
     transition-property: height y;
     transition-duration: 0.3s;
     transition-timing-function: ease;
@@ -135,12 +154,23 @@ const style = css`
     opacity: 0.6;
   }
 
+  .footer-average {
+    color: #aaaaaa;
+    transition: visibility 0s, opacity 0.1s linear;
+    opacity: 0;
+  }
+
+  .footer-average[initialized] {
+    opacity: 0.6;
+  }
+
   .line {
     background: #aaaaaa;
     opacity: 0.3;
     flex: 1;
     margin: 0.75rem 1rem 0 1rem;
     height: 1px;
+    transition: width 0.25s;
   }
 `;
 
