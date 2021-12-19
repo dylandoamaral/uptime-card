@@ -164,6 +164,16 @@ Uptime card is highly customizable.
 | target | `card`/`status`/`title`/`icon` | | v0.4.0 | Set the component to blink.
 | speed | number | | v0.4.0 | The animation speed.
 
+### Initialisation config
+
+**Parent key:** `init`
+
+| Name | Type / Options | Default | Since | Description |
+|------|:--------------:|:-------:|:-----:|-------------|
+| animation | `none`/`raise`/`slide`/`reveal` | `raise` | v0.9.0 | The initialization animation **[More info](https://github.com/dylandoamaral/uptime-card#initialization)**.
+| duration | number | 0.5 | v0.9.0 | The initialization animation duration.
+
+
 ## Examples 📊
 
 ### Example 1
@@ -308,6 +318,31 @@ With the above configuration, if the uptime of the current bar is less or equal 
 0        20       40       60      100
     red     blue    orange    green
 ```
+
+## Initialization
+
+Since `v0.9.0` you can customize the way the uptime card bards will appear. 
+
+You have three choices:
+
+### Raise
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/animation_raise.gif" />
+</p>
+
+### Reveal
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/animation_reveal.gif" />
+</p>
+
+### Slide
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/animation_slide.gif" />
+</p>
+
 
 ## Templating
 

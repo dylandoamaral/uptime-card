@@ -13,12 +13,21 @@ const style = css`
     }
   }
 
-  @keyframes reveal {
+  @keyframes raise {
     0% {
       transform: scaleY(0);
     }
     100% {
       transform: scaleY(1);
+    }
+  }
+
+  @keyframes reveal {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 
@@ -123,9 +132,7 @@ const style = css`
   }
 
   .bar {
-    transform: scaleY(0);
     transform-origin: 0 100%;
-    animation: reveal 0.5s cubic-bezier(0.11, 0.95, 0.66, 1) forwards;
     transition-property: height y;
     transition-duration: 0.3s;
     transition-timing-function: ease;
@@ -163,6 +170,7 @@ const style = css`
     flex: 1;
     margin: 0.75rem 1rem 0 1rem;
     height: 1px;
+    transition: width 0.25s;
   }
 `;
 

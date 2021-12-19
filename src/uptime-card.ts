@@ -25,6 +25,7 @@ import {
   DEFAULT_COLOR,
   DEFAULT_CONFIG,
   DEFAULT_ICON,
+  DEFAULT_INIT,
   DEFAULT_SHOW,
   DEFAULT_TOOLTIP,
 } from './const';
@@ -102,6 +103,7 @@ export class UptimeCard extends LitElement {
       tooltip: { ...DEFAULT_TOOLTIP, ...config.tooltip },
       tap_action: { ...DEFAULT_ACTION, ...config.tap_action },
       alignment: { ...DEFAULT_ALIGNMENT, ...config.alignment },
+      init: { ...DEFAULT_INIT, ...config.init },
     };
 
     this.updateData();
@@ -628,10 +630,12 @@ export class UptimeCard extends LitElement {
       const y = shouldNotBeAnimated ? 0 : shouldNotBeSelected ? offset : 0;
 
       return this.renderBar(
+        idx,
         idx * (barWidth + bar.spacing) + leftTotalWidth / 2,
         y,
         barWidth,
         height,
+        bar.amount,
         barColor,
         bar.round,
         data,
@@ -647,15 +651,48 @@ export class UptimeCard extends LitElement {
     `;
   }
 
+  private getInitAnimationCss(
+    idx: number,
+    count: number,
+    animation: 'none' | 'raise' | 'reveal' | 'slide',
+    duration: number,
+  ): string {
+    const timingFunction = 'cubic-bezier(0.11, 0.95, 0.66, 1)';
+    if (animation == 'none') return '';
+    if (animation == 'raise') {
+      return `
+        transform: scaleY(0);
+        animation: raise ${duration}s ${timingFunction} forwards;
+      `;
+    }
+    if (animation == 'reveal') {
+      return `
+        opacity: 0;
+        animation: reveal ${duration}s ${timingFunction} forwards;
+      `;
+    }
+    const durationPerBar = duration / count;
+    return `
+      opacity: 0;
+      animation: reveal ${durationPerBar}s ${timingFunction} forwards;
+      animation-delay: ${idx * durationPerBar}s;
+    `;
+  }
+
   private renderBar(
+    idx: number,
     x: number,
     y: number,
     width: number,
     height: number,
+    count: number,
     color: string,
     round: number,
     data: BarData,
   ): TemplateResult {
+    const { init } = this.config;
+    const style = this.getInitAnimationCss(idx, count, init.animation, init.duration);
+
     return svg`
         <rect
             class='bar'
@@ -666,6 +703,7 @@ export class UptimeCard extends LitElement {
             height=${height}
             width=${width}
             fill=${color}
+            style=${style}
             @mouseover=${(): BarData => (this.tooltip = data)}
             @mouseout=${(): undefined => (this.tooltip = undefined)}>
         ></rect>`;

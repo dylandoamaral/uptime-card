@@ -182,7 +182,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     const alignments = ['center', 'right', 'left', 'spaced'];
     const effects = ['fade', 'shadow'];
     const targets = ['card', 'status', 'title', 'icon'];
-    const animations = ['none', 'raise', 'slide', 'reveal'];
+    const animations = ['none', 'raise', 'reveal', 'slide'];
 
     this.options = {
       mandatory: {
@@ -360,6 +360,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
           {
             type: 'number',
             name: 'duration',
+            section: 'init',
             label: 'Animation duration',
             min: 0,
             max: 10,

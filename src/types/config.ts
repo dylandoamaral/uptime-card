@@ -55,7 +55,7 @@ interface BlinkConfig {
 }
 
 interface InitConfig {
-  animation: 'none' | 'raise' | 'slide' | 'reveal';
+  animation: 'none' | 'raise' | 'reveal' | 'slide';
   duration: number;
 }
 
