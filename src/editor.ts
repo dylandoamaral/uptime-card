@@ -122,8 +122,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         @value-changed=${this._valueChanged}
         min=${property.min}
         max=${property.max}
-        prevent-invalid-input
-        allowed-pattern="^[0-9]+$"
+        type="number"
       ></paper-input>
     `;
   }
