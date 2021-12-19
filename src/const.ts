@@ -61,4 +61,9 @@ export const DEFAULT_ALIGNMENT = {
   tooltip_first: false,
 };
 
+export const DEFAULT_INIT = {
+  animation: 'raise',
+  duration: 0.5,
+};
+
 export const DEFAULT_ICON = 'mdi:heart';

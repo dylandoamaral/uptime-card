@@ -13,6 +13,15 @@ const style = css`
     }
   }
 
+  @keyframes reveal {
+    0% {
+      transform: scaleY(0);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
+
   :host {
     display: flex;
     flex-direction: column;
@@ -114,6 +123,9 @@ const style = css`
   }
 
   .bar {
+    transform: scaleY(0);
+    transform-origin: 0 100%;
+    animation: reveal 0.5s cubic-bezier(0.11, 0.95, 0.66, 1) forwards;
     transition-property: height y;
     transition-duration: 0.3s;
     transition-timing-function: ease;
@@ -132,6 +144,16 @@ const style = css`
 
   .footer-text {
     color: #aaaaaa;
+    opacity: 0.6;
+  }
+
+  .footer-average {
+    color: #aaaaaa;
+    transition: visibility 0s, opacity 0.1s linear;
+    opacity: 0;
+  }
+
+  .footer-average[initialized] {
     opacity: 0.6;
   }
 

@@ -18,6 +18,7 @@ import {
   DEFAULT_BAR,
   DEFAULT_COLOR,
   DEFAULT_CONFIG,
+  DEFAULT_INIT,
   DEFAULT_SHOW,
   DEFAULT_TOOLTIP,
 } from './const';
@@ -122,8 +123,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
         @value-changed=${this._valueChanged}
         min=${property.min}
         max=${property.max}
-        prevent-invalid-input
-        allowed-pattern="^[0-9]+$"
+        type="number"
       ></paper-input>
     `;
   }
@@ -182,6 +182,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     const alignments = ['center', 'right', 'left', 'spaced'];
     const effects = ['fade', 'shadow'];
     const targets = ['card', 'status', 'title', 'icon'];
+    const animations = ['none', 'raise', 'slide', 'reveal'];
 
     this.options = {
       mandatory: {
@@ -339,6 +340,30 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             min: 1,
             max: 100,
             default: DEFAULT_BAR.amount,
+          },
+        ],
+      },
+      init: {
+        icon: 'watch',
+        name: 'Init customization',
+        description: 'Customize the initialization animation',
+        show: false,
+        properties: [
+          {
+            type: 'dropdown',
+            items: animations,
+            name: 'animation',
+            section: 'init',
+            label: 'Animation during initilization',
+            selected: animations.indexOf(this._config?.init?.animation || DEFAULT_INIT.animation),
+          },
+          {
+            type: 'number',
+            name: 'duration',
+            label: 'Animation duration',
+            min: 0,
+            max: 10,
+            default: DEFAULT_INIT.duration,
           },
         ],
       },

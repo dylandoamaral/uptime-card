@@ -54,6 +54,11 @@ interface BlinkConfig {
   speed: number;
 }
 
+interface InitConfig {
+  animation: 'none' | 'raise' | 'slide' | 'reveal';
+  duration: number;
+}
+
 // Snake case here to respect Yaml home assistant
 export interface CardConfig extends LovelaceCardConfig {
   type: string;
@@ -82,4 +87,5 @@ export interface CardConfig extends LovelaceCardConfig {
   alignment: AlignmentConfig;
   color_thresholds: Threshold[];
   blink: BlinkConfig;
+  init: InitConfig;
 }

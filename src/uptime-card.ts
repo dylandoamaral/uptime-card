@@ -694,7 +694,7 @@ export class UptimeCard extends LitElement {
 
     return show.average
       ? html`
-          <div class="footer-text">${text}</div>
+          <div ?initialized=${uptime > 0} class="footer-average">${text}</div>
         `
       : html``;
   }
