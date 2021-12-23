@@ -544,8 +544,6 @@ export class UptimeCard extends LitElement {
     const { hours_to_show, tooltip, tooltip_adaptive_color, color } = this.config;
     if (this.tooltip == undefined) return html``;
 
-    const locale = this._hass.language || 'en-US';
-
     const hourOption: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: 'numeric',
@@ -557,9 +555,11 @@ export class UptimeCard extends LitElement {
       day: 'numeric',
     };
 
+    const locale = tooltip.hour24 ? 'fr-FR' : 'en-US';
     const fromOption = hours_to_show <= 24 ? hourOption : dayOption;
     const fromDate = new Date(this.tooltip.period.from).toLocaleString(locale, fromOption);
     const toDate = new Date(this.tooltip.period.to).toLocaleString(locale, hourOption);
+
     const average = this.tooltip.repartition.ok.toFixed(2);
 
     const text = template(
