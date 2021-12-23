@@ -84,7 +84,7 @@ Uptime card is highly customizable.
 | none    |     color      |         ![ ](https://dummyimage.com/20x10/c9c9c9&text=+) `#C9C9C9`         | v0.0.1 | Set the `none` color.                                                  |
 | title   |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.        |
 | status  |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.      |
-| icon    |     color      | ![ ](https://dummyimage.com/20x10/44739e&text=+) `--paper-item-icon-color` | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`. |
+| icon    |     color      | ![ ](https://dummyimage.com/20x10/44739e&text=+) `var(--state-icon-color)` | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`. |
 | tooltip |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.      |
 
 ### Show config
