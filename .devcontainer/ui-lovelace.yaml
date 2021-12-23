@@ -1,10 +1,28 @@
-resources:
-  - url: http://127.0.0.1:5000/uptime-card.js
-    type: module
-
 views:
-  - cards:
-      - type: custom:uptime-card
-        name: Uptime Card Development
+  - title: Test environment
+    cards:
+      - type: 'custom:uptime-card'
         entity: sun.sun
-        test_gui: true
+        name: Sun
+        icon: 'mdi:weather-sunny'
+        ko_icon: 'mdi:weather-sunny-off'
+        ko: below_horizon
+        icon_adaptive_color: true
+        title_adaptive_color: true
+        color:
+          ok: '#F9d71C'
+          ko: '#053752'
+          half: '#EF810E'
+        bar:
+          spacing: 4
+          height: 10
+          round: 4
+        show:
+          average: false
+          status: false
+        alignment:
+          status: spaced
+          header: left
+          icon_first: true
+        tap_action:
+          action: more-info

@@ -41,138 +41,136 @@ Uptime card is highly customizable.
 
 ### Global config
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| entity (**required**) | string |  | v0.0.1 | Specify entity ID of the sensor
-| attribute | string | | v0.5.0 | Set the attribute name if the state to monitor isn't the default one.
-| ok | string |  | v0.0.1 | Specify the `on` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
-| ko | string |  | v0.0.1 | Specify the `off` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.
-| icon | string | `icon` attribute \|\| `mdi:heart` | v0.0.1 | Specify a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/) or an image from `/local` path (since v0.4.0), e.g. `mdi:home`
-| ko_icon | string | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.2.0 | Specify a custom icon for ko status, e.g. `mdi:home`
-| hours_to_show | number | `24` | v0.0.1 | Set the number of hours to show, you can go to the minute, you can go up to the minute (1 minute == 0.0167 hours_to_show).
-| update_interval | number | 30 | v0.0.1 | Set the minimum update interval for the card in seconds.
-| title_template | string | `[[[ return entity.attributes.friendly_name; ]]]`| v0.8.0 | Set the template for the title. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
-| average_template | string | `%`| v0.5.0 | Set the template for the average. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
-| severity | number | `100` | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.
-| status_template | string | `[[[ return variables.current ]]]` | v0.1.0 | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
-| title_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the title color adapt with the entity color.
-| status_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
-| icon_adaptive_color | `true`/`false` | `false` | v0.0.2 | Make the name color adapt with the entity color.
-| tooltip_adaptive_color | `true`/`false` | `false` | v0.1.0 | Make the name color adapt with the entity color.
-| color_thresholds | list of [thresholds](https://github.com/dylandoamaral/uptime-card#color-thresholds) | | v0.4.0 | Set the color thesholds.
+| Name                   |                                   Type / Options                                    |                       Default                        | Since  | Description                                                                                                                                                                                 |
+| ---------------------- | :---------------------------------------------------------------------------------: | :--------------------------------------------------: | :----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| entity (**required**)  |                                       string                                        |                                                      | v0.0.1 | Specify entity ID of the sensor                                                                                                                                                             |
+| attribute              |                                       string                                        |                                                      | v0.5.0 | Set the attribute name if the state to monitor isn't the default one.                                                                                                                       |
+| ok                     |                                       string                                        |                                                      | v0.0.1 | Specify the `on` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.  |
+| ko                     |                                       string                                        |                                                      | v0.0.1 | Specify the `off` state for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**. |
+| icon                   |                                       string                                        |          `icon` attribute \|\| `mdi:heart`           | v0.0.1 | Specify a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/) or an image from `/local` path (since v0.4.0), e.g. `mdi:home`                                                |
+| ko_icon                |                                       string                                        | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.2.0 | Specify a custom icon for ko status, e.g. `mdi:home`                                                                                                                                        |
+| hours_to_show          |                                       number                                        |                         `24`                         | v0.0.1 | Set the number of hours to show, you can go to the minute, you can go up to the minute (1 minute == 0.0167 hours_to_show).                                                                  |
+| update_interval        |                                       number                                        |                          30                          | v0.0.1 | Set the minimum update interval for the card in seconds.                                                                                                                                    |
+| title_template         |                                       string                                        |  `[[[ return entity.attributes.friendly_name; ]]]`   | v0.8.0 | Set the template for the title. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                   |
+| average_template       |                                       string                                        |                         `%`                          | v0.5.0 | Set the template for the average. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                 |
+| severity               |                                       number                                        |                        `100`                         | v0.0.1 | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.                                                                                                |
+| status_template        |                                       string                                        |          `[[[ return variables.current ]]]`          | v0.1.0 | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                  |
+| title_adaptive_color   |                                   `true`/`false`                                    |                       `false`                        | v0.0.2 | Make the title color adapt with the entity color.                                                                                                                                           |
+| status_adaptive_color  |                                   `true`/`false`                                    |                       `false`                        | v0.0.2 | Make the name color adapt with the entity color.                                                                                                                                            |
+| icon_adaptive_color    |                                   `true`/`false`                                    |                       `false`                        | v0.0.2 | Make the name color adapt with the entity color.                                                                                                                                            |
+| tooltip_adaptive_color |                                   `true`/`false`                                    |                       `false`                        | v0.1.0 | Make the name color adapt with the entity color.                                                                                                                                            |
+| color_thresholds       | list of [thresholds](https://github.com/dylandoamaral/uptime-card#color-thresholds) |                                                      | v0.4.0 | Set the color thesholds.                                                                                                                                                                    |
 
 ### Bar config
 
 **Parent key:** `bar`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| height | number | `46` | v0.0.1 | Set the height of the bars.
-| round | number | `1` | v0.0.1 | Set the round radius for the bars.
-| spacing | number | `4` | v0.0.1 | Set the spacing between the bars.
-| amount | number | `36` | v0.0.1 | Set the number of bars.
+| Name    | Type / Options | Default | Since  | Description                        |
+| ------- | :------------: | :-----: | :----: | ---------------------------------- |
+| height  |     number     |  `46`   | v0.0.1 | Set the height of the bars.        |
+| round   |     number     |   `1`   | v0.0.1 | Set the round radius for the bars. |
+| spacing |     number     |   `4`   | v0.0.1 | Set the spacing between the bars.  |
+| amount  |     number     |  `36`   | v0.0.1 | Set the number of bars.            |
 
 ### Color config
 
 **Parent key:** `color`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| ok | color | ![ ](https://dummyimage.com/20x10/45c669&amp;text=+) `#45C669` | v0.0.1 | Set the `ok` color.
-| ko | color | ![ ](https://dummyimage.com/20x10/c66445&amp;text=+) `#C66445` | v0.0.1 | Set the `ko` color.
-| half | color | ![ ](https://dummyimage.com/20x10/c6b145&amp;text=+) `#C6B145` | v0.0.1 | Set the `half` color.
-| none | color | ![ ](https://dummyimage.com/20x10/c9c9c9&amp;text=+) `#C9C9C9` | v0.0.1 | Set the `none` color.
-| title | color | ![ ](https://dummyimage.com/20x10/808080&amp;text=+) `grey` | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.
-| status | color | ![ ](https://dummyimage.com/20x10/808080&amp;text=+) `grey` | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.
-| icon | color | ![ ](https://dummyimage.com/20x10/44739e&amp;text=+) `--paper-item-icon-color` | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`.
-| tooltip | color | ![ ](https://dummyimage.com/20x10/808080&amp;text=+) `grey` | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.
+| Name    | Type / Options |                                  Default                                   | Since  | Description                                                            |
+| ------- | :------------: | :------------------------------------------------------------------------: | :----: | ---------------------------------------------------------------------- |
+| ok      |     color      |         ![ ](https://dummyimage.com/20x10/45c669&text=+) `#45C669`         | v0.0.1 | Set the `ok` color.                                                    |
+| ko      |     color      |         ![ ](https://dummyimage.com/20x10/c66445&text=+) `#C66445`         | v0.0.1 | Set the `ko` color.                                                    |
+| half    |     color      |         ![ ](https://dummyimage.com/20x10/c6b145&text=+) `#C6B145`         | v0.0.1 | Set the `half` color.                                                  |
+| none    |     color      |         ![ ](https://dummyimage.com/20x10/c9c9c9&text=+) `#C9C9C9`         | v0.0.1 | Set the `none` color.                                                  |
+| title   |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.        |
+| status  |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.      |
+| icon    |     color      | ![ ](https://dummyimage.com/20x10/44739e&text=+) `--paper-item-icon-color` | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`. |
+| tooltip |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.      |
 
 ### Show config
 
 **Parent key:** `show`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| header | `true`/`false` | `true` | v0.0.1 | Show/hide the header.
-| title | `true`/`false` | `true` | v0.1.0 | Show/hide the title.
-| icon | `true`/`false` | `true` | v0.0.1 | Show/hide the icon.
-| status | `true`/`false` | `true` | v0.0.1 | Show/hide the status.
-| timeline | `true`/`false` | `true` | v0.0.1 | Show/hide the timeline.
-| average | `true`/`false` | `true` | v0.0.2 | Show/hide the average.
-| footer | `true`/`false` | `true` | v0.0.1 | Show/hide the footer.
+| Name     | Type / Options | Default | Since  | Description             |
+| -------- | :------------: | :-----: | :----: | ----------------------- |
+| header   | `true`/`false` | `true`  | v0.0.1 | Show/hide the header.   |
+| title    | `true`/`false` | `true`  | v0.1.0 | Show/hide the title.    |
+| icon     | `true`/`false` | `true`  | v0.0.1 | Show/hide the icon.     |
+| status   | `true`/`false` | `true`  | v0.0.1 | Show/hide the status.   |
+| timeline | `true`/`false` | `true`  | v0.0.1 | Show/hide the timeline. |
+| average  | `true`/`false` | `true`  | v0.0.2 | Show/hide the average.  |
+| footer   | `true`/`false` | `true`  | v0.0.1 | Show/hide the footer.   |
 
 ### Alias config
 
 **Parent key:** `alias`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| ok | string | | v0.0.1 | Set a friendly name for `ok` state.
-| ko | string | | v0.0.1 | Set a friendly name for `ko` state.
+| Name | Type / Options | Default | Since  | Description                         |
+| ---- | :------------: | :-----: | :----: | ----------------------------------- |
+| ok   |     string     |         | v0.0.1 | Set a friendly name for `ok` state. |
+| ko   |     string     |         | v0.0.1 | Set a friendly name for `ko` state. |
 
 ### Tooltip config
 
 **Parent key:** `tooltip`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| hour24 | `true`/`false` | `false` | v0.1.0 | Set to `true` to display time in 24-hour format.
-| template | string | `[[[ return variables.from_date ]]] - [[[ return variables.to_date ]]] \| [[[ return variables.average ]]]%` | v0.1.0 | Set a template for the tooltip **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.
-| animation | `true`/`false` | `true` | v0.1.0 | Set to `true` to show bar animation on hover.
+| Name      | Type / Options |                                                   Default                                                    | Since  | Description                                                                                              |
+| --------- | :------------: | :----------------------------------------------------------------------------------------------------------: | :----: | -------------------------------------------------------------------------------------------------------- |
+| hour24    | `true`/`false` |                                                   `false`                                                    | v0.1.0 | Set to `true` to display time in 24-hour format.                                                         |
+| template  |     string     | `[[[ return variables.from_date ]]] - [[[ return variables.to_date ]]] \| [[[ return variables.average ]]]%` | v0.1.0 | Set a template for the tooltip **[More info](https://github.com/dylandoamaral/uptime-card#templating)**. |
+| animation | `true`/`false` |                                                    `true`                                                    | v0.1.0 | Set to `true` to show bar animation on hover.                                                            |
 
 ### Action config
 
 **Parent key:** `tap_action`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| action | `more-info`/`url`/`navigate`/`toggle`/`call-service`/`fire-dom-event` | `more-info` | v0.2.0 (`more-info`/`url`) v0.3.0 (`navigate`/`toggle`/`call-service`/`fire-dom-event`)| Action to perform.
-| entity | string | | v0.3.0 | (Only for `more-info`) Override the entity for more information.
-| navigation_path | string | | v0.3.0 | (Only for `navigate`) Path to navigate to (e.g. `/lovelace/0/`).
-| ~~url~~ url_path | string | | ~~v0.2.0~~ v0.3.0 | (Only for `url`) URL to open.
-| service | string | | v0.3.0 | (Only for `call-service`) Service to call.
-| service-data | string | | v0.3.0 | (Only for `call-service`) Service data to include.
-| haptic | `success`/`warning`/`failure`/`light`/`medium`/`heavy`/`selection` | | v0.3.0 | Haptic feedback for the [Beta IOS App].(https://www.home-assistant.io/ios/beta)
-| confirmation | object | | v0.3.0 | Display a confirmation popup.
-
+| Name             |                            Type / Options                             |   Default   |                                          Since                                          | Description                                                                     |
+| ---------------- | :-------------------------------------------------------------------: | :---------: | :-------------------------------------------------------------------------------------: | ------------------------------------------------------------------------------- |
+| action           | `more-info`/`url`/`navigate`/`toggle`/`call-service`/`fire-dom-event` | `more-info` | v0.2.0 (`more-info`/`url`) v0.3.0 (`navigate`/`toggle`/`call-service`/`fire-dom-event`) | Action to perform.                                                              |
+| entity           |                                string                                 |             |                                         v0.3.0                                          | (Only for `more-info`) Override the entity for more information.                |
+| navigation_path  |                                string                                 |             |                                         v0.3.0                                          | (Only for `navigate`) Path to navigate to (e.g. `/lovelace/0/`).                |
+| ~~url~~ url_path |                                string                                 |             |                                    ~~v0.2.0~~ v0.3.0                                    | (Only for `url`) URL to open.                                                   |
+| service          |                                string                                 |             |                                         v0.3.0                                          | (Only for `call-service`) Service to call.                                      |
+| service-data     |                                string                                 |             |                                         v0.3.0                                          | (Only for `call-service`) Service data to include.                              |
+| haptic           |  `success`/`warning`/`failure`/`light`/`medium`/`heavy`/`selection`   |             |                                         v0.3.0                                          | Haptic feedback for the [Beta IOS App].(https://www.home-assistant.io/ios/beta) |
+| confirmation     |                                object                                 |             |                                         v0.3.0                                          | Display a confirmation popup.                                                   |
 
 **Parent key:** `tap_action.confirmation`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| text | string | | v0.3.0 | This text will be displayed in the popup.
-| exemptions | array | | v0.3.0 | Any user declared in this list will not see the confirmation dialog.
+| Name       | Type / Options | Default | Since  | Description                                                          |
+| ---------- | :------------: | :-----: | :----: | -------------------------------------------------------------------- |
+| text       |     string     |         | v0.3.0 | This text will be displayed in the popup.                            |
+| exemptions |     array      |         | v0.3.0 | Any user declared in this list will not see the confirmation dialog. |
 
 ### Alignment config
 
 **Parent key:** `alignment`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| header | `left`/`right`/`center`/`spaced` | `spaced` | v0.2.0 | Select the spacing strategy between title and icon.
-| icon_first | `true`/`false` | `false` | v0.2.0 | Set the icon before the title.
-| status | `left`/`right`/`center`/`spaced` | `spaced` | v0.2.0 | Select the spacing strategy between state and tooltip.
-| tooltip_first | `true`/`false` | `false` | v0.2.0 | Set the tooltip before the status.
+| Name          |          Type / Options          | Default  | Since  | Description                                            |
+| ------------- | :------------------------------: | :------: | :----: | ------------------------------------------------------ |
+| header        | `left`/`right`/`center`/`spaced` | `spaced` | v0.2.0 | Select the spacing strategy between title and icon.    |
+| icon_first    |          `true`/`false`          | `false`  | v0.2.0 | Set the icon before the title.                         |
+| status        | `left`/`right`/`center`/`spaced` | `spaced` | v0.2.0 | Select the spacing strategy between state and tooltip. |
+| tooltip_first |          `true`/`false`          | `false`  | v0.2.0 | Set the tooltip before the status.                     |
 
 ### Blink config
 
 **Parent key:** `blink`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| effect | `fade`/`shadow` | | v0.4.0 | The blink effect (`shadow` only works with `card` target).
-| target | `card`/`status`/`title`/`icon` | | v0.4.0 | Set the component to blink.
-| speed | number | | v0.4.0 | The animation speed.
+| Name   |         Type / Options         | Default | Since  | Description                                                |
+| ------ | :----------------------------: | :-----: | :----: | ---------------------------------------------------------- |
+| effect |        `fade`/`shadow`         |         | v0.4.0 | The blink effect (`shadow` only works with `card` target). |
+| target | `card`/`status`/`title`/`icon` |         | v0.4.0 | Set the component to blink.                                |
+| speed  |             number             |         | v0.4.0 | The animation speed.                                       |
 
 ### Initialisation config
 
 **Parent key:** `init`
 
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| animation | `none`/`raise`/`slide`/`reveal` | `raise` | v0.9.0 | The initialization animation **[More info](https://github.com/dylandoamaral/uptime-card#initialization)**.
-| duration | number | 0.5 | v0.9.0 | The initialization animation duration.
-
+| Name      |         Type / Options          | Default | Since  | Description                                                                                                |
+| --------- | :-----------------------------: | :-----: | :----: | ---------------------------------------------------------------------------------------------------------- |
+| animation | `none`/`raise`/`slide`/`reveal` | `raise` | v0.9.0 | The initialization animation **[More info](https://github.com/dylandoamaral/uptime-card#initialization)**. |
+| duration  |             number              |   0.5   | v0.9.0 | The initialization animation duration.                                                                     |
 
 ## Examples 📊
 
@@ -291,11 +289,10 @@ You can specify the color of the bars using `color.ok`, `color.ko`, `color.half`
 
 You can specify `color_thresholds` to erase the `color.ok`, `color.ko`, `color.half` behaviour by specifing a list of thresholds with the following data structure:
 
-
-| Name | Type / Options | Default | Since | Description |
-|------|:--------------:|:-------:|:-----:|-------------|
-| value | number | | v0.4.0 | Threshold value.
-| color | string | | v0.4.0 | CSS color which will be used for levels below or equal the value field.
+| Name  | Type / Options | Default | Since  | Description                                                             |
+| ----- | :------------: | :-----: | :----: | ----------------------------------------------------------------------- |
+| value |     number     |         | v0.4.0 | Threshold value.                                                        |
+| color |     string     |         | v0.4.0 | CSS color which will be used for levels below or equal the value field. |
 
 #### Example:
 
@@ -321,7 +318,7 @@ With the above configuration, if the uptime of the current bar is less or equal 
 
 ## Initialization
 
-Since `v0.9.0` you can customize the initialization animation. 
+Since `v0.9.0` you can customize the initialization animation.
 
 You have three choices:
 
@@ -342,7 +339,6 @@ You have three choices:
 <p align="center">
   <img src="https://raw.githubusercontent.com/dylandoamaral/uptime-card/main/images/animation_slide.gif" />
 </p>
-
 
 ## Templating
 
@@ -380,11 +376,11 @@ Since `v0.7.0`, you can get the yaml card configuration inside the template usin
 As an example, you can print the average uptime as `HH:MM:SS` instead of the average pourcentage using the following code in `average_template`:
 
 ```js
-[[[ 
+[[[
 let date = new Date(0);
 seconds = Math.trunc((configuration.hours_to_show * 3600) * variables.uptime / 100);
 date.setSeconds(seconds);
-return date.toISOString().substr(11, 8) 
+return date.toISOString().substr(11, 8)
 ]]]
 ```
 
@@ -424,23 +420,10 @@ Don't hesitate to ask for features or to contribute by yourself ⭐.
 
 If you want to add a feature or fix a bug by yourself, follow these instructions:
 
-1. Inside a Home Assistant environment, clone the repository into `config/www`.
-2. [Add the resource reference](https://www.home-assistant.io/lovelace/dashboards-and-views/#resources).
-
-```yaml
-resources:
-  - url: /local/uptime-card/dist/uptime-card.js
-    type: module
-```
-
-3. Install dependencies (requires `nodejs` and `npm`).
-4. Start the auto build on save.
-
-```bash
-npm start
-```
-
-5. Make changes.
+1. Open the project inside a [devcontainer](https://code.visualstudio.com/docs/remote/containers).
+2. Run the npm script `start`.
+3. Open the browser and go to `http://localhost:8123/lovelace/0`.
+4. Make changes and see the changes into the home assistant instance.
 
 ### Inspiration
 
