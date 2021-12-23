@@ -421,6 +421,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             name: 'icon',
             section: 'color',
             label: 'Icon color',
+            default: DEFAULT_COLOR.icon,
           },
           {
             type: 'input',
