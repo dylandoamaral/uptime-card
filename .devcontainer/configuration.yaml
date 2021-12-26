@@ -7,3 +7,8 @@ lovelace:
 default_config:
 
 demo:
+
+binary_sensor:
+  - name: github
+    platform: ping
+    host: github.com
