@@ -26,3 +26,22 @@ views:
           icon_first: true
         tap_action:
           action: more-info
+      - type: 'custom:uptime-card'
+        entity: binary_sensor.github
+        title_template: Github
+        hours_to_show: 72
+        title_adaptive_color: true
+        average_template: '[[[ return variables.uptime.toFixed(2); ]]]% uptime'
+        alias:
+          ok: Connected
+          ko: Disconnected
+        show:
+          icon: false
+        tap_action:
+          action: url
+          url_path: 'https://www.github.com/'
+        alignment:
+          status: spaced
+          header: center
+        tooltip:
+          hour24: true

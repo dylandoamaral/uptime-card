@@ -555,7 +555,7 @@ export class UptimeCard extends LitElement {
       day: 'numeric',
     };
 
-    const locale = tooltip.hour24 ? 'fr-FR' : 'en-US';
+    const locale = this._hass.language;
     const fromOption = hours_to_show <= 24 ? hourOption : dayOption;
     const fromDate = new Date(this.tooltip.period.from).toLocaleString(locale, fromOption);
     const toDate = new Date(this.tooltip.period.to).toLocaleString(locale, hourOption);
@@ -613,9 +613,10 @@ export class UptimeCard extends LitElement {
   private renderTimeline(barData: BarData[]): TemplateResult | string {
     const { show, bar, tooltip } = this.config;
 
-    const shouldNotBeAnimated = show.status == false || tooltip.animation == false;
+    const isHoverable = show.status && tooltip.animation;
+    console.log(isHoverable);
     const offset = 5;
-    const height = shouldNotBeAnimated ? bar.height : bar.height + offset;
+    const height = isHoverable ? bar.height + offset : bar.height;
     const width = 500;
     const spacingTotalWidth = bar.spacing * (bar.amount - 1);
     const barWidth = Math.floor((width - spacingTotalWidth) / bar.amount);
@@ -625,9 +626,9 @@ export class UptimeCard extends LitElement {
 
     const bars = barData.map((data, idx) => {
       const barColor = this.computeBarColor(data.repartition);
-      const shouldNotBeSelected = this.tooltip?.index != idx || shouldNotBeAnimated;
-      const height = shouldNotBeSelected ? bar.height : bar.height + offset;
-      const y = shouldNotBeAnimated ? 0 : shouldNotBeSelected ? offset : 0;
+      const isSelected = this.tooltip?.index == idx || isHoverable;
+      const height = isSelected ? bar.height + offset : bar.height;
+      const y = isSelected ? offset : 0;
 
       return this.renderBar(
         idx,
