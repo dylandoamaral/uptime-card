@@ -2,46 +2,9 @@ views:
   - title: Test environment
     cards:
       - type: 'custom:uptime-card'
-        entity: sun.sun
-        name: Sun
-        icon: 'mdi:weather-sunny'
-        ko_icon: 'mdi:weather-sunny-off'
-        ko: below_horizon
-        icon_adaptive_color: true
-        title_adaptive_color: true
-        color:
-          ok: '#F9d71C'
-          ko: '#053752'
-          half: '#EF810E'
-        bar:
-          spacing: 4
-          height: 10
-          round: 4
-        show:
-          average: false
-          status: false
-        alignment:
-          status: spaced
-          header: left
-          icon_first: true
-        tap_action:
-          action: more-info
-      - type: 'custom:uptime-card'
-        entity: binary_sensor.github
-        title_template: Github
-        hours_to_show: 72
-        title_adaptive_color: true
-        average_template: '[[[ return variables.uptime.toFixed(2); ]]]% uptime'
-        alias:
-          ok: Connected
-          ko: Disconnected
-        show:
-          icon: false
-        tap_action:
-          action: url
-          url_path: 'https://www.github.com/'
-        alignment:
-          status: spaced
-          header: center
-        tooltip:
-          hour24: true
+        name:
+          text: test
+          show: true
+          adaptative_color: true
+        state:
+          value: on | off

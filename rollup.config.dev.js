@@ -1,31 +1,30 @@
-import resolve from "rollup-plugin-node-resolve";
-import typescript from "rollup-plugin-typescript2";
-import babel from "rollup-plugin-babel";
-import serve from "rollup-plugin-serve";
-import { terser } from "rollup-plugin-terser";
-import json from '@rollup/plugin-json';
+import { babel } from '@rollup/plugin-babel';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { terser } from 'rollup-plugin-terser';
+import serve from 'rollup-plugin-serve';
+import typescript from '@rollup/plugin-typescript';
 
 export default {
-  input: ["src/uptime-card.ts"],
+  input: ['src/card.ts'],
   output: {
-    dir: "./dist",
-    format: "es",
+    file: './dist/uptime-card.js',
+    format: 'es',
   },
   plugins: [
-    resolve(),
+    nodeResolve(),
     typescript(),
-    json(),
     babel({
-      exclude: "node_modules/**",
+      exclude: 'node_modules/**',
+      babelHelpers: 'bundled',
     }),
     terser(),
     serve({
-      contentBase: "./dist",
-      host: "0.0.0.0",
+      contentBase: './dist',
+      host: '0.0.0.0',
       port: 5000,
       allowCrossOrigin: true,
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        'Access-Control-Allow-Origin': '*',
       },
     }),
   ],
