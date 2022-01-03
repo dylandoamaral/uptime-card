@@ -3,7 +3,7 @@ import './components/title';
 import { HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
 import style from './card.style';
 import { Configuration } from './types/configuration';
@@ -11,17 +11,33 @@ import { Status } from './types/entities';
 import { extractOnOff } from './utils/onoff';
 import { getStatusFromState } from './utils/sensor';
 import { getTranslator } from './utils/translator';
+import { defaultConfigurationColor, defaultConfigurationTitle } from './default';
 
 @customElement('uptime-card')
 export class UptimeCard extends LitElement {
   @property({ attribute: false })
-  hass?: HomeAssistant;
-
-  @property({ attribute: false })
-  sensor?: HassEntity;
-
-  @property({ attribute: false })
   config!: Configuration;
+
+  @state()
+  private _sensor?: HassEntity;
+
+  @state()
+  private _hass?: HomeAssistant;
+
+  /**
+   * Called when the state of Home Assistant changes (frequent).
+   *
+   * @param config The new hass.
+   */
+  set hass(newHass: HomeAssistant) {
+    if (!newHass) return;
+
+    this._hass = newHass;
+
+    if (this.config?.entity) {
+      this._sensor = this._hass.states[this.config.entity];
+    }
+  }
 
   /**
    * Called when the configuration change (rare).
@@ -33,13 +49,20 @@ export class UptimeCard extends LitElement {
       throw new Error('Invalid configuration !');
     }
 
-    this.config = newConfig;
+    this.config = {
+      ...newConfig,
+      color: { ...defaultConfigurationColor, ...newConfig.color },
+      title: { ...defaultConfigurationTitle, ...newConfig.title },
+    };
   }
 
   getState(): string | undefined {
+    if (!this._sensor) return undefined;
+
     const stateConfiguration = this.config.state;
     const { attribute } = stateConfiguration;
-    return attribute ? this.sensor?.attributes[attribute] : this.sensor?.state;
+
+    return attribute ? this._sensor?.attributes[attribute] : this._sensor?.state;
   }
 
   getStatus(state?: string): Status {
@@ -55,26 +78,27 @@ export class UptimeCard extends LitElement {
   }
 
   getStatusColor(status: Status): string {
+    const { color } = this.config;
     switch (status) {
       case Status.ON:
-        return '#00FF00';
+        return color.on;
       case Status.OFF:
-        return '#FF0000';
+        return color.off;
       default:
-        return '#0000FF';
+        return color.unknown;
     }
   }
 
   override render(): TemplateResult {
-    const translator = getTranslator(this.hass?.language || 'en');
+    const translator = getTranslator(this.hass?.locale?.language || 'en');
     const state = this.getState();
     const status = this.getStatus(state);
     const statusColor = this.getStatusColor(status);
 
     return html`
       <uptime-card-title
-        .config=${this.config?.name}
-        .sensorName=${this.sensor?.attributes.friendly_name}
+        .config=${this.config?.title}
+        .sensorName=${this._sensor?.attributes.friendly_name}
         .statusColor=${statusColor}
         .translator=${translator}
       ></uptime-card-title>

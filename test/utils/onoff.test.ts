@@ -24,6 +24,12 @@ describe('isOnOffConfiguration', () => {
 });
 
 describe('extractOnOff', () => {
+  it(`should extract OnOffValues from an undefined`, () => {
+    const result = extractOnOff(undefined);
+    expect(result.on).to.equal(undefined);
+    expect(result.off).to.equal(undefined);
+  });
+
   it(`should extract OnOffValues from a string`, () => {
     const result = extractOnOff('connected | disconnected');
     expect(result.on).to.equal('connected');

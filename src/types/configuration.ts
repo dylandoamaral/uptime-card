@@ -13,14 +13,22 @@ export interface ConfigurationTitle {
   adaptative_color: boolean;
 }
 
+export interface ConfigurationColor {
+  on: string;
+  off: string;
+  half: string;
+  unknown: string;
+}
+
 export interface ConfigurationState {
-  value: OnOff;
-  alias: OnOff;
+  value?: OnOff;
+  alias?: OnOff;
   attribute?: string;
 }
 
 export interface Configuration extends LovelaceCardConfig {
   entity?: string;
-  name: ConfigurationTitle;
+  title: ConfigurationTitle;
   state: ConfigurationState;
+  color: ConfigurationColor;
 }

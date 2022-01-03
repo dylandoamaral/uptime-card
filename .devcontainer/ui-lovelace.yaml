@@ -2,9 +2,10 @@ views:
   - title: Test environment
     cards:
       - type: 'custom:uptime-card'
-        name:
-          text: test
+        entity: sun.sun
+        title:
+          text: Test
           show: true
           adaptative_color: true
         state:
-          value: on | off
+          value: above_horizon | below_horizon
