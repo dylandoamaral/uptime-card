@@ -7,7 +7,7 @@ export interface OnOffConfiguration {
 
 export type OnOff = OnOffConfiguration | string;
 
-export interface ConfigurationName {
+export interface ConfigurationTitle {
   text?: string;
   show: boolean;
   adaptative_color: boolean;
@@ -21,6 +21,6 @@ export interface ConfigurationState {
 
 export interface Configuration extends LovelaceCardConfig {
   entity?: string;
-  name: ConfigurationName;
+  name: ConfigurationTitle;
   state: ConfigurationState;
 }

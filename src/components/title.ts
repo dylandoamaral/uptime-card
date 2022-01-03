@@ -1,14 +1,14 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { ConfigurationName } from '../types/configuration';
+import { ConfigurationTitle } from '../types/configuration';
 import { getTranslator, Translator } from '../utils/translator';
-import style from './name.style';
+import style from './title.style';
 
-@customElement('uptime-card-name')
-export class UptimeCardName extends LitElement {
+@customElement('uptime-card-title')
+export class UptimeCardTitle extends LitElement {
   @property({ attribute: false })
-  config?: ConfigurationName;
+  config?: ConfigurationTitle;
 
   @property({ attribute: false })
   sensorName?: string;
@@ -19,6 +19,11 @@ export class UptimeCardName extends LitElement {
   @property({ attribute: false })
   translator: Translator = getTranslator('en');
 
+  /**
+   * Add additional classes to the element.
+   *
+   * @returns Additionnal style to apply
+   */
   additionalCss(): string {
     const attributes = [];
     if (this.config?.adaptative_color && this.statusColor) {
@@ -27,6 +32,11 @@ export class UptimeCardName extends LitElement {
     return attributes.join('; ');
   }
 
+  /**
+   * Render the component.
+   *
+   * @returns The template to render
+   */
   override render(): TemplateResult {
     const name = this.config?.text ?? this.sensorName ?? this.translator('unknown');
     const show = this.config?.show ?? true;

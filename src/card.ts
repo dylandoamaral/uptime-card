@@ -1,4 +1,4 @@
-import './components/name';
+import './components/title';
 
 import { HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
@@ -72,12 +72,12 @@ export class UptimeCard extends LitElement {
     const statusColor = this.getStatusColor(status);
 
     return html`
-      <uptime-card-name
+      <uptime-card-title
         .config=${this.config?.name}
         .sensorName=${this.sensor?.attributes.friendly_name}
         .statusColor=${statusColor}
         .translator=${translator}
-      ></uptime-card-name>
+      ></uptime-card-title>
     `;
   }
 

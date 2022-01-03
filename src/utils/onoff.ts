@@ -2,6 +2,12 @@ import { OnOff, OnOffConfiguration } from '../types/configuration';
 
 type OnOffValues = { on: string; off: string };
 
+/**
+ * Check if the value is an instance of OnOffConfiguration.
+ *
+ * @param object The object to check the instance of
+ * @returns True if the object is an instance of OnOffConfiguration, false otherwise
+ */
 export function isOnOffConfiguration(object: unknown): object is OnOffConfiguration {
   return (
     object != undefined &&
@@ -11,6 +17,13 @@ export function isOnOffConfiguration(object: unknown): object is OnOffConfigurat
   );
 }
 
+/**
+ * Extract the on and off values from the given value. The value can be a string
+ * or an object with the on and off values.
+ *
+ * @param value The value to extract the on and off values from
+ * @returns The on and off values
+ */
 export function extractOnOff(value: OnOff): OnOffValues {
   if (isOnOffConfiguration(value)) {
     return value as OnOffValues;
