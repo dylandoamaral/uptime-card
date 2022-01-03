@@ -614,7 +614,6 @@ export class UptimeCard extends LitElement {
     const { show, bar, tooltip } = this.config;
 
     const isHoverable = show.status && tooltip.animation;
-    console.log(isHoverable);
     const offset = 5;
     const height = isHoverable ? bar.height + offset : bar.height;
     const width = 500;
@@ -626,16 +625,17 @@ export class UptimeCard extends LitElement {
 
     const bars = barData.map((data, idx) => {
       const barColor = this.computeBarColor(data.repartition);
-      const isSelected = this.tooltip?.index == idx || isHoverable;
-      const height = isSelected ? bar.height + offset : bar.height;
-      const y = isSelected ? offset : 0;
+      const isSelected = this.tooltip?.index == idx && isHoverable;
+      const barHeight = isSelected ? bar.height + offset : bar.height;
+      console.log(isSelected);
+      const y = isHoverable ? (isSelected ? 0 : offset) : 0;
 
       return this.renderBar(
         idx,
         idx * (barWidth + bar.spacing) + leftTotalWidth / 2,
         y,
         barWidth,
-        height,
+        barHeight,
         bar.amount,
         barColor,
         bar.round,
