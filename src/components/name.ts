@@ -21,14 +21,14 @@ export class UptimeCardName extends LitElement {
 
   additionalCss(): string {
     const attributes = [];
-    if (this.config?.adaptative_color) {
+    if (this.config?.adaptative_color && this.statusColor) {
       attributes.push(`color: ${this.statusColor}`);
     }
     return attributes.join('; ');
   }
 
   override render(): TemplateResult {
-    const name = this.config?.text || this.sensorName || this.translator('unknown');
+    const name = this.config?.text ?? this.sensorName ?? this.translator('unknown');
     const show = this.config?.show ?? true;
     return show ? html`<h1 style=${this.additionalCss()}>${name}</h1>` : html``;
   }

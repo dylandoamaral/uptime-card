@@ -55,4 +55,25 @@ describe('uptime-card-name', () => {
     );
     await expect(el).shadowDom.to.equalSnapshot();
   });
+
+  it('should apply the adaptative color correclty', async () => {
+    const configuration: ConfigurationName = {
+      ...defaultConfiguration,
+      adaptative_color: true,
+    };
+    const el = await fixture(
+      html`<uptime-card-name .config=${configuration} .statusColor=${'#FF0000'} />`,
+    );
+    await expect(el).shadowDom.to.equalSnapshot();
+  });
+
+  it('should only apply the adaptative color if configuration adaptative is True', async () => {
+    const configuration: ConfigurationName = {
+      ...defaultConfiguration,
+    };
+    const el = await fixture(
+      html`<uptime-card-name .config=${configuration} .statusColor=${'#FF0000'} />`,
+    );
+    await expect(el).shadowDom.to.equalSnapshot();
+  });
 });

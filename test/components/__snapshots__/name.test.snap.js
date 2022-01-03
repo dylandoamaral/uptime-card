@@ -29,3 +29,17 @@ snapshots["uptime-card-name should apply translator correctly"] =
 `;
 /* end snapshot uptime-card-name should apply translator correctly */
 
+snapshots["uptime-card-name should apply the adaptative color correclty"] = 
+`<h1 style="color: #FF0000">
+  Unknown
+</h1>
+`;
+/* end snapshot uptime-card-name should apply the adaptative color correclty */
+
+snapshots["uptime-card-name should only apply the adaptative color if configuration adaptative is True"] = 
+`<h1 style="">
+  Unknown
+</h1>
+`;
+/* end snapshot uptime-card-name should only apply the adaptative color if configuration adaptative is True */
+
