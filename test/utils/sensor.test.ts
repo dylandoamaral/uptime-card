@@ -21,6 +21,11 @@ describe('getStatusFromState', () => {
     expect(status).to.equal(Status.OFF);
   });
 
+  it('should return unknown if the state is defined but the values are not and it is not a binary sensor', () => {
+    const status = getStatusFromState('on', undefined, undefined, 'sensor');
+    expect(status).to.equal(Status.UNKNOWN);
+  });
+
   it('should return on if the state is equal to on for a binary sensor', () => {
     const status = getStatusFromState('on', undefined, undefined, 'binary_sensor');
     expect(status).to.equal(Status.ON);

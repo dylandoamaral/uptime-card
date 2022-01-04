@@ -1,10 +1,10 @@
-import { UptimeCardTitle } from '../../src/components/title';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+
+import { UptimeCardTitle } from '../../src/components/title';
+import { defaultConfigurationTitle } from '../../src/default';
 import { ConfigurationTitle } from '../../src/types/configuration';
 import { getTranslator } from '../../src/utils/translator';
-import { defaultConfigurationTitle } from '../../src/default';
 
 describe('uptime-card-title', () => {
   it('is defined', () => {

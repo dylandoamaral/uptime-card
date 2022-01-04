@@ -6,12 +6,12 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import style from './card.style';
+import { defaultConfigurationColor, defaultConfigurationTitle } from './default';
 import { Configuration } from './types/configuration';
 import { Status } from './types/entities';
 import { extractOnOff } from './utils/onoff';
 import { getStatusFromState } from './utils/sensor';
 import { getTranslator } from './utils/translator';
-import { defaultConfigurationColor, defaultConfigurationTitle } from './default';
 
 @customElement('uptime-card')
 export class UptimeCard extends LitElement {
