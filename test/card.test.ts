@@ -2,7 +2,7 @@ import { UptimeCard } from '../src/card';
 
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { defaultConfiguration } from './fixture';
+import { defaultConfiguration } from './fixtures';
 
 describe('uptime-card', () => {
   it('is defined', () => {
