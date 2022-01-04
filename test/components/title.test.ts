@@ -4,11 +4,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { ConfigurationTitle } from '../../src/types/configuration';
 import { getTranslator } from '../../src/utils/translator';
-
-const defaultConfiguration = {
-  show: true,
-  adaptative_color: false,
-};
+import { defaultConfigurationTitle } from '../../src/default';
 
 describe('uptime-card-title', () => {
   it('is defined', () => {
@@ -24,7 +20,7 @@ describe('uptime-card-title', () => {
   it('should return the configuration text if it exists', async () => {
     const configuration: ConfigurationTitle = {
       text: 'Test',
-      ...defaultConfiguration,
+      ...defaultConfigurationTitle,
     };
     const el = await fixture(html`<uptime-card-title .config=${configuration} />`);
     await expect(el).shadowDom.to.equalSnapshot();
@@ -32,7 +28,7 @@ describe('uptime-card-title', () => {
 
   it('should return nothing if configuration show is false', async () => {
     const configuration: ConfigurationTitle = {
-      ...defaultConfiguration,
+      ...defaultConfigurationTitle,
       show: false,
     };
     const el = await fixture(html` <uptime-card-title .config=${configuration} />`);
@@ -42,7 +38,7 @@ describe('uptime-card-title', () => {
   it('should return the sensor name if it exists and there is not configuration text', async () => {
     const el = await fixture(
       html` <uptime-card-title
-        .config=${defaultConfiguration}
+        .config=${defaultConfigurationTitle}
         .sensorName=${'Sensor'}
       />`,
     );
@@ -58,7 +54,7 @@ describe('uptime-card-title', () => {
 
   it('should apply the adaptative color correclty', async () => {
     const configuration: ConfigurationTitle = {
-      ...defaultConfiguration,
+      ...defaultConfigurationTitle,
       adaptative_color: true,
     };
     const el = await fixture(
@@ -69,7 +65,7 @@ describe('uptime-card-title', () => {
 
   it('should only apply the adaptative color if configuration adaptative is True', async () => {
     const configuration: ConfigurationTitle = {
-      ...defaultConfiguration,
+      ...defaultConfigurationTitle,
     };
     const el = await fixture(
       html`<uptime-card-title .config=${configuration} .statusColor=${'#FF0000'} />`,

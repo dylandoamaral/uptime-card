@@ -66,6 +66,8 @@ export class UptimeCard extends LitElement {
   }
 
   getStatus(state?: string): Status {
+    if (!this.config?.entity) return Status.UNKNOWN;
+
     const { entity } = this.config;
     const stateConfiguration = this.config.state;
     const { value } = stateConfiguration;
