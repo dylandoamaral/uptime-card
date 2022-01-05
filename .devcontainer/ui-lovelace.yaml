@@ -4,8 +4,14 @@ views:
       - type: 'custom:uptime-card'
         entity: sun.sun
         title:
-          text: Test
           show: true
           adaptative_color: true
+        icon:
+          value:
+            ok: mdi:weather-sunny
+            ko: mdi:weather-night
+          adaptative_color: true
         state:
-          value: above_horizon | below_horizon
+          value:
+            ok: above_horizon
+            ko: below_horizon

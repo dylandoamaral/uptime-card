@@ -1,4 +1,5 @@
 import './components/title';
+import './components/icon';
 
 import { HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
@@ -6,10 +7,14 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import style from './card.style';
-import { defaultConfigurationColor, defaultConfigurationTitle } from './default';
+import {
+  defaultConfigurationColor,
+  defaultConfigurationIcon,
+  defaultConfigurationTitle,
+} from './default';
 import { Configuration } from './types/configuration';
 import { Status } from './types/entities';
-import { extractOnOff } from './utils/onoff';
+import { extractOkKo } from './utils/okko';
 import { getStatusFromState } from './utils/sensor';
 import { getTranslator } from './utils/translator';
 
@@ -53,6 +58,7 @@ export class UptimeCard extends LitElement {
       ...newConfig,
       color: { ...defaultConfigurationColor, ...newConfig.color },
       title: { ...defaultConfigurationTitle, ...newConfig.title },
+      icon: { ...defaultConfigurationIcon, ...newConfig.icon },
     };
   }
 
@@ -71,21 +77,21 @@ export class UptimeCard extends LitElement {
     const { entity } = this.config;
     const stateConfiguration = this.config.state;
     const { value } = stateConfiguration;
-    const { on, off } = extractOnOff(value);
+    const { ok, ko } = extractOkKo(value);
     const entityClass = entity?.startsWith('binary_sensor')
       ? 'binary_sensor'
       : 'unknown';
 
-    return getStatusFromState(state, on, off, entityClass);
+    return getStatusFromState(state, ok, ko, entityClass);
   }
 
   getStatusColor(status: Status): string {
     const { color } = this.config;
     switch (status) {
-      case Status.ON:
-        return color.on;
-      case Status.OFF:
-        return color.off;
+      case Status.OK:
+        return color.ok;
+      case Status.KO:
+        return color.ko;
       default:
         return color.unknown;
     }
@@ -98,12 +104,21 @@ export class UptimeCard extends LitElement {
     const statusColor = this.getStatusColor(status);
 
     return html`
-      <uptime-card-title
-        .config=${this.config?.title}
-        .sensorName=${this._sensor?.attributes.friendly_name}
-        .statusColor=${statusColor}
-        .translator=${translator}
-      ></uptime-card-title>
+      <div class="card">
+        <uptime-card-title
+          class="card_title"
+          .config=${this.config?.title}
+          .sensorName=${this._sensor?.attributes.friendly_name}
+          .statusColor=${statusColor}
+          .translator=${translator}
+        ></uptime-card-title>
+        <uptime-card-icon
+          class="card_icon"
+          .config=${this.config?.icon}
+          .status=${status}
+          .statusColor=${statusColor}
+        ></uptime-card-icon>
+      </div>
     `;
   }
 

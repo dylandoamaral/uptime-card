@@ -2,8 +2,12 @@
 export const snapshots = {};
 
 snapshots["uptime-card should initialised with a default configuration"] = 
-`<uptime-card-title>
-</uptime-card-title>
+`<div class="card">
+  <uptime-card-title class="card_title">
+  </uptime-card-title>
+  <uptime-card-icon class="card_icon">
+  </uptime-card-icon>
+</div>
 `;
 /* end snapshot uptime-card should initialised with a default configuration */
 

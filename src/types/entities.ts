@@ -1,5 +1,5 @@
 export enum Status {
-  ON = 'on',
-  OFF = 'off',
+  OK = 'ok',
+  KO = 'ko',
   UNKNOWN = 'unknown',
 }

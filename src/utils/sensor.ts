@@ -4,32 +4,32 @@ import { Status } from '../types/entities';
  * Return the status of the sensor based on the state.
  *
  * @param state The state of the sensor
- * @param onValue The value that represents the state ON
- * @param offValue The value that represents the state OFF
+ * @param okValue The value that represents the state OK
+ * @param offValue The value that represents the state KO
  * @param entityClass The class of the entity
  * @returns The status of the sensor
  */
 export function getStatusFromState(
   state?: string,
-  onValue?: string,
-  offValue?: string,
+  okValue?: string,
+  koValue?: string,
   entityClass?: string,
 ): Status {
   switch (state) {
     case null || undefined:
       return Status.UNKNOWN;
-    case onValue:
-      return Status.ON;
-    case offValue:
-      return Status.OFF;
+    case okValue:
+      return Status.OK;
+    case koValue:
+      return Status.KO;
     default:
-      if (!onValue && !offValue) {
+      if (!okValue && !koValue) {
         if (entityClass === 'binary_sensor') {
           switch (state) {
             case 'on':
-              return Status.ON;
+              return Status.OK;
             case 'off':
-              return Status.OFF;
+              return Status.KO;
             default:
               return Status.UNKNOWN;
           }
@@ -37,6 +37,6 @@ export function getStatusFromState(
           return Status.UNKNOWN;
         }
       }
-      return !onValue ? Status.ON : Status.OFF;
+      return !okValue ? Status.OK : Status.KO;
   }
 }

@@ -1,11 +1,11 @@
 import { LovelaceCardConfig } from 'custom-card-helpers';
 
-export interface OnOffConfiguration {
-  on?: string;
-  off?: string;
+export interface OkKoConfiguration {
+  ok?: string;
+  ko?: string;
 }
 
-export type OnOff = OnOffConfiguration | string;
+export type OkKo = OkKoConfiguration | string;
 
 export interface ConfigurationTitle {
   text?: string;
@@ -13,22 +13,29 @@ export interface ConfigurationTitle {
   adaptative_color: boolean;
 }
 
+export interface ConfigurationIcon {
+  value?: OkKo;
+  show: boolean;
+  adaptative_color: boolean;
+}
+
 export interface ConfigurationColor {
-  on: string;
-  off: string;
+  ok: string;
+  ko: string;
   half: string;
   unknown: string;
 }
 
 export interface ConfigurationState {
-  value?: OnOff;
-  alias?: OnOff;
+  value?: OkKo;
+  alias?: OkKo;
   attribute?: string;
 }
 
 export interface Configuration extends LovelaceCardConfig {
   entity?: string;
   title: ConfigurationTitle;
+  icon: ConfigurationIcon;
   state: ConfigurationState;
   color: ConfigurationColor;
 }
