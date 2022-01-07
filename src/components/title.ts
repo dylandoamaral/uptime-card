@@ -1,14 +1,15 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { Module } from '../mixins/module';
 import { ConfigurationTitle } from '../types/configuration';
 import { getTranslator, Translator } from '../utils/translator';
 import style from './title.style';
 
 @customElement('uptime-card-title')
-export class UptimeCardTitle extends LitElement {
+export class UptimeCardTitle extends Module(LitElement) {
   @property({ attribute: false })
-  config?: ConfigurationTitle;
+  override config?: ConfigurationTitle;
 
   @property({ attribute: false })
   sensorName?: string;
@@ -33,14 +34,13 @@ export class UptimeCardTitle extends LitElement {
   }
 
   /**
-   * Render the component.
+   * Render the module.
    *
    * @returns The template to render
    */
-  override render(): TemplateResult {
+  override renderModule(): TemplateResult {
     const name = this.config?.text ?? this.sensorName ?? this.translator('unknown');
-    const show = this.config?.show ?? true;
-    return show ? html`<h1 style=${this.additionalCss()}>${name}</h1>` : html``;
+    return html`<h1 style=${this.additionalCss()}>${name}</h1>`;
   }
 
   static override styles: CSSResult = style;

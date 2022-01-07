@@ -1,14 +1,14 @@
-import { OkKo, OkKoConfiguration } from '../types/configuration';
+import { OkKo, OkKoObject } from '../types/okko';
 
 type OkKoValues = { ok?: string; ko?: string };
 
 /**
- * Check if the value is an instance of OkKoConfiguration.
+ * Check if the value is an instance of OkKoObject.
  *
  * @param object The object to check the instance of
- * @returns True if the object is an instance of OkKoConfiguration, false otherwise
+ * @returns True if the object is an instance of OkKoObject, false otherwise
  */
-export function isOkKoConfiguration(object: unknown): object is OkKoConfiguration {
+export function isOkKoObject(object: unknown): object is OkKoObject {
   return (
     object != undefined && typeof object == 'object' && 'ok' in object && 'ko' in object
   );
@@ -24,7 +24,7 @@ export function isOkKoConfiguration(object: unknown): object is OkKoConfiguratio
 export function extractOkKo(value?: OkKo): OkKoValues {
   if (!value) {
     return { ok: undefined, ko: undefined };
-  } else if (isOkKoConfiguration(value)) {
+  } else if (isOkKoObject(value)) {
     return value as OkKoValues;
   } else {
     const parts = value.split(' | ');

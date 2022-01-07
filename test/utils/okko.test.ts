@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 
-import { extractOkKo, isOkKoConfiguration } from '../../src/utils/okko';
+import { extractOkKo, isOkKoObject } from '../../src/utils/okko';
 
-describe('isOkKoConfiguration', () => {
-  it(`should return false if the object is not an OkKoConfiguration`, () => {
-    const result = isOkKoConfiguration('unknown');
+describe('isOkKoObject', () => {
+  it(`should return false if the object is not an OkKoObject`, () => {
+    const result = isOkKoObject('unknown');
     expect(result).to.equal(false);
   });
 
   it(`should return false if the object is undefined`, () => {
-    const result = isOkKoConfiguration(undefined);
+    const result = isOkKoObject(undefined);
     expect(result).to.equal(false);
   });
 
@@ -18,7 +18,7 @@ describe('isOkKoConfiguration', () => {
       ok: 'on',
       ko: 'off',
     };
-    const result = isOkKoConfiguration(configuration);
+    const result = isOkKoObject(configuration);
     expect(result).to.equal(true);
   });
 });
@@ -36,7 +36,7 @@ describe('extractOkKo', () => {
     expect(result.ko).to.equal('disconnected');
   });
 
-  it(`should extract OkKoValues from a OkKoConfiguration`, () => {
+  it(`should extract OkKoValues from a OkKoObject`, () => {
     const configuration = {
       ok: 'connected',
       ko: 'disconnected',

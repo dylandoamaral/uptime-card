@@ -1,15 +1,16 @@
 import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { Module } from '../mixins/module';
 import { ConfigurationIcon } from '../types/configuration';
 import { Status } from '../types/entities';
 import { extractOkKo } from '../utils/okko';
 import style from './icon.style';
 
 @customElement('uptime-card-icon')
-export class UptimeCardIcon extends LitElement {
+export class UptimeCardIcon extends Module(LitElement) {
   @property({ attribute: false })
-  config?: ConfigurationIcon;
+  override config?: ConfigurationIcon;
 
   @property({ attribute: false })
   status?: string;
@@ -62,20 +63,17 @@ export class UptimeCardIcon extends LitElement {
   }
 
   /**
-   * Render the component.
+   * Render the module.
    *
    * @returns The template to render
    */
-  override render(): TemplateResult {
-    const show = this.config?.show ?? true;
+  override renderModule(): TemplateResult {
     const icon = this.getIcon();
     const imageStyle = `background-image: url(${icon}); background-size: cover;`;
 
-    const res = this.isImage(icon)
+    return this.isImage(icon)
       ? html`<div class="icon" style="${this.additionalCss() + imageStyle}" />`
       : html`<ha-icon class="icon" style=${this.additionalCss()} icon=${icon} />`;
-
-    return show ? res : html``;
   }
 
   static override styles: CSSResult = style;
