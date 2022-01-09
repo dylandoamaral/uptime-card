@@ -24,12 +24,6 @@ describe('isOkKoObject', () => {
 });
 
 describe('extractOkKo', () => {
-  it(`should extract OkKoValues from an undefined`, () => {
-    const result = extractOkKo(undefined);
-    expect(result.ok).to.equal(undefined);
-    expect(result.ko).to.equal(undefined);
-  });
-
   it(`should extract OkKoValues from a string`, () => {
     const result = extractOkKo('connected | disconnected');
     expect(result.ok).to.equal('connected');

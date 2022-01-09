@@ -7,6 +7,8 @@ snapshots["uptime-card should initialised with a default configuration"] =
   </uptime-card-title>
   <uptime-card-icon class="card_icon">
   </uptime-card-icon>
+  <uptime-card-status class="card_status">
+  </uptime-card-status>
 </div>
 `;
 /* end snapshot uptime-card should initialised with a default configuration */

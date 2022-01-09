@@ -1,4 +1,5 @@
 import { expect } from '@open-wc/testing';
+
 import { camelCaseToCssProperty } from '../../src/utils/text';
 
 describe('camelCaseToCssProperty', () => {

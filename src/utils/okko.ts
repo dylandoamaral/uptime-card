@@ -1,7 +1,5 @@
 import { OkKo, OkKoObject } from '../types/okko';
 
-type OkKoValues = { ok?: string; ko?: string };
-
 /**
  * Check if the value is an instance of OkKoObject.
  *
@@ -21,11 +19,9 @@ export function isOkKoObject(object: unknown): object is OkKoObject {
  * @param value The value to extract the ok and ko values from
  * @returns The ko and ok values
  */
-export function extractOkKo(value?: OkKo): OkKoValues {
-  if (!value) {
-    return { ok: undefined, ko: undefined };
-  } else if (isOkKoObject(value)) {
-    return value as OkKoValues;
+export function extractOkKo(value: OkKo): OkKoObject {
+  if (isOkKoObject(value)) {
+    return value;
   } else {
     const parts = value.split(' | ');
     if (parts.length == 2) {

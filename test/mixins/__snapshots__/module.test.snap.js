@@ -7,3 +7,4 @@ snapshots["module should return the content if show is true"] =
 </h1>
 `;
 /* end snapshot module should return the content if show is true */
+

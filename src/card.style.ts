@@ -15,7 +15,7 @@ const style = css`
 
   .card {
     display: grid;
-    grid-template: 'ttl ico';
+    grid-template: 'ttl ico' 'stt stt';
     align-items: center;
   }
 
@@ -25,6 +25,10 @@ const style = css`
 
   .card_icon {
     grid-area: ico;
+  }
+
+  .card_status {
+    grid-area: stt;
   }
 `;
 

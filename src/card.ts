@@ -1,5 +1,6 @@
 import './components/title';
 import './components/icon';
+import './components/status';
 
 import { HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
@@ -10,9 +11,10 @@ import style from './card.style';
 import {
   defaultConfigurationColor,
   defaultConfigurationIcon,
+  defaultConfigurationStatus,
   defaultConfigurationTitle,
 } from './default';
-import { Configuration } from './types/configuration';
+import { Configuration } from './types/configuration/base';
 import { Status } from './types/entities';
 import { extractOkKo } from './utils/okko';
 import { getStatusFromState } from './utils/sensor';
@@ -59,6 +61,7 @@ export class UptimeCard extends LitElement {
       color: { ...defaultConfigurationColor, ...newConfig.color },
       title: { ...defaultConfigurationTitle, ...newConfig.title },
       icon: { ...defaultConfigurationIcon, ...newConfig.icon },
+      status: { ...defaultConfigurationStatus, ...newConfig.status },
     };
   }
 
@@ -77,7 +80,7 @@ export class UptimeCard extends LitElement {
     const { entity } = this.config;
     const stateConfiguration = this.config.state;
     const { value } = stateConfiguration;
-    const { ok, ko } = extractOkKo(value);
+    const { ok, ko } = value ? extractOkKo(value) : { ok: undefined, ko: undefined };
     const entityClass = entity?.startsWith('binary_sensor')
       ? 'binary_sensor'
       : 'unknown';
@@ -118,6 +121,12 @@ export class UptimeCard extends LitElement {
           .status=${status}
           .statusColor=${statusColor}
         ></uptime-card-icon>
+        <uptime-card-status
+          class="card_status"
+          .config=${this.config?.status}
+          .status=${status}
+          .statusColor=${statusColor}
+        ></uptime-card-status>
       </div>
     `;
   }

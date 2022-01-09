@@ -1,5 +1,7 @@
 const translations = {
-  unknown: `Inconnue`,
+  unknown: 'Inconnue',
+  ok: 'Disponible',
+  ko: 'Indisponible',
 };
 
 export default translations;

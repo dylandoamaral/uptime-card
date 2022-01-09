@@ -5,12 +5,13 @@ import {
   ConfigurationStyle,
 } from './abstract';
 
-export interface ConfigurationIconStyle extends ConfigurationStyle {
+export interface ConfigurationStatusStyle extends ConfigurationStyle {
   icon: ConfigurationCSSProperties;
 }
 
-export interface ConfigurationIcon extends ConfigurationModule {
-  value?: OkKo;
+export interface ConfigurationStatus extends ConfigurationModule {
+  text?: string;
+  alias?: OkKo;
   adaptativeColor: boolean;
-  style?: ConfigurationIconStyle;
+  style?: ConfigurationStatusStyle;
 }

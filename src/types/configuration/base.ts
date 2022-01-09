@@ -2,6 +2,7 @@ import { LovelaceCardConfig } from 'custom-card-helpers';
 
 import { OkKo } from '../okko';
 import { ConfigurationIcon } from './icon';
+import { ConfigurationStatus } from './status';
 import { ConfigurationTitle } from './title';
 
 export interface ConfigurationColor {
@@ -13,7 +14,6 @@ export interface ConfigurationColor {
 
 export interface ConfigurationState {
   value?: OkKo;
-  alias?: OkKo;
   attribute?: string;
 }
 
@@ -21,6 +21,7 @@ export interface Configuration extends LovelaceCardConfig {
   entity?: string;
   title: ConfigurationTitle;
   icon: ConfigurationIcon;
+  status: ConfigurationStatus;
   state: ConfigurationState;
   color: ConfigurationColor;
 }

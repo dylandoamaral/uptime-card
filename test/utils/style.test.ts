@@ -1,7 +1,8 @@
 import { expect } from '@open-wc/testing';
+
 import {
-  ConfigurationStyle,
   ConfigurationCSSProperties,
+  ConfigurationStyle,
 } from '../../src/types/configuration/abstract';
 import { generateClass, generateCSS } from '../../src/utils/style';
 

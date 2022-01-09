@@ -13,7 +13,7 @@ export class UptimeCardIcon extends Module(LitElement) {
   override config?: ConfigurationIcon;
 
   @property({ attribute: false })
-  status?: string;
+  status?: Status;
 
   @property({ attribute: false })
   statusColor?: string;
@@ -25,13 +25,16 @@ export class UptimeCardIcon extends Module(LitElement) {
    */
   getIcon(): string {
     const defaultIcon = 'mdi:heart';
+
+    if (!this.config?.value) return defaultIcon;
+
     const { ok, ko } = extractOkKo(this.config?.value);
 
     switch (this.status) {
       case Status.OK:
-        return ok ?? defaultIcon;
+        return ok;
       case Status.KO:
-        return ko ?? defaultIcon;
+        return ko;
       default:
         return defaultIcon;
     }
