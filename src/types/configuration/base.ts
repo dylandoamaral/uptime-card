@@ -1,20 +1,8 @@
 import { LovelaceCardConfig } from 'custom-card-helpers';
 
-import { OkKo } from './okko';
-
-export interface ConfigurationModule {
-  show: boolean;
-}
-
-export interface ConfigurationTitle extends ConfigurationModule {
-  text?: string;
-  adaptative_color: boolean;
-}
-
-export interface ConfigurationIcon extends ConfigurationModule {
-  value?: OkKo;
-  adaptative_color: boolean;
-}
+import { OkKo } from '../okko';
+import { ConfigurationIcon } from './icon';
+import { ConfigurationTitle } from './title';
 
 export interface ConfigurationColor {
   ok: string;

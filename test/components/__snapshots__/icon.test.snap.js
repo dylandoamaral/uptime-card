@@ -34,7 +34,7 @@ snapshots["uptime-card-icon should return the ko icon if it exists and the statu
 snapshots["uptime-card-icon should detect if the icon is an image"] = 
 `<div
   class="icon"
-  style="background-image: url(shorturl.at/xzI34); background-size: cover;"
+  style="background-image: url(https://tinyurl.com/5xpp8zc5); background-size: cover;"
 >
 </div>
 `;

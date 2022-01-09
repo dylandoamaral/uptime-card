@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { UptimeCardTitle } from '../../src/components/title';
 import { defaultConfigurationTitle } from '../../src/default';
-import { ConfigurationTitle } from '../../src/types/configuration';
+import { ConfigurationTitle } from '../../src/types/configuration/title';
 import { getTranslator } from '../../src/utils/translator';
 
 describe('uptime-card-title', () => {
@@ -23,15 +23,6 @@ describe('uptime-card-title', () => {
       ...defaultConfigurationTitle,
     };
     const el = await fixture(html`<uptime-card-title .config=${configuration} />`);
-    await expect(el).shadowDom.to.equalSnapshot();
-  });
-
-  it('should return nothing if configuration show is false', async () => {
-    const configuration: ConfigurationTitle = {
-      ...defaultConfigurationTitle,
-      show: false,
-    };
-    const el = await fixture(html` <uptime-card-title .config=${configuration} />`);
     await expect(el).shadowDom.to.equalSnapshot();
   });
 

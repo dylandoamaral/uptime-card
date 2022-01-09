@@ -6,6 +6,9 @@ views:
         title:
           show: true
           adaptative_color: true
+          style:
+            title:
+              fontSize: 50px
         icon:
           value:
             ok: mdi:weather-sunny

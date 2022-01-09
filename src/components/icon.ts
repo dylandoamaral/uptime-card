@@ -2,7 +2,7 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { Module } from '../mixins/module';
-import { ConfigurationIcon } from '../types/configuration';
+import { ConfigurationIcon } from '../types/configuration/icon';
 import { Status } from '../types/entities';
 import { extractOkKo } from '../utils/okko';
 import style from './icon.style';

@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { UptimeCardIcon } from '../../src/components/icon';
 import { defaultConfigurationIcon } from '../../src/default';
-import { ConfigurationIcon } from '../../src/types/configuration';
+import { ConfigurationIcon } from '../../src/types/configuration/icon';
 import { Status } from '../../src/types/entities';
 
 describe('uptime-card-icon', () => {
@@ -41,7 +41,7 @@ describe('uptime-card-icon', () => {
 
   it('should detect if the icon is an image', async () => {
     const configuration: ConfigurationIcon = {
-      value: 'shorturl.at/xzI34 | shorturl.at/xzI34',
+      value: 'https://tinyurl.com/5xpp8zc5 | https://tinyurl.com/5xpp8zc5',
       ...defaultConfigurationIcon,
     };
     const el = await fixture(

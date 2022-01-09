@@ -2,7 +2,7 @@ import { CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { Module } from '../mixins/module';
-import { ConfigurationTitle } from '../types/configuration';
+import { ConfigurationTitle } from '../types/configuration/title';
 import { getTranslator, Translator } from '../utils/translator';
 import style from './title.style';
 
@@ -40,7 +40,7 @@ export class UptimeCardTitle extends Module(LitElement) {
    */
   override renderModule(): TemplateResult {
     const name = this.config?.text ?? this.sensorName ?? this.translator('unknown');
-    return html`<h1 style=${this.additionalCss()}>${name}</h1>`;
+    return html`<h1 class="title" style=${this.additionalCss()}>${name}</h1>`;
   }
 
   static override styles: CSSResult = style;

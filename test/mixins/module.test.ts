@@ -3,7 +3,7 @@ import { html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { Module } from '../../src/mixins/module';
-import { ConfigurationModule } from '../../src/types/configuration';
+import { ConfigurationModule } from '../../src/types/configuration/abstract';
 
 @customElement('test-module')
 class TestModule extends Module(LitElement) {
