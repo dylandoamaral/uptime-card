@@ -40,7 +40,7 @@ export class UptimeCardTitle extends Module(LitElement) {
    */
   override renderModule(): TemplateResult {
     const name = this.config?.text ?? this.sensorName ?? this.translator('unknown');
-    return html`<h1 class="title" style=${this.additionalCss()}>${name}</h1>`;
+    return html`<h2 class="title" style=${this.additionalCss()}>${name}</h2>`;
   }
 
   static override styles: CSSResult = style;

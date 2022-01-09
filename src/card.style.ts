@@ -1,21 +1,10 @@
 import { css } from 'lit';
 
 const style = css`
-  ha-card {
-    flex-direction: column;
-    flex: 1;
-    padding: 16px 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  ha-card > div {
-    padding: 0px 16px;
-  }
-
   .card {
     display: grid;
     grid-template: 'ttl ico' 'stt stt';
+    grid-auto-rows: max-content;
     align-items: center;
   }
 
