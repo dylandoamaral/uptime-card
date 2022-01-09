@@ -27,7 +27,7 @@ export class UptimeCardTitle extends Module(LitElement) {
    */
   additionalCss(): string {
     const attributes = [];
-    if (this.config?.adaptative_color && this.statusColor) {
+    if (this.config?.adaptativeColor && this.statusColor) {
       attributes.push(`color: ${this.statusColor}`);
     }
     return attributes.join('; ');

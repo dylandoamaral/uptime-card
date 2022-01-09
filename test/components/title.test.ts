@@ -46,7 +46,7 @@ describe('uptime-card-title', () => {
   it('should apply the adaptative color correclty', async () => {
     const configuration: ConfigurationTitle = {
       ...defaultConfigurationTitle,
-      adaptative_color: true,
+      adaptativeColor: true,
     };
     const el = await fixture(
       html`<uptime-card-title .config=${configuration} .statusColor=${'#FF0000'} />`,

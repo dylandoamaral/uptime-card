@@ -6,12 +6,12 @@ import {
 
 export const defaultConfigurationTitle: ConfigurationTitle = {
   show: true,
-  adaptative_color: false,
+  adaptativeColor: false,
 };
 
 export const defaultConfigurationIcon: ConfigurationIcon = {
   show: true,
-  adaptative_color: false,
+  adaptativeColor: false,
 };
 
 export const defaultConfigurationColor: ConfigurationColor = {

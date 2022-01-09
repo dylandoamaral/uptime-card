@@ -11,5 +11,5 @@ export interface ConfigurationIconStyle extends ConfigurationStyle {
 
 export interface ConfigurationIcon extends ConfigurationModule {
   value?: OkKo;
-  adaptative_color: boolean;
+  adaptativeColor: boolean;
 }

@@ -10,6 +10,6 @@ export interface ConfigurationTitleStyle extends ConfigurationStyle {
 
 export interface ConfigurationTitle extends ConfigurationModule {
   text?: string;
-  adaptative_color: boolean;
+  adaptativeColor: boolean;
   style?: ConfigurationTitleStyle;
 }
