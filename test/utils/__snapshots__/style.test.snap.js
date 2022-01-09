@@ -29,3 +29,11 @@ snapshots["generateClass should generate a correct class css"] =
 `;
 /* end snapshot generateClass should generate a correct class css */
 
+snapshots["generateClass should replace host class name by :host"] = 
+`:host {
+ color: red;
+ background-color: blue;
+}
+`;
+/* end snapshot generateClass should replace host class name by :host */
+

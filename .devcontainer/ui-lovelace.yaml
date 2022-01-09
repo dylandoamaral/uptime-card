@@ -15,7 +15,7 @@ views:
           style:
             title:
               fontSize: 50px
-              lineHeight: 50px;
+              lineHeight: 50px
         icon:
           value:
             ok: mdi:weather-sunny

@@ -1,10 +1,10 @@
 import {
   ConfigurationCSSProperties,
+  ConfigurationDefaultStyle,
   ConfigurationModule,
-  ConfigurationStyle,
 } from './abstract';
 
-export interface ConfigurationTitleStyle extends ConfigurationStyle {
+export interface ConfigurationTitleStyle extends ConfigurationDefaultStyle {
   title: ConfigurationCSSProperties;
 }
 

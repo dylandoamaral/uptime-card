@@ -46,4 +46,13 @@ describe('generateClass', () => {
 
     await expect(generateClass('test', configuration)).to.equalSnapshot();
   });
+
+  it('should replace host class name by :host', async () => {
+    const configuration: ConfigurationCSSProperties = {
+      color: 'red',
+      backgroundColor: 'blue',
+    };
+
+    await expect(generateClass('host', configuration)).to.equalSnapshot();
+  });
 });

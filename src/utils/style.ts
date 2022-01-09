@@ -12,7 +12,7 @@ import { camelCaseToCssProperty } from './text';
 export function generateCSS(style: ConfigurationStyle): string {
   const classes: string[] = [];
   for (const key in style) {
-    classes.push(generateClass(key, style[key]));
+    classes.push(generateClass(key, style[key] as ConfigurationCSSProperties));
   }
   return classes.join('\n\n');
 }
@@ -33,5 +33,6 @@ export function generateClass(
     properties.push(` ${name}: ${configurationProperties[key]};`);
   }
 
-  return `.${className} {\n${properties.join('\n')}\n}`;
+  className = className == 'host' ? ':host' : `.${className}`;
+  return `${className} {\n${properties.join('\n')}\n}`;
 }

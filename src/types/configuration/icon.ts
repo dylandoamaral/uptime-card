@@ -1,11 +1,11 @@
 import { OkKo } from '../okko';
 import {
   ConfigurationCSSProperties,
+  ConfigurationDefaultStyle,
   ConfigurationModule,
-  ConfigurationStyle,
 } from './abstract';
 
-export interface ConfigurationIconStyle extends ConfigurationStyle {
+export interface ConfigurationIconStyle extends ConfigurationDefaultStyle {
   icon: ConfigurationCSSProperties;
 }
 
