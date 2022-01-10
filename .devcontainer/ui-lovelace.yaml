@@ -9,19 +9,20 @@ views:
             ko: below_horizon
       - type: 'custom:uptime-card'
         entity: sun.sun
-        title:
-          show: true
-          adaptativeColor: true
-          style:
-            title:
-              fontSize: 50px
-              lineHeight: 50px
-        icon:
-          value:
-            ok: mdi:weather-sunny
-            ko: mdi:weather-night
-          adaptativeColor: true
         state:
           value:
             ok: above_horizon
             ko: below_horizon
+        modules:
+          title:
+            show: true
+            adaptativeColor: true
+            style:
+              title:
+                fontSize: 50px
+                lineHeight: 50px
+          icon:
+            value:
+              ok: mdi:weather-sunny
+              ko: mdi:weather-night
+            adaptativeColor: true

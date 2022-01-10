@@ -12,5 +12,5 @@ export interface ConfigurationDefaultStyle extends ConfigurationStyle {
 
 export interface ConfigurationModule {
   show: boolean;
-  style?: ConfigurationStyle;
+  style?: ConfigurationDefaultStyle;
 }

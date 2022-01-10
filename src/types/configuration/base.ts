@@ -17,11 +17,15 @@ export interface ConfigurationState {
   attribute?: string;
 }
 
-export interface Configuration extends LovelaceCardConfig {
-  entity?: string;
+export interface ConfigurationModules {
   title: ConfigurationTitle;
   icon: ConfigurationIcon;
   status: ConfigurationStatus;
+}
+
+export interface Configuration extends LovelaceCardConfig {
+  entity?: string;
   state: ConfigurationState;
   color: ConfigurationColor;
+  modules: ConfigurationModules;
 }

@@ -2,5 +2,7 @@ import { defaultConfigurationColor, defaultConfigurationTitle } from '../src/def
 
 export const defaultConfiguration = {
   color: defaultConfigurationColor,
-  title: defaultConfigurationTitle,
+  modules: {
+    title: defaultConfigurationTitle,
+  },
 };
