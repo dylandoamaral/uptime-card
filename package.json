@@ -58,8 +58,8 @@
     "build": "npm run check && npm run rollup",
     "check": "eslint 'src/**/*.ts' 'test/**/*.ts' && prettier --config .prettierrc 'src/**/*.ts' 'test/**/*.ts' --check",
     "format": "eslint 'src/**/*.ts' 'test/**/*.ts' --fix && prettier --config .prettierrc 'src/**/*.ts' 'test/**/*.ts' --write",
-    "test": "wtr 'test/**/*.test.ts' --node-resolve --coverage",
-    "snapshot": "wtr 'test/**/*.test.ts' --node-resolve --update-snapshots",
+    "test": "wtr 'test/**/*.test.ts' --coverage",
+    "snapshot": "wtr 'test/**/*.test.ts' --update-snapshots",
     "rollup": "rollup -c rollup.config.js",
     "start": "rollup -c rollup.config.dev.js --watch -m"
   }
