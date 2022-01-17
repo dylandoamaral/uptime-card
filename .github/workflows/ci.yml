@@ -12,7 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - uses: browser-actions/setup-chrome@latest
+      - name: Install packages
+        run: npm install
       - name: Check linting
-        run: |
-          npm install
-          npm run check
+        run: npm run check
+      - name: Launch tests
+        run: npm run test
