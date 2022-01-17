@@ -24,8 +24,7 @@ RUN apt-get install -y python3 \
     && pip3 install homeassistant \
     && mkdir -p /config \
     && ln -sf "/workspaces/uptime-card/.devcontainer/configuration.yaml" /config/configuration.yaml \
-    && ln -sf "/workspaces/uptime-card/.devcontainer/ui-lovelace.yaml" /config/ui-lovelace.yaml \
-    && echo 'alias homeassistant="echo starting... && hass -c /config"' >> ~/.zshrc
+    && ln -sf "/workspaces/uptime-card/.devcontainer/ui-lovelace.yaml" /config/ui-lovelace.yaml
 
 # Install Chromium to run tests.
 RUN apt-get install -y chromium
