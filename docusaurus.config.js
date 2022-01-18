@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Uptime Card',
   url: 'https://dylandoamaral.github.io/',
-  baseUrl: '/',
+  baseUrl: '/uptime-card/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
