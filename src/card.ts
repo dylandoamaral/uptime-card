@@ -60,9 +60,9 @@ export class UptimeCard extends LitElement {
       ...newConfig,
       color: { ...defaultConfigurationColor, ...newConfig.color },
       modules: {
-        title: { ...defaultConfigurationTitle, ...newConfig.title },
-        icon: { ...defaultConfigurationIcon, ...newConfig.icon },
-        status: { ...defaultConfigurationStatus, ...newConfig.status },
+        title: { ...defaultConfigurationTitle, ...newConfig.modules?.title },
+        icon: { ...defaultConfigurationIcon, ...newConfig.modules?.icon },
+        status: { ...defaultConfigurationStatus, ...newConfig.modules?.status },
       },
     };
   }
@@ -112,20 +112,20 @@ export class UptimeCard extends LitElement {
       <div class="card">
         <uptime-card-title
           class="card_title"
-          .config=${this.config?.modules.title}
+          .config=${this.config?.modules?.title}
           .sensorName=${this._sensor?.attributes.friendly_name}
           .statusColor=${statusColor}
           .translator=${translator}
         ></uptime-card-title>
         <uptime-card-icon
           class="card_icon"
-          .config=${this.config?.modules.icon}
+          .config=${this.config?.modules?.icon}
           .status=${status}
           .statusColor=${statusColor}
         ></uptime-card-icon>
         <uptime-card-status
           class="card_status"
-          .config=${this.config?.modules.status}
+          .config=${this.config?.modules?.status}
           .status=${status}
           .statusColor=${statusColor}
         ></uptime-card-status>

@@ -18,14 +18,14 @@ export interface ConfigurationState {
 }
 
 export interface ConfigurationModules {
-  title: ConfigurationTitle;
-  icon: ConfigurationIcon;
-  status: ConfigurationStatus;
+  title?: ConfigurationTitle;
+  icon?: ConfigurationIcon;
+  status?: ConfigurationStatus;
 }
 
 export interface Configuration extends LovelaceCardConfig {
   entity?: string;
   state: ConfigurationState;
   color: ConfigurationColor;
-  modules: ConfigurationModules;
+  modules?: ConfigurationModules;
 }
