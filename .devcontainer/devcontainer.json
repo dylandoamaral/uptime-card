@@ -1,9 +1,9 @@
 {
   "name": "Uptime Card Development",
-  "image": "ghcr.io/ludeeus/devcontainer/generic:stable",
+  "dockerFile": "./Dockerfile",
   "context": "..",
-  "appPort": ["5000:5000", "8123:8123"],
-  "postCreateCommand": "npm install && container start",
+  "appPort": ["8000:8000", "5555:5555", "8123:8123"],
+  "postCreateCommand": "npm install",
   "extensions": [
     "aaron-bond.better-comments",
     "bierner.lit-html",
@@ -14,7 +14,6 @@
     "esbenp.prettier-vscode",
     "github.copilot",
     "github.vscode-pull-request-github",
-    "msjsdiag.debugger-for-chrome",
     "redhat.vscode-yaml",
     "runem.lit-plugin",
     "yzhang.markdown-all-in-one"
@@ -22,13 +21,12 @@
   "settings": {
     "files.eol": "\n",
     "editor.tabSize": 2,
-    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.defaultProfile.linux": "zsh",
     "editor.formatOnPaste": false,
     "editor.formatOnSave": true,
-    "editor.formatOnType": true,
     "files.trimTrailingWhitespace": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "markdown.extension.toc.githubCompatibility": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "files.watcherExclude": {
       "**/.git/objects/**": true,
       "**/.git/subtree-cache/**": true,

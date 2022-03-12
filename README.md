@@ -421,8 +421,8 @@ Don't hesitate to ask for features or to contribute by yourself ⭐.
 If you want to add a feature or fix a bug by yourself, follow these instructions:
 
 1. Open the project inside a [devcontainer](https://code.visualstudio.com/docs/remote/containers).
-2. Run the npm script `start`.
-3. Open the browser and go to `http://localhost:8123/lovelace/0`.
+2. Run `npm start`.
+3. Open the browser and go to `http://localhost:8123/`.
 4. Make changes and see the changes into the home assistant instance.
 
 ### Inspiration
