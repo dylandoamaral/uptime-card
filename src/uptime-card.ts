@@ -235,13 +235,13 @@ export class UptimeCard extends LitElement {
    */
   private isOk(state?: string): boolean | undefined {
     const { ok, ko, entity } = this.config;
-
     if (state == undefined) return undefined;
     else if (ok == state) return true;
     else if (ko == state) return false;
     else {
       if (ok == undefined && ko == undefined) {
-        if (entity != undefined && entity.startsWith('binary_sensor')) {
+        const is_binary_entity = entity.startsWith('binary_sensor.') || entity.startsWith('switch.');
+        if (entity != undefined && is_binary_entity) {
           if (state == 'on') return true;
           else if (state == 'off') return false;
           return undefined;
@@ -627,7 +627,6 @@ export class UptimeCard extends LitElement {
       const barColor = this.computeBarColor(data.repartition);
       const isSelected = this.tooltip?.index == idx && isHoverable;
       const barHeight = isSelected ? bar.height + offset : bar.height;
-      console.log(isSelected);
       const y = isHoverable ? (isSelected ? 0 : offset) : 0;
 
       return this.renderBar(
