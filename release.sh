@@ -7,7 +7,7 @@ if [ -n "$1" ]; then
         if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
         then
             # update the version in const.ts
-            sed "s/^export const CARD_VERSION = .*$/export const CARD_VERSION = '${1#v}';/" -i src/const.ts
+            sed -i '' -E "s|CARD_VERSION = '.*'|CARD_VERSION = '${1#v}'|" src/const.ts
             git add src/const.ts
             git commit -m "chore(release): prepare for v$1"
             git tag "v$1"
