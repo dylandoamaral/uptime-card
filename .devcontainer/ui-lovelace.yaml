@@ -29,7 +29,7 @@ views:
       - type: 'custom:uptime-card'
         entity: binary_sensor.github
         title_template: Github
-        hours_to_show: 72
+        hours_to_show: 1
         title_adaptive_color: true
         average_template: '[[[ return variables.uptime.toFixed(2); ]]]% uptime'
         alias:
@@ -45,3 +45,7 @@ views:
           header: center
         tooltip:
           hour24: true
+      - type: 'custom:uptime-card'
+        entity: switch.decorative_lights
+        name: Switch
+        hours_to_show: 1
