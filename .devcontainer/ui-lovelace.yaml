@@ -3,7 +3,7 @@ views:
     cards:
       - type: 'custom:uptime-card'
         entity: sun.sun
-        name: Sun
+        title_template: Sun
         icon: 'mdi:weather-sunny'
         ko_icon: 'mdi:weather-sunny-off'
         ko: below_horizon
@@ -47,5 +47,5 @@ views:
           hour24: true
       - type: 'custom:uptime-card'
         entity: switch.decorative_lights
-        name: Switch
+        title_template: Switch
         hours_to_show: 1

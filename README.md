@@ -184,7 +184,7 @@ Uptime card is highly customizable.
 type: 'custom:uptime-card'
 entity: binary_sensor.updater
 icon: 'mdi:raspberry-pi'
-name: HA update
+title_template: HA update
 hours_to_show: 168
 status_adaptive_color: true
 alias:
@@ -205,7 +205,7 @@ show:
 ```yaml
 type: 'custom:uptime-card'
 entity: sun.sun
-name: Sun
+title_template: Sun
 icon: 'mdi:weather-sunny'
 ko_icon: 'mdi:weather-sunny-off'
 ko: below_horizon
@@ -240,7 +240,7 @@ tap_action:
 type: 'custom:uptime-card'
 entity: binary_sensor.ping_google
 # Home Assistant ping integration - https://www.home-assistant.io/integrations/ping
-name: 'https://www.google.com/'
+title_template: 'https://www.google.com/'
 icon: 'mdi:heart'
 hours_to_show: 72
 title_adaptive_color: true
