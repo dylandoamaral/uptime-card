@@ -178,8 +178,8 @@ Uptime card is highly customizable.
 
 | Name   | Type / Options | Default |  Since  | Description                                   |
 | ------ | :------------: | :-----: | :-----: | --------------------------------------------- |
-| title  |     number     |   25    | v0.10.0 | The max length of the title before clipping.  |
-| status |     number     |   25    | v0.10.0 | The max length of the status before clipping. |
+| title  |     number     |   25    | v0.11.0 | The max length of the title before clipping.  |
+| status |     number     |   25    | v0.11.0 | The max length of the status before clipping. |
 
 ## Examples 📊
 
