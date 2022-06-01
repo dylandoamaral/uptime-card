@@ -108,6 +108,9 @@ export class UptimeCard extends LitElement {
       clip: { ...DEFAULT_CLIP, ...config.clip },
     };
 
+    if (this.config.ok != undefined) this.config.ok = this.config.ok.toString();
+    if (this.config.ko != undefined) this.config.ko = this.config.ko.toString();
+
     this.updateData();
   }
 
@@ -304,8 +307,8 @@ export class UptimeCard extends LitElement {
       const lower = Math.max(usefulPoints[i].x, period.from);
       const amount = upper - lower;
 
-      if (this.isOk(usefulPoints[i].y) == true) repartition.ok += amount;
-      else if (this.isOk(usefulPoints[i].y) == false) repartition.ko += amount;
+      if (this.isOk(usefulPoints[i].y.toString()) == true) repartition.ok += amount;
+      else if (this.isOk(usefulPoints[i].y.toString()) == false) repartition.ko += amount;
       else repartition.none += amount;
     }
 
@@ -360,7 +363,7 @@ export class UptimeCard extends LitElement {
   private getStatus(): string | undefined {
     const { attribute } = this.config;
     const status = attribute ? this.sensor?.attributes[attribute] : this.sensor?.state;
-    return status != undefined ? String(status) : undefined;
+    return status != undefined ? status.toString() : undefined;
   }
 
   /**
