@@ -67,4 +67,9 @@ export const DEFAULT_INIT = {
   duration: 0.5,
 };
 
+export const DEFAULT_CLIP = {
+  title: 25,
+  status: 25,
+};
+
 export const DEFAULT_ICON = 'mdi:heart';

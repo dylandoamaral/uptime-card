@@ -22,6 +22,7 @@ import {
   DEFAULT_ACTION,
   DEFAULT_ALIGNMENT,
   DEFAULT_BAR,
+  DEFAULT_CLIP,
   DEFAULT_COLOR,
   DEFAULT_CONFIG,
   DEFAULT_ICON,
@@ -104,6 +105,7 @@ export class UptimeCard extends LitElement {
       tap_action: { ...DEFAULT_ACTION, ...config.tap_action },
       alignment: { ...DEFAULT_ALIGNMENT, ...config.alignment },
       init: { ...DEFAULT_INIT, ...config.init },
+      clip: { ...DEFAULT_CLIP, ...config.clip },
     };
 
     this.updateData();
@@ -221,7 +223,7 @@ export class UptimeCard extends LitElement {
   /**
    * Store a key/value element into the cache.
    * @param key The key of the cached value.
-   * @param dataThe The cached value.
+   * @param data The The cached value.
    */
   async setCache(key: string, data: any): Promise<any> {
     return localForage.setItem(key, wrap(data));
@@ -492,7 +494,9 @@ export class UptimeCard extends LitElement {
     return show.title
       ? html`
           <div class="name" style="${this.attachBlink('title')}">
-            <span style=${this.getCssColor(title_adaptive_color, color.title)}>${clip(text, 25)}</span>
+            <span style=${this.getCssColor(title_adaptive_color, color.title)}
+              >${clip(text, this.config.clip.title)}</span
+            >
           </div>
         `
       : html``;
@@ -535,7 +539,7 @@ export class UptimeCard extends LitElement {
 
     return html`
       <span style="${this.getCssColor(status_adaptive_color, color.status)} ${this.attachBlink('status')}"
-        >${clip(text, 25)}</span
+        >${clip(text, this.config.clip.status)}</span
       >
     `;
   }
