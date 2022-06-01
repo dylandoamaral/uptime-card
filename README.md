@@ -174,7 +174,7 @@ Uptime card is highly customizable.
 
 ### Clipping config
 
-**Parent key:** `init`
+**Parent key:** `clip`
 
 | Name   | Type / Options | Default |  Since  | Description                                   |
 | ------ | :------------: | :-----: | :-----: | --------------------------------------------- |
