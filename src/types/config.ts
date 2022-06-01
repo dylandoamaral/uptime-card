@@ -59,6 +59,11 @@ interface InitConfig {
   duration: number;
 }
 
+interface ClipConfig {
+  title: number;
+  status: number;
+}
+
 // Snake case here to respect Yaml home assistant
 export interface CardConfig extends LovelaceCardConfig {
   type: string;
@@ -88,4 +93,5 @@ export interface CardConfig extends LovelaceCardConfig {
   color_thresholds: Threshold[];
   blink: BlinkConfig;
   init: InitConfig;
+  clip: ClipConfig;
 }

@@ -172,6 +172,15 @@ Uptime card is highly customizable.
 | animation | `none`/`raise`/`slide`/`reveal` | `raise` | v0.9.0 | The initialization animation **[More info](https://github.com/dylandoamaral/uptime-card#initialization)**. |
 | duration  |             number              |   0.5   | v0.9.0 | The initialization animation duration.                                                                     |
 
+### Clipping config
+
+**Parent key:** `init`
+
+| Name   | Type / Options | Default |  Since  | Description                                   |
+| ------ | :------------: | :-----: | :-----: | --------------------------------------------- |
+| title  |     number     |   25    | v0.10.0 | The max length of the title before clipping.  |
+| status |     number     |   25    | v0.10.0 | The max length of the status before clipping. |
+
 ## Examples 📊
 
 ### Example 1
