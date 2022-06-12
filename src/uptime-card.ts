@@ -36,7 +36,7 @@ import { CardConfig } from './types/config';
 import { clip, template, unwrap, wrap } from './utils';
 
 /* eslint no-console: 0 */
-console.info(`%c uptime-card \n    ${CARD_VERSION}    `, 'color: white; background-color: #C6B145; font-weight: 700;');
+console.info(`%c uptime-card \n   ${CARD_VERSION}    `, 'color: white; background-color: #C6B145; font-weight: 700;');
 
 // This puts your card into the UI card picker dialog
 (window as any).customCards = (window as any).customCards || [];
@@ -307,8 +307,8 @@ export class UptimeCard extends LitElement {
       const lower = Math.max(usefulPoints[i].x, period.from);
       const amount = upper - lower;
 
-      if (this.isOk(usefulPoints[i].y.toString()) == true) repartition.ok += amount;
-      else if (this.isOk(usefulPoints[i].y.toString()) == false) repartition.ko += amount;
+      if (this.isOk(usefulPoints[i].y?.toString()) == true) repartition.ok += amount;
+      else if (this.isOk(usefulPoints[i].y?.toString()) == false) repartition.ko += amount;
       else repartition.none += amount;
     }
 
