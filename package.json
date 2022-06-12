@@ -53,6 +53,6 @@
     "check": "eslint 'src/**/*.ts' && prettier --config .prettierrc 'src/**/*.ts' --check",
     "rollup": "rollup -c",
     "format": "eslint 'src/**/*.ts' --fix && prettier --config .prettierrc 'src/**/*.ts' --write",
-    "start": "concurrently -n homeassistant,card -c blue,green -k \"echo starting... && hass -c /config\" \"rollup -c rollup.config.dev.js --watch -m\""
+    "start": "concurrently -n homeassistant,card -c blue,green -k \"echo starting home assistant at http://localhost:8123/... && hass -c /config\" \"rollup -c rollup.config.dev.js --watch -m\""
   }
 }
