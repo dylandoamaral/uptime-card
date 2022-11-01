@@ -108,8 +108,11 @@ export class UptimeCard extends LitElement {
       clip: { ...DEFAULT_CLIP, ...config.clip },
     };
 
-    if (this.config.ok != undefined) this.config.ok = this.config.ok.toString();
-    if (this.config.ko != undefined) this.config.ko = this.config.ko.toString();
+    if (typeof this.config.ok == 'string') this.config.ok = [this.config.ok];
+    if (typeof this.config.ko == 'string') this.config.ko = [this.config.ko];
+
+    if (this.config.ok != undefined) this.config.ok = this.config.ok.map(s => s.toString());
+    if (this.config.ko != undefined) this.config.ko = this.config.ko.map(s => s.toString());
 
     this.updateData();
   }
@@ -240,15 +243,20 @@ export class UptimeCard extends LitElement {
    */
   private isOk(state?: string): boolean | undefined {
     const { ok, ko, entity } = this.config;
+
+    // YAML conversion convert on and off to true and false by default
+    if (state == 'on') state = 'true';
+    if (state == 'off') state = 'false';
+
     if (state == undefined) return undefined;
-    else if (ok == state) return true;
-    else if (ko == state) return false;
+    else if (ok?.includes(state)) return true;
+    else if (ko?.includes(state)) return false;
     else {
       if (ok == undefined && ko == undefined) {
         const is_binary_entity = entity.startsWith('binary_sensor.') || entity.startsWith('switch.');
         if (entity != undefined && is_binary_entity) {
-          if (state == 'on') return true;
-          else if (state == 'off') return false;
+          if (state == 'true') return true;
+          else if (state == 'false') return false;
           return undefined;
         }
         return undefined;
