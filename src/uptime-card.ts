@@ -244,10 +244,6 @@ export class UptimeCard extends LitElement {
   private isOk(state?: string): boolean | undefined {
     const { ok, ko, entity } = this.config;
 
-    // YAML conversion convert on and off to true and false by default
-    if (state == 'on') state = 'true';
-    if (state == 'off') state = 'false';
-
     if (state == undefined) return undefined;
     else if (ok?.includes(state)) return true;
     else if (ko?.includes(state)) return false;
@@ -255,8 +251,8 @@ export class UptimeCard extends LitElement {
       if (ok == undefined && ko == undefined) {
         const is_binary_entity = entity.startsWith('binary_sensor.') || entity.startsWith('switch.');
         if (entity != undefined && is_binary_entity) {
-          if (state == 'true') return true;
-          else if (state == 'false') return false;
+          if (state == 'on') return true;
+          else if (state == 'off') return false;
           return undefined;
         }
         return undefined;
