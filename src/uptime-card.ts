@@ -249,7 +249,7 @@ export class UptimeCard extends LitElement {
     else if (ko?.includes(state)) return false;
     else {
       if (ok == undefined && ko == undefined) {
-        const is_binary_entity = entity.startsWith('binary_sensor.') || entity.startsWith('switch.');
+        const is_binary_entity = entity.startsWith('binary_sensor.') || entity.startsWith('switch.') || entity.startsWith('input_boolean.');
         if (entity != undefined && is_binary_entity) {
           if (state == 'on') return true;
           else if (state == 'off') return false;
