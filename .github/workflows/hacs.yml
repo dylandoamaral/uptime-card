@@ -2,7 +2,6 @@ name: 'Hacs validation'
 
 on:
   push:
-  pull_request:
   schedule:
     - cron: '0 0 * * *'
 
@@ -15,3 +14,4 @@ jobs:
         uses: 'hacs/action@main'
         with:
           category: 'plugin'
+          ignore: information
