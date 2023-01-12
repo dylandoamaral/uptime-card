@@ -71,8 +71,10 @@ export interface CardConfig extends LovelaceCardConfig {
   attribute?: string;
   icon?: string;
   ko_icon?: string;
+  none_icon?: string;
   ok?: string[];
   ko?: string[];
+  none?: string[];
   severity: number;
   status_template: string;
   hours_to_show: number;

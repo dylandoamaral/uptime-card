@@ -242,11 +242,12 @@ export class UptimeCard extends LitElement {
    * @param state The current state of the entity.
    */
   private isOk(state?: string): boolean | undefined {
-    const { ok, ko, entity } = this.config;
+    const { ok, ko, entity, none } = this.config;
 
     if (state == undefined) return undefined;
     else if (ok?.includes(state)) return true;
     else if (ko?.includes(state)) return false;
+    else if (none?.includes(state)) return undefined;
     else {
       if (ok == undefined && ko == undefined) {
         const is_binary_entity =
@@ -599,9 +600,11 @@ export class UptimeCard extends LitElement {
   }
 
   private renderIcon(): TemplateResult | string {
-    const { icon, ko_icon, show, icon_adaptive_color, color } = this.config;
-    const useKoIcon = this.isOk(this.getStatus()) == false && ko_icon;
-    const currentIcon = (useKoIcon ? ko_icon : icon) || this.sensor?.attributes.icon || DEFAULT_ICON;
+    const { icon, ko_icon, none_icon, show, icon_adaptive_color, color } = this.config;
+    const status = this.isOk(this.getStatus());
+    const customIcon = status === undefined && none_icon ? none_icon : status === false && ko_icon ? ko_icon : icon;
+
+    const currentIcon = customIcon || this.sensor?.attributes.icon || DEFAULT_ICON;
     const imageStyle = `background-image: url(${currentIcon}); background-size: cover;`;
 
     const iconDom =

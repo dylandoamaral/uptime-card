@@ -47,8 +47,10 @@ Uptime card is highly customizable.
 | attribute              |                                       string                                        |                                                      | v0.5.0 | Set the attribute name if the state to monitor isn't the default one.                                                                                                                          |
 | ok                     |                                 string or string[]                                  |                                                      | v0.0.1 | Specify the `on` state(s) for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.  |
 | ko                     |                                 string or string[]                                  |                                                      | v0.0.1 | Specify the `off` state(s) for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**. |
+| none                   |                                 string or string[]                                  |                                                      | v1.4.0 | Specify the `none` state(s) for the entity. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.                                                                   |
 | icon                   |                                       string                                        |          `icon` attribute \|\| `mdi:heart`           | v0.0.1 | Specify a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/) or an image from `/local` path (since v0.4.0), e.g. `mdi:home`                                                   |
 | ko_icon                |                                       string                                        | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.2.0 | Specify a custom icon for ko status, e.g. `mdi:home`                                                                                                                                           |
+| none_icon              |                                       string                                        | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v1.4.0 | Specify a custom icon for none status, e.g. `mdi:home`                                                                                                                                         |
 | hours_to_show          |                                       number                                        |                         `24`                         | v0.0.1 | Set the number of hours to show, you can go to the minute, you can go up to the minute (1 minute == 0.0167 hours_to_show).                                                                     |
 | update_interval        |                                       number                                        |                          30                          | v0.0.1 | Set the minimum update interval for the card in seconds.                                                                                                                                       |
 | title_template         |                                       string                                        |  `[[[ return entity.attributes.friendly_name; ]]]`   | v0.8.0 | Set the template for the title. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                      |
@@ -278,16 +280,20 @@ For non binary sensors, the uptime card will be in `unknown` state because the c
 
 These can be indiviually specified with either `ok` or `ko`.
 
+The `none` state mapping could be used if you need to consider some states as unknown. For example, if your sensor has `on`, `off`, `unknown` and `unavailable` state values, you can pass `[unknown, unavailable]` to `none` and those states will be visible as `unknonw`.
+
 These options follow these rules:
 
 - if ok is not defined and ko is not defined -> `unknown`
 - if ok is defined and ko is not defined:
   - if the state name equals ok -> `ok`
+  - if the state name equals none -> `unknown`
   - if not -> `ko`
 - if ok is not defined and ko is defined:
   - if the state name equals ko -> `ko`
+  - if the state name equals none -> `unknown`
   - if not -> `ok`
-- if ok is defined and ok is defined:
+- if ok is defined and ko is defined:
   - if the state name equals ok -> `ok`
   - if the state name equals ko -> `ko`
   - if not -> `unknown`

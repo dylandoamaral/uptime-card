@@ -223,6 +223,11 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             label: 'KO Icon',
           },
           {
+            type: 'input',
+            name: 'none_icon',
+            label: 'None Icon',
+          },
+          {
             type: 'number',
             name: 'severity',
             label: 'Severity',
@@ -255,6 +260,11 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             type: 'input',
             name: 'ko',
             label: 'Ko status name',
+          },
+          {
+            type: 'input',
+            name: 'none',
+            label: 'None status name',
           },
           {
             type: 'input',
