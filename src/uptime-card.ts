@@ -602,7 +602,7 @@ export class UptimeCard extends LitElement {
   private renderIcon(): TemplateResult | string {
     const { icon, ko_icon, none_icon, show, icon_adaptive_color, color } = this.config;
     const status = this.isOk(this.getStatus());
-    const customIcon = status === undefined && none_icon ? (status === false && ko_icon ? ko_icon : icon) : none_icon;
+    const customIcon = status === undefined && none_icon ? none_icon : status === false && ko_icon ? ko_icon : icon;
 
     const currentIcon = customIcon || this.sensor?.attributes.icon || DEFAULT_ICON;
     const imageStyle = `background-image: url(${currentIcon}); background-size: cover;`;
