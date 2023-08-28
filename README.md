@@ -78,16 +78,18 @@ Uptime card is highly customizable.
 
 **Parent key:** `color`
 
-| Name    | Type / Options |                                  Default                                   | Since  | Description                                                            |
-| ------- | :------------: | :------------------------------------------------------------------------: | :----: | ---------------------------------------------------------------------- |
-| ok      |     color      |         ![ ](https://dummyimage.com/20x10/45c669&text=+) `#45C669`         | v0.0.1 | Set the `ok` color.                                                    |
-| ko      |     color      |         ![ ](https://dummyimage.com/20x10/c66445&text=+) `#C66445`         | v0.0.1 | Set the `ko` color.                                                    |
-| half    |     color      |         ![ ](https://dummyimage.com/20x10/c6b145&text=+) `#C6B145`         | v0.0.1 | Set the `half` color.                                                  |
-| none    |     color      |         ![ ](https://dummyimage.com/20x10/c9c9c9&text=+) `#C9C9C9`         | v0.0.1 | Set the `none` color.                                                  |
-| title   |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.0.2 | Set the title text color, `title_adaptive_color` must be false.        |
-| status  |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.0.2 | Set the status text color, `status_adaptive_color` must be false.      |
-| icon    |     color      | ![ ](https://dummyimage.com/20x10/44739e&text=+) `var(--state-icon-color)` | v0.0.2 | Set the icon text color, `icon_adaptive_color` must be set to `false`. |
-| tooltip |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.1.0 | Set the tooltip text color, tooltip_adaptive_color must be false.      |
+| Name    | Type / Options |                                  Default                                   |  Since  | Description                                                                                        |
+| ------- | :------------: | :------------------------------------------------------------------------: | :-----: | -------------------------------------------------------------------------------------------------- |
+| ok      |     color      |         ![ ](https://dummyimage.com/20x10/45c669&text=+) `#45C669`         | v0.0.1  | Set the `ok` color.                                                                                |
+| ko      |     color      |         ![ ](https://dummyimage.com/20x10/c66445&text=+) `#C66445`         | v0.0.1  | Set the `ko` color.                                                                                |
+| half    |     color      |         ![ ](https://dummyimage.com/20x10/c6b145&text=+) `#C6B145`         | v0.0.1  | Set the `half` color.                                                                              |
+| none    |     color      |         ![ ](https://dummyimage.com/20x10/c9c9c9&text=+) `#C9C9C9`         | v0.0.1  | Set the `none` color.                                                                              |
+| title   |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.0.2  | Set the title text color, `title_adaptive_color` must be false.                                    |
+| status  |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.0.2  | Set the status text color, `status_adaptive_color` must be false.                                  |
+| icon    |     color      | ![ ](https://dummyimage.com/20x10/44739e&text=+) `var(--state-icon-color)` | v0.0.2  | Set the icon text color, `icon_adaptive_color` must be set to `false`.                             |
+| ko_icon |     color      |                                same as icon                                | v0.15.0 | Set the ko icon text color, same as icon if not set, `icon_adaptive_color` must be set to `false`. |
+| tooltip |     color      |          ![ ](https://dummyimage.com/20x10/808080&text=+) `grey`           | v0.1.0  | Set the tooltip text color, tooltip_adaptive_color must be false.                                  |
+| footer  |     color      |         ![ ](https://dummyimage.com/20x10/AAAAAA&text=+) `#AAAAAA`         | v0.15.0 | Set the footer text color.                                                                         |
 
 ### Show config
 

@@ -20,6 +20,7 @@ interface ColorConfig {
   title: string;
   status: string;
   icon: string;
+  ko_icon?: string;
   tooltip: string;
   footer: string;
 }

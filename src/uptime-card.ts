@@ -603,6 +603,7 @@ export class UptimeCard extends LitElement {
     const { icon, ko_icon, none_icon, show, icon_adaptive_color, color } = this.config;
     const status = this.isOk(this.getStatus());
     const customIcon = status === undefined && none_icon ? none_icon : status === false && ko_icon ? ko_icon : icon;
+    const customIconColor = status === false && color.ko_icon ? color.ko_icon : color.icon;
 
     const currentIcon = customIcon || this.sensor?.attributes.icon || DEFAULT_ICON;
     const imageStyle = `background-image: url(${currentIcon}); background-size: cover;`;
@@ -618,7 +619,10 @@ export class UptimeCard extends LitElement {
 
     return show.icon
       ? html`
-          <div class="icon" style="${this.getCssColor(icon_adaptive_color, color.icon)} ${this.attachBlink('icon')}">
+          <div
+            class="icon"
+            style="${this.getCssColor(icon_adaptive_color, customIconColor)} ${this.attachBlink('icon')}"
+          >
             ${iconDom}
           </div>
         `

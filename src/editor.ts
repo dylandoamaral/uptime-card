@@ -436,6 +436,12 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
           },
           {
             type: 'input',
+            name: 'ko_icon',
+            section: 'color',
+            label: 'KO Icon color',
+          },
+          {
+            type: 'input',
             name: 'tooltip',
             section: 'color',
             label: 'Tooltip text color',
