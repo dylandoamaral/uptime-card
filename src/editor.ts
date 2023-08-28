@@ -441,6 +441,13 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             label: 'Tooltip text color',
             default: DEFAULT_COLOR.tooltip,
           },
+          {
+            type: 'input',
+            name: 'footer',
+            section: 'color',
+            label: 'Footer text color',
+            default: DEFAULT_COLOR.footer,
+          },
         ],
       },
       show: {

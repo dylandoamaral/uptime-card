@@ -13,6 +13,7 @@ views:
           ok: '#F9d71C'
           ko: '#053752'
           half: '#EF810E'
+          footer: '#F9d71C'
         bar:
           spacing: 4
           height: 10
