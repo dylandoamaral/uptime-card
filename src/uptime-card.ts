@@ -731,7 +731,8 @@ export class UptimeCard extends LitElement {
       ? html`
           <div class="footer" style="color: ${color.footer};">
             <div class="footer-text">${minimalDate}</div>
-            ${show.average ? this.renderLine(color.footer) : html``} ${this.renderAverage(repartitions)} ${this.renderLine(color.footer)}
+            ${show.average ? this.renderLine(color.footer) : html``} ${this.renderAverage(repartitions)}
+            ${this.renderLine(color.footer)}
             <div class="footer-text">Now</div>
           </div>
         `
