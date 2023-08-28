@@ -21,6 +21,7 @@ interface ColorConfig {
   status: string;
   icon: string;
   tooltip: string;
+  footer: string;
 }
 
 interface AliasConfig {

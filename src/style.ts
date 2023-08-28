@@ -150,12 +150,10 @@ const style = css`
   }
 
   .footer-text {
-    color: #aaaaaa;
     opacity: 0.6;
   }
 
   .footer-average {
-    color: #aaaaaa;
     transition: visibility 0s, opacity 0.1s linear;
     opacity: 0;
   }
@@ -165,7 +163,6 @@ const style = css`
   }
 
   .line {
-    background: #aaaaaa;
     opacity: 0.3;
     flex: 1;
     margin: 0.75rem 1rem 0 1rem;

@@ -725,13 +725,14 @@ export class UptimeCard extends LitElement {
   }
 
   private renderFooter(repartitions: Repartition[]): TemplateResult {
-    const { show } = this.config;
+    const { show, color } = this.config;
     const minimalDate = this.generateMinimalDate() || 'The future';
     return show.footer && show.timeline && minimalDate
       ? html`
-          <div class="footer">
+          <div class="footer" style="color: ${color.footer};">
             <div class="footer-text">${minimalDate}</div>
-            ${show.average ? this.renderLine() : html``} ${this.renderAverage(repartitions)} ${this.renderLine()}
+            ${show.average ? this.renderLine(color.footer) : html``} ${this.renderAverage(repartitions)}
+            ${this.renderLine(color.footer)}
             <div class="footer-text">Now</div>
           </div>
         `
@@ -783,9 +784,9 @@ export class UptimeCard extends LitElement {
     }
   }
 
-  private renderLine(): TemplateResult {
+  private renderLine(color: string): TemplateResult {
     return html`
-      <div class="line"></div>
+      <div class="line" style="background: ${color};"></div>
     `;
   }
 

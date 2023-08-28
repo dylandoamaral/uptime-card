@@ -22,6 +22,7 @@ export const DEFAULT_COLOR = {
   title: 'grey',
   status: 'grey',
   tooltip: 'grey',
+  footer: '#AAAAAA',
   icon: 'var(--state-icon-color)',
 };
 
