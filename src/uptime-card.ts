@@ -25,6 +25,7 @@ import {
   DEFAULT_CLIP,
   DEFAULT_COLOR,
   DEFAULT_CONFIG,
+  DEFAULT_DURATION,
   DEFAULT_ICON,
   DEFAULT_INIT,
   DEFAULT_SHOW,
@@ -32,7 +33,7 @@ import {
 } from './const';
 import style from './style';
 import { ApiPoint, BarData, CacheData, Period, Point, Repartition } from './types/card';
-import { CardConfig } from './types/config';
+import { CardConfig, DurationConfig } from './types/config';
 import { clip, template, unwrap, wrap } from './utils';
 
 /* eslint no-console: 0 */
@@ -94,6 +95,9 @@ export class UptimeCard extends LitElement {
       throw new Error('Invalid configuration !');
     }
 
+    const deprecatedDuration =
+      config.hours_to_show !== undefined ? { quantity: config.hours_to_show, unit: 'hour' } : {};
+
     this.config = {
       ...DEFAULT_CONFIG,
       ...config,
@@ -106,6 +110,7 @@ export class UptimeCard extends LitElement {
       alignment: { ...DEFAULT_ALIGNMENT, ...config.alignment },
       init: { ...DEFAULT_INIT, ...config.init },
       clip: { ...DEFAULT_CLIP, ...config.clip },
+      duration: { ...DEFAULT_DURATION, ...deprecatedDuration, ...config.duration },
     };
 
     if (typeof this.config.ok == 'string') this.config.ok = [this.config.ok];
@@ -148,7 +153,9 @@ export class UptimeCard extends LitElement {
   private async updateData(): Promise<void> {
     if (this.config == undefined || this._hass == undefined) return;
 
-    const { entity, hours_to_show, attribute } = this.config;
+    const { entity, duration, attribute } = this.config;
+
+    const hours_to_show = this.durationToHoursToShow(duration);
 
     if (this.sensor != this._hass.states[this.config.entity]) {
       this.sensor = this._hass.states[this.config.entity];
@@ -328,7 +335,8 @@ export class UptimeCard extends LitElement {
    * Return the total duration of the uptime bar in milliseconds.
    */
   private getUptimeSize(): number {
-    const { hours_to_show } = this.config;
+    const { duration } = this.config;
+    const hours_to_show = this.durationToHoursToShow(duration);
     return hours_to_show * 3.6e6;
   }
 
@@ -553,25 +561,93 @@ export class UptimeCard extends LitElement {
     `;
   }
 
-  private renderTooltip(): TemplateResult {
-    const { hours_to_show, tooltip, tooltip_adaptive_color, color } = this.config;
-    if (this.tooltip == undefined) return html``;
+  private durationToHoursToShow(duration: DurationConfig): number {
+    switch (duration.unit) {
+      case 'minute':
+        return duration.quantity / 60;
+      case 'hour':
+        return duration.quantity;
+      case 'day':
+        return duration.quantity * 24;
+      case 'week':
+        return duration.quantity * 24 * 7;
+      case 'month':
+        return duration.quantity * 24 * 30;
+      case 'year':
+        return duration.quantity * 24 * 30 * 12;
+    }
+  }
+
+  private durationToFormatOptions(
+    duration: DurationConfig,
+    hour24: boolean,
+  ): [Intl.DateTimeFormatOptions, Intl.DateTimeFormatOptions] {
+    const minuteOption: Intl.DateTimeFormatOptions = {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: hour24 == false,
+    };
 
     const hourOption: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: 'numeric',
-      hour12: tooltip.hour24 == false,
+      hour12: hour24 == false,
     };
+
     const dayOption: Intl.DateTimeFormatOptions = {
-      ...hourOption,
       weekday: 'short',
       day: 'numeric',
     };
 
+    const monthOption: Intl.DateTimeFormatOptions = {
+      month: 'short',
+    };
+
+    const yearOption: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+    };
+
+    const dayHourOption: Intl.DateTimeFormatOptions = {
+      ...hourOption,
+      ...dayOption,
+    };
+
+    const monthDayHourOption: Intl.DateTimeFormatOptions = {
+      ...hourOption,
+      ...dayOption,
+    };
+
+    const yearMonthDayOption: Intl.DateTimeFormatOptions = {
+      ...dayOption,
+      ...monthOption,
+      ...yearOption,
+    };
+
+    switch (duration.unit) {
+      case 'minute':
+        return [minuteOption, minuteOption];
+      case 'hour':
+        return [dayHourOption, hourOption];
+      case 'day':
+        return [dayHourOption, dayHourOption];
+      case 'week':
+        return [monthDayHourOption, monthDayHourOption];
+      case 'month':
+        return [yearMonthDayOption, yearMonthDayOption];
+      case 'year':
+        return [yearMonthDayOption, yearMonthDayOption];
+    }
+  }
+
+  private renderTooltip(): TemplateResult {
+    const { duration, tooltip, tooltip_adaptive_color, color } = this.config;
+    if (this.tooltip == undefined) return html``;
+
     const locale = this._hass.language;
-    const fromOption = hours_to_show <= 24 ? hourOption : dayOption;
+    const [fromOption, toOption] = this.durationToFormatOptions(duration, tooltip.hour24);
     const fromDate = new Date(this.tooltip.period.from).toLocaleString(locale, fromOption);
-    const toDate = new Date(this.tooltip.period.to).toLocaleString(locale, hourOption);
+    const toDate = new Date(this.tooltip.period.to).toLocaleString(locale, toOption);
 
     const average = this.tooltip.repartition.ok.toFixed(2);
 
@@ -730,7 +806,7 @@ export class UptimeCard extends LitElement {
 
   private renderFooter(repartitions: Repartition[]): TemplateResult {
     const { show, color } = this.config;
-    const minimalDate = this.generateMinimalDate() || 'The future';
+    const minimalDate = this.generateMinimalDate();
     return show.footer && show.timeline && minimalDate
       ? html`
           <div class="footer" style="color: ${color.footer};">
@@ -757,34 +833,30 @@ export class UptimeCard extends LitElement {
       : html``;
   }
 
-  private generateMinimalDate(): string | null {
-    const { hours_to_show } = this.config;
-    if (hours_to_show == 0) return 'Now';
-    else if (hours_to_show % 168 == 0) {
-      const week = hours_to_show / 168;
-      if (week == 1) {
-        return `1 week ago`;
-      }
-      return `${week} weeks ago`;
-    } else if (hours_to_show % 24 == 0) {
-      const day = hours_to_show / 24;
-      if (day == 1) {
-        return `1 day ago`;
-      }
-      return `${day} days ago`;
-    } else if (hours_to_show >= 1) {
-      if (hours_to_show == 1) {
-        return `1 hour ago`;
-      }
-      return `${hours_to_show} hours ago`;
-    } else if (hours_to_show > 0) {
-      const minute = Math.round(hours_to_show * 60);
-      if (minute == 1) {
-        return `1 min ago`;
-      }
-      return `${minute} mins ago`;
-    } else {
-      return null;
+  private generateMinimalDate(): string {
+    const { duration } = this.config;
+
+    if (duration.quantity <= 0) return 'Now';
+
+    switch (duration.unit) {
+      case 'minute':
+        if (duration.quantity == 1) return '1 min ago';
+        else return `${duration.quantity} mins ago`;
+      case 'hour':
+        if (duration.quantity == 1) return '1 hour ago';
+        else return `${duration.quantity} hours ago`;
+      case 'day':
+        if (duration.quantity == 1) return '1 day ago';
+        else return `${duration.quantity} days ago`;
+      case 'week':
+        if (duration.quantity == 1) return '1 week ago';
+        else return `${duration.quantity} weeks ago`;
+      case 'month':
+        if (duration.quantity == 1) return '1 month ago';
+        else return `${duration.quantity} months ago`;
+      case 'year':
+        if (duration.quantity == 1) return '1 year ago';
+        else return `${duration.quantity} years ago`;
     }
   }
 

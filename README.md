@@ -41,27 +41,27 @@ Uptime card is highly customizable.
 
 ### Global config
 
-| Name                   |                                   Type / Options                                    |                       Default                        |  Since  | Description                                                                                                                                                                                    |
-| ---------------------- | :---------------------------------------------------------------------------------: | :--------------------------------------------------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| entity (**required**)  |                                       string                                        |                                                      | v0.0.1  | Specify entity ID of the sensor                                                                                                                                                                |
-| attribute              |                                       string                                        |                                                      | v0.5.0  | Set the attribute name if the state to monitor isn't the default one.                                                                                                                          |
-| ok                     |                                 string or string[]                                  |                                                      | v0.0.1  | Specify the `on` state(s) for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.  |
-| ko                     |                                 string or string[]                                  |                                                      | v0.0.1  | Specify the `off` state(s) for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**. |
-| none                   |                                 string or string[]                                  |                                                      | v0.14.0 | Specify the `none` state(s) for the entity. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.                                                                   |
-| icon                   |                                       string                                        |          `icon` attribute \|\| `mdi:heart`           | v0.0.1  | Specify a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/) or an image from `/local` path (since v0.4.0), e.g. `mdi:home`                                                   |
-| ko_icon                |                                       string                                        | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.2.0  | Specify a custom icon for ko status, e.g. `mdi:home`                                                                                                                                           |
-| none_icon              |                                       string                                        | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.14.0 | Specify a custom icon for none status, e.g. `mdi:home`                                                                                                                                         |
-| hours_to_show          |                                       number                                        |                         `24`                         | v0.0.1  | Set the number of hours to show, you can go to the minute, you can go up to the minute (1 minute == 0.0167 hours_to_show).                                                                     |
-| update_interval        |                                       number                                        |                          30                          | v0.0.1  | Set the minimum update interval for the card in seconds.                                                                                                                                       |
-| title_template         |                                       string                                        |  `[[[ return entity.attributes.friendly_name; ]]]`   | v0.8.0  | Set the template for the title. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                      |
-| average_template       |                                       string                                        |                         `%`                          | v0.5.0  | Set the template for the average. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                    |
-| severity               |                                       number                                        |                        `100`                         | v0.0.1  | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.                                                                                                   |
-| status_template        |                                       string                                        |          `[[[ return variables.current ]]]`          | v0.1.0  | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                     |
-| title_adaptive_color   |                                   `true`/`false`                                    |                       `false`                        | v0.0.2  | Make the title color adapt with the entity color.                                                                                                                                              |
-| status_adaptive_color  |                                   `true`/`false`                                    |                       `false`                        | v0.0.2  | Make the name color adapt with the entity color.                                                                                                                                               |
-| icon_adaptive_color    |                                   `true`/`false`                                    |                       `false`                        | v0.0.2  | Make the name color adapt with the entity color.                                                                                                                                               |
-| tooltip_adaptive_color |                                   `true`/`false`                                    |                       `false`                        | v0.1.0  | Make the name color adapt with the entity color.                                                                                                                                               |
-| color_thresholds       | list of [thresholds](https://github.com/dylandoamaral/uptime-card#color-thresholds) |                                                      | v0.4.0  | Set the color thesholds.                                                                                                                                                                       |
+| Name                   |                                   Type / Options                                    |                       Default                        |  Since  | Description                                                                                                                                                                                                                                               |
+| ---------------------- | :---------------------------------------------------------------------------------: | :--------------------------------------------------: | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| entity (**required**)  |                                       string                                        |                                                      | v0.0.1  | Specify entity ID of the sensor                                                                                                                                                                                                                           |
+| attribute              |                                       string                                        |                                                      | v0.5.0  | Set the attribute name if the state to monitor isn't the default one.                                                                                                                                                                                     |
+| ok                     |                                 string or string[]                                  |                                                      | v0.0.1  | Specify the `on` state(s) for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.                                                             |
+| ko                     |                                 string or string[]                                  |                                                      | v0.0.1  | Specify the `off` state(s) for the entity, either `ok` or `ko` should be set if entity isn't a binary sensor. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.                                                            |
+| none                   |                                 string or string[]                                  |                                                      | v0.14.0 | Specify the `none` state(s) for the entity. **[More info](https://github.com/dylandoamaral/uptime-card#ok-and-ko-options)**.                                                                                                                              |
+| icon                   |                                       string                                        |          `icon` attribute \|\| `mdi:heart`           | v0.0.1  | Specify a custom icon from [mdi icons](https://iconify.design/icon-sets/mdi/) or an image from `/local` path (since v0.4.0), e.g. `mdi:home`                                                                                                              |
+| ko_icon                |                                       string                                        | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.2.0  | Specify a custom icon for ko status, e.g. `mdi:home`                                                                                                                                                                                                      |
+| none_icon              |                                       string                                        | `icon` option \|\| `icon` attribute \|\| `mdi:heart` | v0.14.0 | Specify a custom icon for none status, e.g. `mdi:home`                                                                                                                                                                                                    |
+| hours_to_show          |                                       number                                        |                         `24`                         | v0.0.1  | Set the number of hours to show, you can go to the minute, you can go up to the minute (1 minute == 0.0167 hours_to_show). :warning: It is deprecated and should be replaced by [duration](https://github.com/dylandoamaral/uptime-card#duration-config). |
+| update_interval        |                                       number                                        |                          30                          | v0.0.1  | Set the minimum update interval for the card in seconds.                                                                                                                                                                                                  |
+| title_template         |                                       string                                        |  `[[[ return entity.attributes.friendly_name; ]]]`   | v0.8.0  | Set the template for the title. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                                                                                 |
+| average_template       |                                       string                                        |                         `%`                          | v0.5.0  | Set the template for the average. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                                                                               |
+| severity               |                                       number                                        |                        `100`                         | v0.0.1  | Set a threshold in percentage to specify when a bar both ok and ko is red instead of yellow.                                                                                                                                                              |
+| status_template        |                                       string                                        |          `[[[ return variables.current ]]]`          | v0.1.0  | Set the template for the status. **[More info](https://github.com/dylandoamaral/uptime-card#templating)**.                                                                                                                                                |
+| title_adaptive_color   |                                   `true`/`false`                                    |                       `false`                        | v0.0.2  | Make the title color adapt with the entity color.                                                                                                                                                                                                         |
+| status_adaptive_color  |                                   `true`/`false`                                    |                       `false`                        | v0.0.2  | Make the name color adapt with the entity color.                                                                                                                                                                                                          |
+| icon_adaptive_color    |                                   `true`/`false`                                    |                       `false`                        | v0.0.2  | Make the name color adapt with the entity color.                                                                                                                                                                                                          |
+| tooltip_adaptive_color |                                   `true`/`false`                                    |                       `false`                        | v0.1.0  | Make the name color adapt with the entity color.                                                                                                                                                                                                          |
+| color_thresholds       | list of [thresholds](https://github.com/dylandoamaral/uptime-card#color-thresholds) |                                                      | v0.4.0  | Set the color thesholds.                                                                                                                                                                                                                                  |
 
 ### Bar config
 
@@ -185,6 +185,15 @@ Uptime card is highly customizable.
 | title  |     number     |   25    | v0.11.0 | The max length of the title before clipping.  |
 | status |     number     |   25    | v0.11.0 | The max length of the status before clipping. |
 
+### Duration config
+
+**Parent key:** `duration`
+
+| Name     |               Type / Options                | Default |  Since  | Description                                     |
+| -------- | :-----------------------------------------: | :-----: | :-----: | ----------------------------------------------- |
+| quantity |                   number                    |   24    | v0.16.0 | The quantity of the total duration of the card. |
+| unit     | `minute`/`hour`/`day`/`week`/`month`/`year` | `hour`  | v0.16.0 | The unit of the total duration of the card.     |
+
 ## Examples 📊
 
 ### Example 1
@@ -198,7 +207,6 @@ type: 'custom:uptime-card'
 entity: binary_sensor.updater
 icon: 'mdi:raspberry-pi'
 title_template: HA update
-hours_to_show: 168
 status_adaptive_color: true
 alias:
   ok: Update available !
@@ -207,6 +215,9 @@ color:
   icon: grey
 show:
   footer: false
+duration:
+  quantity: 1
+  unit: week
 ```
 
 ### Example 2
@@ -241,6 +252,9 @@ alignment:
   icon_first: true
 tap_action:
   action: more-info
+duration:
+  quantity: 1
+  unit: day
 ```
 
 ### Example 3
@@ -255,7 +269,6 @@ entity: binary_sensor.ping_google
 # Home Assistant ping integration - https://www.home-assistant.io/integrations/ping
 title_template: 'https://www.google.com/'
 icon: 'mdi:heart'
-hours_to_show: 72
 title_adaptive_color: true
 average_template: '[[[ return variables.uptime.toFixed(2); ]]]% uptime'
 bar:
@@ -272,6 +285,9 @@ tap_action:
 alignment:
   status: spaced
   header: center
+duration:
+  quantity: 3
+  unit: day
 ```
 
 ## Additional information ℹ️
@@ -395,7 +411,7 @@ As an example, you can print the average uptime as `HH:MM:SS` instead of the ave
 ```js
 [[[
 let date = new Date(0);
-seconds = Math.trunc((configuration.hours_to_show * 3600) * variables.uptime / 100);
+seconds = Math.trunc((configuration.duration.quantity * 3600) * variables.uptime / 100);
 date.setSeconds(seconds);
 return date.toISOString().substr(11, 8)
 ]]]
