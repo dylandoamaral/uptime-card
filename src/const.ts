@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-export const CARD_VERSION = '0.15.0';
+export const CARD_VERSION = '0.16.0';
 
 export const DEFAULT_CONFIG = {
   severity: 100,
