@@ -66,6 +66,11 @@ interface ClipConfig {
   status: number;
 }
 
+export interface DurationConfig {
+  quantity: number;
+  unit: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+}
+
 // Snake case here to respect Yaml home assistant
 export interface CardConfig extends LovelaceCardConfig {
   type: string;
@@ -79,7 +84,6 @@ export interface CardConfig extends LovelaceCardConfig {
   none?: string[];
   severity: number;
   status_template: string;
-  hours_to_show: number;
   update_interval: number;
   average_template: string;
   title_template: string;
@@ -98,4 +102,5 @@ export interface CardConfig extends LovelaceCardConfig {
   blink: BlinkConfig;
   init: InitConfig;
   clip: ClipConfig;
+  duration: DurationConfig;
 }

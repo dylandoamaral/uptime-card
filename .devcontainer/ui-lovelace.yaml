@@ -27,12 +27,14 @@ views:
           icon_first: true
         tap_action:
           action: more-info
+        duration:
+          quantity: 1
+          unit: day
       - type: entities
         entities:
           - type: 'custom:uptime-card'
             entity: binary_sensor.github
             title_template: Github
-            hours_to_show: 1
             title_adaptive_color: true
             average_template: '[[[ return variables.uptime.toFixed(2); ]]]% uptime'
             alias:
@@ -48,7 +50,12 @@ views:
               header: center
             tooltip:
               hour24: true
+            duration:
+              quantity: 1
+              unit: week
       - type: 'custom:uptime-card'
         entity: switch.decorative_lights
         title_template: Switch
-        hours_to_show: 1
+        duration:
+          quantity: 1
+          unit: year

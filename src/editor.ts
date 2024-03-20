@@ -19,6 +19,7 @@ import {
   DEFAULT_CLIP,
   DEFAULT_COLOR,
   DEFAULT_CONFIG,
+  DEFAULT_DURATION,
   DEFAULT_INIT,
   DEFAULT_SHOW,
   DEFAULT_TOOLTIP,
@@ -184,6 +185,7 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
     const effects = ['fade', 'shadow'];
     const targets = ['card', 'status', 'title', 'icon'];
     const animations = ['none', 'raise', 'reveal', 'slide'];
+    const units = ['minute', 'hour', 'day', 'week', 'month', 'year'];
 
     this.options = {
       mandatory: {
@@ -242,14 +244,6 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             min: 0,
             max: 86400,
             default: DEFAULT_CONFIG.update_interval,
-          },
-          {
-            type: 'number',
-            name: 'hours_to_show',
-            label: 'Hours to show',
-            min: 1 / 60, // One minute
-            max: 8760, // One year
-            default: DEFAULT_CONFIG.hours_to_show,
           },
           {
             type: 'input',
@@ -709,6 +703,31 @@ export class UptimeCardEditor extends LitElement implements LovelaceCardEditor {
             min: 0,
             max: 100,
             default: DEFAULT_CLIP.status,
+          },
+        ],
+      },
+      duration: {
+        icon: 'clock',
+        name: 'Duration customization',
+        description: 'Customize the uptime duration',
+        show: false,
+        properties: [
+          {
+            type: 'number',
+            name: 'quantity',
+            section: 'duration',
+            label: 'Duration quantity',
+            min: 0,
+            max: 24,
+            default: DEFAULT_DURATION.quantity,
+          },
+          {
+            type: 'dropdown',
+            items: units,
+            name: 'unit',
+            section: 'duration',
+            label: 'Duration unit',
+            selected: units.indexOf(this._config?.duration?.unit || DEFAULT_DURATION.unit),
           },
         ],
       },

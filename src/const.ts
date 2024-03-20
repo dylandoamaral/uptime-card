@@ -2,7 +2,6 @@
 export const CARD_VERSION = '0.15.0';
 
 export const DEFAULT_CONFIG = {
-  hours_to_show: 24,
   severity: 100,
   update_interval: 30,
   title_template: '[[[ return entity.attributes.friendly_name; ]]]',
@@ -71,6 +70,11 @@ export const DEFAULT_INIT = {
 export const DEFAULT_CLIP = {
   title: 25,
   status: 25,
+};
+
+export const DEFAULT_DURATION = {
+  quantity: 1,
+  unit: 'day',
 };
 
 export const DEFAULT_ICON = 'mdi:heart';
