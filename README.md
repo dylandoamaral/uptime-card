@@ -192,7 +192,7 @@ Uptime card is highly customizable.
 | Name     |               Type / Options                | Default |  Since  | Description                                     |
 | -------- | :-----------------------------------------: | :-----: | :-----: | ----------------------------------------------- |
 | quantity |                   number                    |   24    | v0.16.0 | The quantity of the total duration of the card. |
-| unit     | `minute`/`hour`/`day`/`week`/`month`/`year` | `hour`  | v0.16.0 | The unit of the total duration of the card.     |
+| unit     | `minute`/`hour`/`day`/`week`/`month`/`year` |  `day`  | v0.16.0 | The unit of the total duration of the card.     |
 
 ## Examples 📊
 
