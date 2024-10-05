@@ -411,7 +411,7 @@ As an example, you can print the average uptime as `HH:MM:SS` instead of the ave
 ```js
 [[[
 let date = new Date(0);
-seconds = Math.trunc((configuration.duration.quantity * 3600) * variables.uptime / 100);
+seconds = Math.trunc((configuration.duration.quantity * 3600 * 24) * variables.uptime / 100);
 date.setSeconds(seconds);
 return date.toISOString().substr(11, 8)
 ]]]
