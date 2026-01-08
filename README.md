@@ -24,6 +24,7 @@
 ## Install 🏠
 
 :warning: Versions 0.x.x are not very stable and still have many bugs, please create an issue if you encounter a bug or have a feature request.
+:warning: The card needs [history](https://www.home-assistant.io/integrations/history/) enabled to work.
 
 ### HACS (recommended)
 
